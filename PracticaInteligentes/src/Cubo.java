@@ -1,6 +1,7 @@
 
-public class Cubo { //matriz de 3 dimensiones: la primera para decirme que cara es, la segunda y tercera son las dimensiones de la cara.
-	//IDENTIFICADORES DE CARAS QUE SERIAN LOS COLORES (tienen que ser short ha dicho el profe xd)
+public class Cubo { 
+	//matriz de 3 dimensiones: la primera para decirme que cara es, la segunda y tercera son las dimensiones de la cara.
+	//IDENTIFICADORES DE CARAS QUE SERIAN LOS COLORES(TIENEN QUE SER SHORT)
 	  private short UP=0, DOWN=1,LEFT=4,RIGHT=5,FRONT=2,BACK=3;
 	 //LOS MOVIMIENTOS SON DE Ln, Dn Y Bn
 	
