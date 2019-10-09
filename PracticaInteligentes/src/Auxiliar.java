@@ -50,7 +50,7 @@ public class Auxiliar {
 		// devuelvo el id del cubo
 		return ID;
 		
-	}//final obtener MD5
+	}///final obtener MD5
 
 //Método md5, utilizar cuando sea necesario
 public static String getMD5(String clave) {

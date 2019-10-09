@@ -18,7 +18,7 @@ public class Lectura {
 			String ob = FileUtils.readFileToString(new File("cuboresuelto.json"));
 			
 			JSONObject json = new JSONObject(ob);
-			//importante mantener el orden de los arrays igual que en el json
+			//importante mantener el orden de los arrays igual que en el json.
 			JSONArray arrayup = json.getJSONArray("BACK");
 			JSONArray arraydown = json.getJSONArray("DOWN");
 			JSONArray arrayleft = json.getJSONArray("FRONT");
