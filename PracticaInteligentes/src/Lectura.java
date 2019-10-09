@@ -10,11 +10,12 @@ import org.json.*;
 
 public class Lectura {
 	private String estado = "";
-	private int dimension;
-	public String leerArchivo() throws IOException{
-	//public static void main(String[] args) throws IOException{s
-		
-		try{
+	private int cubo[][][];
+
+	public int[][][] leerArchivo() throws IOException {
+		// public static void main(String[] args) throws IOException{s
+
+		try {
 			String ob = FileUtils.readFileToString(new File("cuboresuelto.json"));
 			JSONObject json = new JSONObject(ob);
 			JSONArray arrayup = json.getJSONArray("UP");
@@ -23,49 +24,66 @@ public class Lectura {
 			JSONArray arrayright = json.getJSONArray("RIGHT");
 			JSONArray arrayfront = json.getJSONArray("FRONT");
 			JSONArray arrayback = json.getJSONArray("BACK");
-			dimension=arrayup.length();
-			System.out.println("La dimension es"+dimension);
-			for(int i=0;i<arrayup.length();i++){
+			int dimension = arrayup.length();
+			cubo = new int[6][dimension][dimension];
+
+			for (int i = 0; i < arrayup.length(); i++) {
 				JSONArray f = arrayup.getJSONArray(i);
-				for(int j=0; j<f.length();j++){
+				for (int j = 0; j < f.length(); j++) {
 					estado += f.get(j);
 				}
 			}
-			for(int i=0;i<arraydown.length();i++){
+			for (int i = 0; i < arraydown.length(); i++) {
 				JSONArray f = arraydown.getJSONArray(i);
-				for(int j=0; j<f.length();j++){
+				for (int j = 0; j < f.length(); j++) {
 					estado += f.get(j);
 				}
 			}
-			for(int i=0;i<arrayfront.length();i++){
+			for (int i = 0; i < arrayfront.length(); i++) {
 				JSONArray f = arrayfront.getJSONArray(i);
-				for(int j=0; j<f.length();j++){
+				for (int j = 0; j < f.length(); j++) {
 					estado += f.get(j);
 				}
 			}
-			for(int i=0;i<arrayback.length();i++){
+			for (int i = 0; i < arrayback.length(); i++) {
 				JSONArray f = arrayback.getJSONArray(i);
-				for(int j=0; j<f.length();j++){
+				for (int j = 0; j < f.length(); j++) {
 					estado += f.get(j);
 				}
 			}
-			for(int i=0;i<arrayleft.length();i++){
+			for (int i = 0; i < arrayleft.length(); i++) {
 				JSONArray f = arrayleft.getJSONArray(i);
-				for(int j=0; j<f.length();j++){
+				for (int j = 0; j < f.length(); j++) {
 					estado += f.get(j);
 				}
 			}
-			for(int i=0;i<arrayright.length();i++){
+			for (int i = 0; i < arrayright.length(); i++) {
 				JSONArray f = arrayright.getJSONArray(i);
-				for(int j=0; j<f.length();j++){
+				for (int j = 0; j < f.length(); j++) {
 					estado += f.get(j);
 				}
 			}
+			char[] numeros = estado.toCharArray();
+			//int limite = 6 * dimension * dimension;
+			int contador = 0;
 			System.out.println(estado);
-    	}catch(FileNotFoundException e){ e.printStackTrace();}
-		catch(Exception e){ e.printStackTrace();}
-		return estado;
-	} public int getDimension(){
-		return dimension;
+			for (int i = 0; i < 6; i++) {
+				for (int j = 0; j < dimension; j++) {
+					for (int k = 0; k < dimension; k++) {
+						//if (contador < limite) {
+							cubo[i][j][k] = numeros[contador];
+							System.out.println(cubo[i][j][k]);
+							//contador++;
+						//}
+					}
+				}contador++;
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cubo;
 	}
+
 }
