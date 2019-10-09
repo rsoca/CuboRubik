@@ -30,7 +30,7 @@ public class Lectura {
 			
 			cubo = new int[6][dimension][dimension];
 			
-			System.out.println("Impresion array"+arrayup);
+			//System.out.println("Impresion array"+arrayup);
 			// pilla bien las dimensiones
 			
 			for (int i = 0; i < arrayup.length(); i++) {
@@ -97,7 +97,7 @@ public class Lectura {
 						if (contador < limite) {
 							cubo[i][j][k] = numeros[contador];
 							//System.out.println("Elcubo");
-							System.out.print(" "+cubo[i][j][k]);
+							//System.out.print(" "+cubo[i][j][k]);
 							contador++;
 						}
 					}
