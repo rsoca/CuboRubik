@@ -5,7 +5,10 @@ public class Main {
 	//public void prueba() throws IOException{
 		Lectura leer = new Lectura();
 		Cubo c= new Cubo(leer.leerArchivo());
-		int [][][] tri = c.getPosiciones();
+		
+		Cubo clon = c.clone();
+		
+		int [][][] tri = clon.getPosiciones();
 		
 		System.out.println("Longitud"+tri.length+"Longitud en 0 "+tri[0].length);
 		

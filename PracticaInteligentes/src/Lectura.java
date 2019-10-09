@@ -18,19 +18,19 @@ public class Lectura {
 			String ob = FileUtils.readFileToString(new File("cuboresuelto.json"));
 			
 			JSONObject json = new JSONObject(ob);
-			
-			JSONArray arrayup = json.getJSONArray("UP");
+			//importante mantener el orden de los arrays igual que en el json
+			JSONArray arrayup = json.getJSONArray("BACK");
 			JSONArray arraydown = json.getJSONArray("DOWN");
-			JSONArray arrayleft = json.getJSONArray("LEFT");
-			JSONArray arrayright = json.getJSONArray("RIGHT");
-			JSONArray arrayfront = json.getJSONArray("FRONT");
-			JSONArray arrayback = json.getJSONArray("BACK");
+			JSONArray arrayleft = json.getJSONArray("FRONT");
+			JSONArray arrayright = json.getJSONArray("LEFT");
+			JSONArray arrayfront = json.getJSONArray("RIGHT");
+			JSONArray arrayback = json.getJSONArray("UP");
 			
 			int dimension = arrayup.length();
 			
 			cubo = new int[6][dimension][dimension];
 			
-			//System.out.println("DImensiones"+dimension);
+			System.out.println("Impresion array"+arrayup);
 			// pilla bien las dimensiones
 			
 			for (int i = 0; i < arrayup.length(); i++) {
