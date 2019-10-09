@@ -19,19 +19,19 @@ public class Lectura {
 			
 			JSONObject json = new JSONObject(ob);
 			//importante mantener el orden de los arrays igual que en el json.
-			JSONArray arrayup = json.getJSONArray("BACK");
+			JSONArray arrayup = json.getJSONArray("UP");
 			JSONArray arraydown = json.getJSONArray("DOWN");
-			JSONArray arrayleft = json.getJSONArray("FRONT");
-			JSONArray arrayright = json.getJSONArray("LEFT");
-			JSONArray arrayfront = json.getJSONArray("RIGHT");
-			JSONArray arrayback = json.getJSONArray("UP");
+			JSONArray arrayfront = json.getJSONArray("FRONT");
+			JSONArray arrayback = json.getJSONArray("BACK");
+			JSONArray arrayleft = json.getJSONArray("LEFT");
+			JSONArray arrayright = json.getJSONArray("RIGHT");
 			
 			int dimension = arrayup.length();
 			
 			cubo = new int[6][dimension][dimension];
 			
 			//System.out.println("Impresion array"+arrayup);
-			// pilla bien las dimensiones
+			//pilla bien las dimensiones
 			
 			for (int i = 0; i < arrayup.length(); i++) {
 				JSONArray f = arrayup.getJSONArray(i);

@@ -13,6 +13,7 @@ public class Auxiliar {
 	public static String obtenerID(Cubo cubo) {
 		StringBuffer cadena = new StringBuffer();
 		String ID="";
+	
 		
 		int [] almacen;
 		int [][][] tri = cubo.getPosiciones();
@@ -53,19 +54,34 @@ public class Auxiliar {
 	}///final obtener MD5
 
 //Método md5, utilizar cuando sea necesario
-public static String getMD5(String clave) {
-	try {
+		public static String getMD5(String clave) {
+			try {
+		
+				MessageDigest mensaje = MessageDigest.getInstance("MD5");
+				byte[] messageDigest = mensaje.digest(clave.getBytes());
+				BigInteger numero = new BigInteger(1, messageDigest);
+				String encriptacion = numero.toString();
+				while (encriptacion.length() < 32)
+					encriptacion = "0" + encriptacion;
+				return encriptacion;
+			} catch (NoSuchAlgorithmException o) {
+				throw new RuntimeException(o);
+			}
+		
+		}
 
-		MessageDigest mensaje = MessageDigest.getInstance("MD5");
-		byte[] messageDigest = mensaje.digest(clave.getBytes());
-		BigInteger numero = new BigInteger(1, messageDigest);
-		String encriptacion = numero.toString();
-		while (encriptacion.length() < 32)
-			encriptacion = "0" + encriptacion;
-		return encriptacion;
-	} catch (NoSuchAlgorithmException o) {
-		throw new RuntimeException(o);
-	}
-
-}
+		
+		public static void imprimir(int [][][] cubo) {
+			
+			for (int i = 0; i < cubo.length; i++) {
+				for (int j = 0; j < cubo[0].length; j++) {
+					for (int k = 0; k < cubo[0][0].length; k++) {
+						System.out.print(" "+cubo[i][j][k]);
+					}
+					System.out.println();
+				}
+			}
+		}
+		
+		
 }

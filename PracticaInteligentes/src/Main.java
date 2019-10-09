@@ -25,13 +25,15 @@ public class Main {
 			}
 		}*/
 		
-		String id= Auxiliar.obtenerID(clon);
+		//String id= Auxiliar.obtenerID(clon);
 		
-		System.out.println("El ID en el main es : \n\n"+ id);
+		//System.out.println("El ID en el main es : \n\n"+ id);
 		
-		String cripto = Auxiliar.getMD5(id);
+		//String cripto = Auxiliar.getMD5(id);
 		
-		System.out.println("El codigo MD5 es : \n"+ cripto);
+		//System.out.println("El codigo MD5 es : \n"+ cripto);
+		
+		Movimientos.giroL(clon);
 
 	}
 	

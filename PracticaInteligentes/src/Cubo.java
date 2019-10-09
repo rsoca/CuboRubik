@@ -6,7 +6,7 @@ public class Cubo implements Cloneable{
 	private String estado;
 	private int ID;
 	private int posiciones[][][];// matriz de 3 dimensiones: la primera para decirme que cara es, la segunda y
-									// tercera son las dimensiones de la cara
+						// tercera son las dimensiones de la cara
 
 	public Cubo(int[][][] posiciones) { // metodo constructor que determina el estado inicial
 		this.posiciones = posiciones;
