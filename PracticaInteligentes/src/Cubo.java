@@ -1,14 +1,39 @@
+import java.io.IOException;
+import java.util.Set;
 
-public class Cubo { 
-	//matriz de 3 dimensiones: la primera para decirme que cara es, la segunda y tercera son las dimensiones de la cara.
-	//IDENTIFICADORES DE CARAS QUE SERIAN LOS COLORES(TIENEN QUE SER SHORT)
-	  private short UP=0, DOWN=1,LEFT=4,RIGHT=5,FRONT=2,BACK=3;
-	 //LOS MOVIMIENTOS SON DE Ln, Dn Y Bn
+public class Cubo implements Cloneable{
+	private Lectura leer = new Lectura();
+	private String estado;
+	private int ID;
+	private int posiciones[][][];// matriz de 3 dimensiones: la primera para decirme que cara es, la segunda y
+									// tercera son las dimensiones de la cara.
+
+	public Cubo(int[][][] posiciones) { // metodo constructor que determina el estado inicial
+		this.posiciones = posiciones;
+	}
+
+	//metodo para clonar el cubo
+	public Cubo clone() {
+		Cubo clon = new Cubo(this.posiciones);
+		return clon;
+	}
 	
 	
-}
+	public void setEstado(String es) {
+		this.estado = es;
+	}
+
+	public int [][][] getPosiciones() {
+		return posiciones;
+	}
+	
+	public void setPosiciones(int [][][] posiciones) {
+		this.posiciones=posiciones;
+	}
+	
+}	
 //metodos necesarios:
-//Clonar
-//Contructor que reciba el string del json
-//Generador de numero unico de MD5
+//Clonar HECHO
+//Contructor que reciba el string del json HECHO
+//Generador de numero unico de MD5 
 //Para comprobar si esta bien partir del cubo hecho, desacerlo y volver a hacer movimientos al reves para resolverlo a ver si sale bien.
