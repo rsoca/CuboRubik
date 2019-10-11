@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 import org.json.*;
 
-public class Lectura {
+public class EspacioDeEstados {
 	private String estado = "";
 	private int cubo[][][];
 
