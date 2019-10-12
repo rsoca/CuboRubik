@@ -14,26 +14,15 @@ public class Main {
 		
 		int [][][] tri = clon.getPosiciones();
 		
-		//System.out.println("Longitud"+tri.length+"Longitud en 0 "+tri[0].length);
+		String id= Auxiliar.obtenerID(clon);
 		
-		/*for (int i = 0; i < tri.length; i++) {
-			for (int j = 0; j < tri[0].length; j++) {
-				for (int k = 0; k < tri[0][0].length; k++) {
-					System.out.print(" "+tri[i][j][k]);
-				}
-				System.out.println();
-			}
-		}*/
+		System.out.println("El ID en el main es : \n\n"+ id);
 		
-		//String id= Auxiliar.obtenerID(clon);
+		String cripto = Auxiliar.getMD5(id);
 		
-		//System.out.println("El ID en el main es : \n\n"+ id);
+		System.out.println("El codigo MD5 es : \n"+ cripto);
 		
-		//String cripto = Auxiliar.getMD5(id);
-		
-		//System.out.println("El codigo MD5 es : \n"+ cripto);
-		
-		Movimientos.giroL(clon);
+		//Movimientos.giroL(clon);
 
 	}
 	
