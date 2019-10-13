@@ -8,14 +8,17 @@ import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 import org.json.*;
 
-public class EspacioDeEstados {
+public class Lectura {
 	private String estado = "";
+	private Auxiliar aux;
 
 	public int[][][] leerArchivo() throws IOException {
 		int [][][] cubo = null;
 		try {
 			 
 			String ob = FileUtils.readFileToString(new File("cubo10.json"));
+			String we = aux.getMD5(ob);
+			System.out.println(we);
 			JSONObject json = new JSONObject(ob);
 			//importante mantener el orden de los arrays igual que en el json.
 			JSONArray arrayback = json.getJSONArray("BACK");

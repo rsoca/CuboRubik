@@ -7,7 +7,7 @@ public class Main {
 	public static void main(String[] args) throws IOException{
 
 	
-		EspacioDeEstados leer = new EspacioDeEstados();
+		Lectura leer = new Lectura();
 		Cubo c= new Cubo(leer.leerArchivo());
 		
 		Cubo clon = c.clone();
