@@ -20,8 +20,8 @@ public class Main {
 		System.out.println("El MD5 ES:"+md);
 		
 
-		Movimientos.girol(clon,3);
-		
+		//Movi.giroL(clon,0); // GIRO L0 FUNCIONA BIEN
+		//Movi.giroL(clon, 3); //GIRO Lfinal FUNCIONA BIEN
 		
 		
 		
