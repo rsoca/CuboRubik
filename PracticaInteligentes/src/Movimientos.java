@@ -11,7 +11,7 @@ public static Cubo giroL (Cubo cubo, int n) {
 		
 		System.out.println("La longitud del cubo es: "+longitud+" El ultimo es: "+m);
 		System.out.println("El cubo antes del giro");
-		Auxiliar.imprimir(aux);//impresion del cubo antes del giro
+		Auxiliar.imprimir(aux);//impresion del cubo antes del giro 
 		
 		// variable para guardar la filas y caras
 		int [] up = new int [longitud]; 

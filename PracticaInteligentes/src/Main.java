@@ -11,7 +11,7 @@ public class Main {
 		Cubo clon = c.clone();
 		int [][][] tri = clon.getPosiciones();
 		
-		// OBTENER MD5 DEL CUBO DE 10X10
+		// OBTENER MD5 DEL CUBO DE 10X10 
 		
 		String id = Auxiliar.obtenerID(clon);
 		System.out.println("El ID es:"+id);
