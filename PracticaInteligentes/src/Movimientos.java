@@ -3,7 +3,7 @@ public class Movimientos {
 
 	public static Cubo giroL (Cubo cubo) {
 		
-		//obtenemos la matriz del cubo
+		//obtenemos la matriz del cubo 
 		Cubo c=cubo;
 		int [][][] aux = c.getPosiciones();
 		
