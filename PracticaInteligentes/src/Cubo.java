@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.util.Set;
 
 public class Cubo implements Cloneable{
-	private Lectura leer = new Lectura();
+	private EspacioDeEstado leer = new EspacioDeEstado();
 	private String estado;
 	private int ID;
 	private int posiciones[][][];// matriz de 3 dimensiones: la primera para decirme que cara es, la segunda y
