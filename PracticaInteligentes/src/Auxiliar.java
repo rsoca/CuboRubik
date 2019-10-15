@@ -20,7 +20,7 @@ public class Auxiliar {
 			}
 		}
 		// compruebo que este bien guardado
-		System.out.println("La cadena es: \n" + ID);
+		//System.out.println("La cadena es: \n" + ID);
 
 		// devuelvo el id del cubo
 		return ID;

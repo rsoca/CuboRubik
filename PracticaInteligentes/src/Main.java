@@ -11,6 +11,8 @@ public class Main {
 		Cubo clon = c.clone();
 		int [][][] tri = clon.getPosiciones();
 		
+		Auxiliar.imprimir(c.getPosiciones());
+		
 		// OBTENER MD5 DEL CUBO DE 10X10 
 		
 		String id = Auxiliar.obtenerID(clon);
@@ -19,8 +21,14 @@ public class Main {
 		String md= Auxiliar.getMD5(id);
 		System.out.println("El MD5 ES:"+md);
 		
-
-		//Movi.giroL(clon,0); // GIRO L0 FUNCIONA BIEN
+		moves mov = new moves();
+		clon = mov.movimiento(clon, 'l', 3); // GIRO L0 FUNCIONA BIEN
+		Auxiliar.imprimir(clon.getPosiciones());
+		String id2 = Auxiliar.obtenerID(clon);
+		
+		String md2= Auxiliar.getMD5(id2);
+		System.out.println("El MD5 ES:"+md2);
+		
 		//Movi.giroL(clon, 3); //GIRO Lfinal FUNCIONA BIEN
 		
 		

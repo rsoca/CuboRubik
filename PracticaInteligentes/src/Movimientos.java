@@ -26,16 +26,16 @@ public static Cubo giroL (Cubo cubo, int n) {
 			if(n == 0) {//giro la parte left FUNCIONA NO MODIFICAR
 				System.out.println("Me estoy metiendo en el bucle n==0");
 								for(int i=0; i<longitud;i++){ //son las 4 caras que giran
-									up [i] = aux [0][i][m];
+									back [i] = aux [0][i][m];
 									down[i] = aux [1][i][0];
 									front [i] = aux [2][i][0];
-									back [i] = aux [3][i][0];
+									up [i] = aux [5][i][0];
 								}
 								
 								//obtengo la cara left
 								for(int j=0; j<longitud; j++) {
 									for(int k=0;k<longitud; k++) {
-										left[j][k] = aux[4][j][k];
+										left[j][k] = aux[3][j][k];
 									}
 								}
 								
@@ -67,10 +67,10 @@ public static Cubo giroL (Cubo cubo, int n) {
 				System.out.println("Me estoy metiendo en el bucle del right");
 				
 								for(int i=0; i<longitud;i++){ //son las 4 caras que siempre cambiaran en un L
-									up [i] = aux [0][i][0];
-									down[i] = aux [1][i][n];
-									front [i] = aux [2][i][n];
-									back [i] = aux [3][i][n];
+									up [i] = aux [2][i][0];
+									down[i] = aux [3][i][n];
+									front [i] = aux [1][i][n];
+									back [i] = aux [0][i][n];
 								}
 								
 								//obtengo la cara right
@@ -162,10 +162,10 @@ public static Cubo girol (Cubo cubo, int n) {
 		if(n == 0) {//giro la parte left FUNCIONA NO MODIFICAR
 			System.out.println("Me estoy metiendo en el bucle n==0");
 							for(int i=0; i<longitud;i++){ //son las 4 caras que giran
-								up [i] = aux [0][i][0];
+								back [i] = aux [0][i][0];
 								down[i] = aux [1][i][0];
 								front [i] = aux [2][i][0];
-								back [i] = aux [3][i][m];
+								up [i] = aux [5][i][m];
 							}
 							
 							//obtengo la cara left
@@ -178,10 +178,10 @@ public static Cubo girol (Cubo cubo, int n) {
 							//cambiamos los numeros en las caras del cubo
 							int g=m;
 							for(int i=0; i<longitud;i++){
-								aux [0][i][g] = front[i]; //En UP meto lo de FRONT
-								aux [1][i][0] = back[i]; //En DOWN meto lo de BACK
-								aux [2][i][0] = down[i]; //En FRONT meto lo de DOWN
-								aux [3][i][m] = up[g]; //En BACK meto lo de UP
+								aux [2][i][g] = front[i]; //En UP meto lo de FRONT
+								aux [0][i][0] = back[i]; //En DOWN meto lo de BACK
+								aux [1][i][0] = down[i]; //En FRONT meto lo de DOWN
+								aux [5][i][m] = up[g]; //En BACK meto lo de UP
 								g--;
 							}
 							
@@ -201,16 +201,16 @@ public static Cubo girol (Cubo cubo, int n) {
 			System.out.println("Me estoy metiendo en el bucle del right");
 			
 							for(int i=0; i<longitud;i++){ //son las 4 caras que siempre cambiaran en un L
-								up [i] = aux [0][i][0];
+								back [i] = aux [0][i][0];
 								down[i] = aux [1][i][n];
 								front [i] = aux [2][i][n];
-								back [i] = aux [3][i][n];
+								up [i] = aux [5][i][n];
 							}
 							
 							//obtengo la cara right
 							for(int j=0; j<longitud; j++) {
 								for(int k=0;k<longitud; k++) {
-									right[j][k] = aux[5][j][k];
+									right[j][k] = aux[4][j][k];
 								}
 							}
 							
@@ -218,17 +218,17 @@ public static Cubo girol (Cubo cubo, int n) {
 							
 							int g=m;
 							for(int i=0; i<longitud;i++){
-								aux [0][i][g] = front[i]; //En UP meto lo de FRONT
-								aux [1][i][n] = back[i]; //En DOWN meto lo de BACK
-								aux [2][i][n] = down[i]; //En FRONT meto lo de DOWN
-								aux [3][i][m] = up[g]; //En BACK meto lo de UP
+								aux [2][i][g] = front[i]; //En UP meto lo de FRONT
+								aux [0][i][n] = back[i]; //En DOWN meto lo de BACK
+								aux [1][i][n] = down[i]; //En FRONT meto lo de DOWN
+								aux [5][i][m] = up[g]; //En BACK meto lo de UP
 								g--;
 							}
 							
 							int k=longitud-1;;
 							for(int i=0; i<longitud; i++) {
 								for(int j=0;j<longitud; j++) {
-									aux[5][i][j] = right[j][k];	
+									aux[4][i][j] = right[j][k];	
 								}
 								k--;
 							}
