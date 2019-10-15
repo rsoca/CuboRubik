@@ -7,7 +7,7 @@ public class Main {
 	public static void main(String[] args) throws IOException{
 		
 		Lectura leer = new Lectura();
-		Cubo c= new Cubo(leer.leerrArchivo());
+		Cubo c= new Cubo(leer.leerArchivo());
 		Cubo clon = c.clone();
 		int [][][] tri = clon.getPosiciones();
 		

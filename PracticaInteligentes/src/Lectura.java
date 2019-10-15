@@ -12,21 +12,20 @@ public class Lectura {
 	private String estado = "";
 	private int cubo[][][];
 
-	public int[][][] leerrArchivo() throws IOException {
+	public int[][][] leerArchivo() throws IOException {
 
 		try {
 			
-			String ob = FileUtils.readFileToString(new File("cuboresuelto4por4.json"));
+			String ob = FileUtils.readFileToString(new File("cubo.json"));
 			
 			JSONObject json = new JSONObject(ob);
 			//importante mantener el orden de los arrays igual que en el json.
-			JSONArray arrayup = json.getJSONArray("UP");
+			JSONArray arrayback = json.getJSONArray("BACK");
 			JSONArray arraydown = json.getJSONArray("DOWN");
 			JSONArray arrayfront = json.getJSONArray("FRONT");
-			JSONArray arrayback = json.getJSONArray("BACK");
 			JSONArray arrayleft = json.getJSONArray("LEFT");
 			JSONArray arrayright = json.getJSONArray("RIGHT");
-			
+			JSONArray arrayup = json.getJSONArray("UP");
 			
 			int dimension = arrayup.length();
 			
@@ -35,13 +34,13 @@ public class Lectura {
 			//System.out.println("Impresion array"+arrayup);
 			//pilla bien las dimensiones
 			
-			for (int i = 0; i < arrayup.length(); i++) {
-				JSONArray f = arrayup.getJSONArray(i);
+			
+			for (int i = 0; i < arrayback.length(); i++) {
+				JSONArray f = arrayback.getJSONArray(i);
 				for (int j = 0; j < f.length(); j++) {
 					estado += f.get(j);
 				}
 			}
-			
 			for (int i = 0; i < arraydown.length(); i++) {
 				JSONArray f = arraydown.getJSONArray(i);
 				for (int j = 0; j < f.length(); j++) {
@@ -54,12 +53,7 @@ public class Lectura {
 					estado += f.get(j);
 				}
 			}
-			for (int i = 0; i < arrayback.length(); i++) {
-				JSONArray f = arrayback.getJSONArray(i);
-				for (int j = 0; j < f.length(); j++) {
-					estado += f.get(j);
-				}
-			}
+			
 			for (int i = 0; i < arrayleft.length(); i++) {
 				JSONArray f = arrayleft.getJSONArray(i);
 				for (int j = 0; j < f.length(); j++) {
@@ -72,7 +66,12 @@ public class Lectura {
 					estado += f.get(j);
 				}
 			}
-			
+			for (int i = 0; i < arrayup.length(); i++) {
+				JSONArray f = arrayup.getJSONArray(i);
+				for (int j = 0; j < f.length(); j++) {
+					estado += f.get(j);
+				}
+			}
 			
 			//hacemos un vector de string separando el de estado
 			String [] lista = estado.split("");
