@@ -6,8 +6,8 @@ import java.security.NoSuchAlgorithmException;
 public class Main {
 	public static void main(String[] args) throws IOException{
 		
-		EspacioDeEstado leer = new EspacioDeEstado();
-		Cubo c= new Cubo(leer.leerrArchivo());
+		Lectura leer = new Lectura();
+		Cubo c= new Cubo(leer.leerArchivo());
 		Cubo clon = c.clone();
 		int [][][] tri = clon.getPosiciones();
 		

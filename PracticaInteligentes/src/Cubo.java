@@ -2,11 +2,8 @@ import java.io.IOException;
 import java.util.Set;
 
 public class Cubo implements Cloneable{
-	private EspacioDeEstado leer = new EspacioDeEstado();
 	private String estado;
-	private int ID;
-	private int posiciones[][][];// matriz de 3 dimensiones: la primera para decirme que cara es, la segunda y
-						// tercera son las dimensiones de la cara
+	private int posiciones[][][];
 
 	public Cubo(int[][][] posiciones) { // metodo constructor que determina el estado inicial
 		this.posiciones = posiciones;
@@ -32,8 +29,3 @@ public class Cubo implements Cloneable{
 	}
 	
 }	
-//metodos necesarios:
-//Clonar HECHO
-//Contructor que reciba el string del json HECHO
-//Generador de numero unico de MD5 
-//Para comprobar si esta bien partir del cubo hecho, desacerlo y volver a hacer movimientos al reves para resolverlo a ver si sale bien.
