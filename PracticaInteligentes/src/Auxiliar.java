@@ -19,13 +19,8 @@ public class Auxiliar {
 				}
 			}
 		}
-		// compruebo que este bien guardado
-		//System.out.println("La cadena es: \n" + ID);
-
-		// devuelvo el id del cubo
 		return ID;
-
-	}/// final obtener MD5
+	}
 
 //Método md5, utilizar cuando sea necesario
 	public static String getMD5(String input) {

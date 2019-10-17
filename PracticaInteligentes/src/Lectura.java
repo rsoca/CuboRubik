@@ -13,11 +13,8 @@ public class Lectura {
 	private int cubo[][][];
 
 	public int[][][] leerArchivo() throws IOException {
-
 		try {
-			
 			String ob = FileUtils.readFileToString(new File("cubo.json"));
-			
 			JSONObject json = new JSONObject(ob);
 			//importante mantener el orden de los arrays igual que en el json.
 			JSONArray arrayback = json.getJSONArray("BACK");
@@ -28,12 +25,7 @@ public class Lectura {
 			JSONArray arrayup = json.getJSONArray("UP");
 			
 			int dimension = arrayup.length();
-			
 			cubo = new int[6][dimension][dimension];
-			
-			//System.out.println("Impresion array"+arrayup);
-			//pilla bien las dimensiones
-			
 			
 			for (int i = 0; i < arrayback.length(); i++) {
 				JSONArray f = arrayback.getJSONArray(i);
@@ -85,12 +77,6 @@ public class Lectura {
 				numeros[g]=Integer.parseInt(lista[g]);
 			}
 			
-			
-			//imprimimos el array numeros
-			/*for(int i=0;i<numeros.length;i++) {
-				System.out.print(" "+numeros[i]);
-			}*/
-			
 			int contador = 0;
 			int limite = 6*dimension*dimension;
 			
@@ -99,8 +85,6 @@ public class Lectura {
 					for (int k = 0; k < dimension; k++) {
 						if (contador < limite) {
 							cubo[i][j][k] = numeros[contador];
-							//System.out.println("Elcubo");
-							//System.out.print(" "+cubo[i][j][k]);
 							contador++;
 						}
 					}
