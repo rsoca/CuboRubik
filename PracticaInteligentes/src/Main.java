@@ -13,10 +13,10 @@ public class Main {
 		
 		// OBTENER MD5 DEL CUBO DE 10X10 
 		
-		String id = Auxiliar.obtenerID(clon);
+		String id = Estado.obtenerID(clon);
 		System.out.println("El ID es:"+id);
 		
-		String md= Auxiliar.getMD5(id);
+		String md= Estado.getMD5(id);
 		System.out.println("El MD5 ES:"+md);
 		
 

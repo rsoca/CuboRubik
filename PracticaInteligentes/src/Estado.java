@@ -4,9 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.io.IOException;
 
-//en esta clase tendremos varios metodos de ayuda, de momomento, seran los de generarMD5 y obtenerMD5
-//este ultimo lo estaba haciendo el main para ir probando a ver si funciona
-public class Auxiliar {
+public class Estado {
 
 	public static String obtenerID(Cubo cubo) {
 		String ID = "";

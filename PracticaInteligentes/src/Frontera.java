@@ -1,13 +1,19 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
-public class Frontera {
-	private static final int t_inicial = 500;
-	private List<Nodo> listaNodos; //Lista de nodos
-	private List<Long> listaTiempo = new ArrayList<Long>(); //tiempos de insercion
+abstract class Frontera {
 	
-	public void obtenerTiempos() {
-		
-	}
+	/* 
+	 * La clase Frontera será de tipo 'abstract' ya que deberemos implementarla de diferentes formas según el criterio de 
+	 * ordenación de dicha frontera. Para ello, definirimos los métodos que vamos a implementar en dichas clases.
+	 */
+	public abstract Frontera crearFrontera();
+	
+	public abstract void insertarNodo(Nodo nodo);
+	
+	public abstract Nodo eliminarNodo(); 
+	
+	public abstract boolean estaVacia();
 	
 }
