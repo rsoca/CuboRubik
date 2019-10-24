@@ -55,6 +55,6 @@ public class FronteraPrioridad extends Frontera{
 	
 	public String toStringTiempo() {
 		calcularTiempos();
-		return "Tiempo mínimo: "+tiempoMinimo+"\n Tiempo máximo: "+tiempoMaximo+"\n Tiempo medio: "+tiempoTotal/tiemposInsercion.size();
+		return "Tiempo minimo: "+tiempoMinimo+"\n Tiempo maximo: "+tiempoMaximo+"\n Tiempo medio: "+tiempoTotal/tiemposInsercion.size();
 	}
 }

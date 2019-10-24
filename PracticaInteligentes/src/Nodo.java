@@ -1,4 +1,4 @@
-
+ 
 public class Nodo {
 	private Nodo nodo;
 	private Estado estado;

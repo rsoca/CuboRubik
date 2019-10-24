@@ -19,6 +19,9 @@ public class Cubo implements Cloneable{
 	public void setEstado(String es) {
 		this.estado = es;
 	}
+	public String getEstado(){
+		return estado;
+	}
 
 	public int [][][] getPosiciones() {
 		return posiciones;
