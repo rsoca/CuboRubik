@@ -128,7 +128,7 @@ public class Movimiento {
 			} else {
 				for (int i = 0; i < longitud; i++) {
 					for (int j = 0; j < longitud; j++) {
-						down[j][longitud - 1 - i] = cuboRotado[3][i][j];
+						down[j][longitud - 1 - i] = cuboRotado[1][i][j];
 					}
 				}
 			}
