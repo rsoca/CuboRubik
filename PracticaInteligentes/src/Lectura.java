@@ -4,8 +4,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
 import org.apache.commons.io.FileUtils;
-import com.google.gson.Gson;
-import com.google.gson.JsonParser;
 import org.json.*;
 
 public class Lectura {

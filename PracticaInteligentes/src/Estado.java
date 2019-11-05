@@ -48,11 +48,11 @@ public class Estado {
 		}
 	}
 
-	public static String[][] Sucesores(Cubo c) {
+	public static String[][] sucesores(Cubo c) {
 
 		int costActi = 1; // coste de cada accion
 		int dimension = c.getPosiciones()[0].length; // obtenemos la dimension de la matriz sucesores a partir del
-														// tamaño del cubo
+														// tamaï¿½o del cubo
 
 		String sucesores[][] = new String[dimension * 6][3]; // matriz de sucesores que almacena
 																// [movimiento,nuevoestado,coste]
@@ -88,7 +88,7 @@ public class Estado {
 			sucesores[(i * 6) + 5][2] = Integer.toString(costActi);
 		}
 
-		System.out.println("\nEl nº de sucesores es: " + sucesores.length);
+		System.out.println("\nEl nÃºmero de sucesores es: " + sucesores.length);
 
 		for (int i = 0; i < sucesores.length; i++) {
 			System.out.print("(");
