@@ -5,6 +5,21 @@ import java.security.NoSuchAlgorithmException;
 
 public class Estado {
 
+	public static void imprimirCubo(Cubo cubo) {
+		
+		int[][][] tri = cubo.getPosiciones();
+
+		for (int i = 0; i < tri.length; i++) {
+			for (int j = 0; j < tri[0].length; j++) {
+				for (int k = 0; k < tri[0][0].length; k++) {
+					System.out.print(tri[i][j][k]);
+				}
+				System.out.println();
+			}
+		}
+	}
+	
+	
 	public static String obtenerID(Cubo cubo) {
 		String ID = "";
 		int[][][] tri = cubo.getPosiciones();
@@ -18,6 +33,45 @@ public class Estado {
 		}
 		return ID;
 	}
+	
+	public static Cubo obtenerCubo(String estado) {
+		Cubo c=null;
+		int dimension = (int) Math.sqrt(estado.length()/6); //obtenemos la dimension del cubo
+		int [][][] tri = new int [6][dimension][dimension];
+		int contador = 0;
+		int limite = estado.length();
+		// hacemos un vector de string separando el de estado
+		String[] lista = estado.split("");
+
+		// creamos el vector donde guardaremos los numeros con la longitud de la lista
+		// anterior
+		int[] numeros = new int[lista.length];
+		// int limite = 6 * dimension * dimension;
+
+		// recorremos el string numeros y guardamos en cada posicion el estado
+		// correspondiente
+		for (int g = 0; g < numeros.length; g++) {
+			numeros[g] = Integer.parseInt(lista[g]);
+		}
+		
+		for (int i = 0; i < tri.length; i++) {
+			for (int j = 0; j < tri[0].length; j++) {
+				for (int k = 0; k < tri[0][0].length; k++) {
+					if (contador < limite) {
+						tri[i][j][k] = numeros[contador];
+						contador++;
+					}
+					
+				}
+			}
+		}
+		
+		c= new Cubo(tri);
+		
+		return c;
+	}
+	
+	
 
 //Metodo md5, utilizar cuando sea necesario
 	public static String getMD5(String input) {
@@ -36,7 +90,7 @@ public class Estado {
 		}
 	}
 
-	public static void imprimir(int[][][] cubo) {
+	public static void imprimirMatriz(int[][][] cubo) {
 
 		for (int i = 0; i < cubo.length; i++) {
 			for (int j = 0; j < cubo[0].length; j++) {
@@ -58,7 +112,7 @@ public class Estado {
 																// [movimiento,nuevoestado,coste]
 		c.setEstado(Estado.obtenerID(c));
 		String id = c.getEstado(); // obtenemos el estado actual del cubo
-		System.out.println("Sucesores de (" + id + ")= ");
+		//System.out.println("Sucesores de (" + id + ")= ");
 
 		for (int i = 0; i < dimension; i++) { // rellenamos la matriz en trozos de 6 "i" veces( el numero de caras por
 												// la dimension del cubo)
@@ -88,15 +142,15 @@ public class Estado {
 			sucesores[(i * 6) + 5][2] = Integer.toString(costActi);
 		}
 
-		System.out.println("\nEl número de sucesores es: " + sucesores.length);
+		//System.out.println("\nEl número de sucesores es: " + sucesores.length);
 
-		for (int i = 0; i < sucesores.length; i++) {
+		/*for (int i = 0; i < sucesores.length; i++) {
 			System.out.print("(");
 			for (int j = 0; j < sucesores[0].length; j++) {
 				System.out.print(sucesores[i][j] + ","); // se imprime la matriz sucesores
 			}
 			System.out.print(")\n");
-		}
+		}*/
 		return sucesores;
 	}
 

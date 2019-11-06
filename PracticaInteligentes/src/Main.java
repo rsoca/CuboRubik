@@ -9,13 +9,20 @@ public class Main {
 		Cubo c= new Cubo(leer.leerArchivo());
 		Cubo clon = c.clone();
 		
-		Nodo n1 = null;
-		Nodo n2 = new Nodo(n1, clon, "s", 1, 2);
 		
-		boolean objetivo = Problema.esObjetivo(n2);
-		System.out.println("Nodo prueba (Objetivo): "+objetivo);
-		Estado.sucesores(c);
+		Algoritmos.busqueda_acotada(leer.leerArchivo(), "anchura", 6);
+				
 		
+		//Nodo n1 = null;
+		//Nodo n2 = new Nodo(n1, clon, "s", 1, 2, 0);
+		
+		//boolean objetivo = Problema.esObjetivo(n2);
+		//System.out.println("Nodo prueba (Objetivo): "+objetivo);
+		//Estado.sucesores(c);
+		
+		//Cubo nuevo = Estado.obtenerCubo("133133133211211211022022022444444444555555555003003003");
+		//System.out.println("Situacion del cubo nuevo");
+		//Estado.imprimirCubo(nuevo);
 		
 		/*
 		 * MOVIMIENTOS Y MD5 CUBO 
