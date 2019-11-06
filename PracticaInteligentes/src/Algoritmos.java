@@ -12,7 +12,7 @@ public class Algoritmos {
 		
 	}
 	
-	public static boolean busqueda_acotada(int [][][] problema, String estrategia, int pmaxima ) { // en anchura
+	public static boolean busqueda_acotada(int [][][] problema, String estrategia, int pmaxima ) throws IOException { // en anchura
 		boolean solucion=false;
 		
 		Cubo c = new Cubo (problema);
@@ -100,7 +100,7 @@ public class Algoritmos {
 		return lista;
 	}
 	
-	public static void CrearSolucion(Nodo nodo_actual) { //importar siempre el java.io
+	public static void CrearSolucion(Nodo nodo_actual) throws IOException { //importar siempre el java.io
 		
 		Stack <Nodo> pila = new Stack<Nodo>(); //creamos la pila donde iran entrando los nodos
 		boolean primero = false;
@@ -123,9 +123,18 @@ public class Algoritmos {
 		//ya tenemos la pila llena, ahora ir sacando y metiendo en el archivo de texto
 		//convertir el cubo a MD5 y guardarlo asi
 		
+		
+		//LIMPIAMOS EL ANTERIOR ARCHIVO POR SI HUBIERAN DATOS
+		
+		BufferedWriter bw = new BufferedWriter(new FileWriter("solucion.txt"));
+		bw.write("");
+		bw.close();
+		
+		
 		//Formato de guardado de los datos en el archivo
 		//Prepresentación del nodo del árbol: [ID_Nodo]([accion] ID_ESTADO,costo,profundidad,valor del nodo (f)) 
 		//La profundidad es el valor d
+		
 		
 		Nodo n=null;
 		FileWriter fichero = null;
