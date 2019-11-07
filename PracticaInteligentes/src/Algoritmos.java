@@ -15,7 +15,7 @@ public class Algoritmos {
 	public static boolean busqueda_acotada(int [][][] problema, String estrategia, int pmaxima ) throws IOException { // en anchura
 		boolean solucion=false;
 		
-		Cubo c = new Cubo (problema);
+		Cubo c = new Cubo ();
 		FronteraPrioridad frontera = new FronteraPrioridad();
 		Nodo padre = null; //consultar porque me parece raro crearlo
 		Nodo nodo_actual = null;
@@ -66,7 +66,7 @@ public class Algoritmos {
 		return nodo;
 	}
 	
-	public static Nodo [] CrearListaNodos(String [][] lista_sucesores, Nodo nodo_actual,int pmaxima, String estrategia) {
+	public static Nodo [] CrearListaNodos(String [][] lista_sucesores, Nodo nodo_actual,int pmaxima, String estrategia) throws IOException {
 		
 		//Esto es en anchura, por tanto la f es igual a la profundidad
 		//Tenemos tambien la limitacion de la pmaxima a la hora de crear los nodos 

@@ -8,16 +8,40 @@ public class Main {
 		Lectura leer = new Lectura();
 		
 		int [][][] posiciones = leer.leerArchivo();
-		/*Cubo c= new Cubo();
-		clon.setPosiciones(posiciones);
-		//mnsaje
+		Cubo c= new Cubo();
+		Cubo clon= new Cubo(c.getPosiciones());
 		
-		c=Movimiento.movimiento(clon, 'L', 0);
-		Estado.imprimirCubo(c);
-		clon=Movimiento.movimiento(clon, 'l', 0);
-		Estado.imprimirCubo(clon);
+		/*  QUITAR ESTA LINEA PARA QUE EJECUTE EL CODIGO
 
-		*/
+//-----------------------------------------------------------------------------------------------------------------
+		Movimiento.movimiento(clon, 'L', 0); 
+		String id=Estado.obtenerID(clon);
+		System.out.println("Estado"+id);    
+		Movimiento.movimiento(clon, 'l', 0);   // AQUI HAGO LA INVERSA PARA QUE COMPROBEIS QUE SALE LO MISMO, 
+		Movimiento.movimiento(clon, 'l', 0);
+		id=Estado.obtenerID(clon);
+		System.out.println("Estado"+id);
+		Movimiento.movimiento(clon, 'L', 0);     // AQUI HAGO LA INVERSA PARA QUE COMPROBEIS QUE SALE LO MISMO
+		Movimiento.movimiento(clon, 'D', 0);
+		id=Estado.obtenerID(clon);
+		System.out.println("Estado"+id);
+		Movimiento.movimiento(clon, 'd', 0);    // AQUI HAGO LA INVERSA PARA QUE COMPROBEIS QUE SALE LO MISMO
+//------------------------------------------------------------------------------------------------------------------        		
+        		//BORRAR CODIGO ENTRE GUIONES PARA QUE HAGA SUCESORES SIN COMPROBAR LOS MOVIMIENTOS
+        		
+	    Estado.sucesores(clon);
+		
+		
+		
+		
+		
+		
+		
+		//c=Movimiento.movimiento(clon, 'L', 0);
+		//Estado.imprimirCubo(c);
+		//clon=Movimiento.movimiento(clon, 'l', 0);
+		//Estado.imprimirCubo(clon);
+
 		//Algoritmos.busqueda_acotada(leer.leerArchivo(), "anchura", 6);
 				
 		
