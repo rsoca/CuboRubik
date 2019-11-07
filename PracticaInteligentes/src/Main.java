@@ -9,7 +9,7 @@ public class Main {
 		
 		int [][][] posiciones = leer.leerArchivo();
 		Cubo c= new Cubo();
-		Cubo clon= new Cubo(c.getPosiciones());
+		Cubo clon= new Cubo(c);
 		
 		/*  QUITAR ESTA LINEA PARA QUE EJECUTE EL CODIGO
 

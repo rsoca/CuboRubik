@@ -11,7 +11,8 @@ public class Cubo implements Cloneable{
 	}
 
 	//metodo para clonar el cubo
-	public Cubo(int [][][] pos){
+	public Cubo(Cubo c){
+		int[][][] pos=c.getPosiciones();
 		int [][][] nueva = new int[pos.length][pos[0].length][pos[0][0].length];
 		for (int i = 0; i < pos.length; i++) {
 			for (int j = 0; j < pos[0].length; j++) {
