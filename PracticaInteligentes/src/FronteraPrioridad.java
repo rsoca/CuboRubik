@@ -17,8 +17,12 @@ public class FronteraPrioridad extends Frontera{
 	 * El funcionamiento de PriorityQueue tiene un funcionamiento similar a la prioridad Heap (explicada en el laboratorio).
 	 * 
 	 */
-	private FronteraPrioridad() {
+	public FronteraPrioridad() {
 		colaNodoFrontera = new PriorityQueue<Nodo>();
+	}
+	
+	public Queue getFrontera() {
+		return colaNodoFrontera;
 	}
 	
 	public FronteraPrioridad crearFrontera() {
@@ -31,6 +35,13 @@ public class FronteraPrioridad extends Frontera{
 		colaNodoFrontera.add(nodo);
 		finInsercion = System.currentTimeMillis();
 		tiemposInsercion.add(finInsercion - inicioInsercion);
+	}
+	
+	public void insertarNodos(Nodo [] lista_nodos) {
+		
+		for(int i =0; i<lista_nodos.length;i++) {
+			colaNodoFrontera.add(lista_nodos[i]);
+		}
 	}
 	
 	public Nodo eliminarNodo() {

@@ -3,18 +3,20 @@ public class Nodo {
 	
 	private Nodo padre;
 	private Cubo estado; // como el estado es una representacion del cubo, pues es un cubo
-	private String accion; // desde el padre para alcanzar el nodo actual (supongo que se refiere al movimiento) ?¿?¿?
+	private String accion; // desde el padre para alcanzar el nodo actual (supongo que se refiere al movimiento) ?ï¿½?ï¿½?
 	private double costo;
 	private int f;
-	private long d; // profundidad del nodo
+	private int d; // profundidad del nodo
+	int id;
 
-	public Nodo(Nodo padre, Cubo estado, String accion, double costo, long d) {
+	public Nodo(Nodo padre, Cubo estado, String accion, double costo, int d, int id) {
 		this.padre = padre;
 		this.estado = estado;
 		this.f = Integer.valueOf((int) (Math.random() * 10)); // Valor aleatorio entre 0 y 10
 		this.accion = accion;
 		this.costo = costo;
 		this.d = d;
+		this.id=id;
 	}
 
 	public Nodo getPadre() {
@@ -37,7 +39,11 @@ public class Nodo {
 		return costo;
 	}
 
-	public long getD() {
+	public int getD() {
 		return d;
+	}
+	
+	public int getID(){
+		return id;
 	}
 }

@@ -80,7 +80,7 @@ public class Algoritmos {
 		//public Nodo(Nodo padre, Cubo estado, String accion, double costo, int d, int id)
 		double coste=0;
 		int d; //profundidad
-		int id = nodo_actual.getID();
+		int id = nodo_actual.getD();
 		
 		if( nodo_actual.getD() < pmaxima) {
 			for(int i = 0; i< lista_sucesores.length; i++) { //recorremos las filas de los sucesores
@@ -132,7 +132,7 @@ public class Algoritmos {
 		
 		
 		//Formato de guardado de los datos en el archivo
-		//Prepresentación del nodo del árbol: [ID_Nodo]([accion] ID_ESTADO,costo,profundidad,valor del nodo (f)) 
+		//Prepresentaciï¿½n del nodo del ï¿½rbol: [ID_Nodo]([accion] ID_ESTADO,costo,profundidad,valor del nodo (f)) 
 		//La profundidad es el valor d
 		
 		
