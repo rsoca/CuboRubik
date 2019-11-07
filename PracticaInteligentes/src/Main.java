@@ -6,11 +6,19 @@ import java.security.NoSuchAlgorithmException;
 public class Main {
 	public static void main(String[] args) throws IOException{
 		Lectura leer = new Lectura();
-		Cubo c= new Cubo(leer.leerArchivo());
-		Cubo clon = c.clone();
+		
+		int [][][] posiciones = leer.leerArchivo();
+		/*Cubo c= new Cubo();
+		clon.setPosiciones(posiciones);
 		
 		
-		Algoritmos.busqueda_acotada(leer.leerArchivo(), "anchura", 6);
+		c=Movimiento.movimiento(clon, 'L', 0);
+		Estado.imprimirCubo(c);
+		clon=Movimiento.movimiento(clon, 'l', 0);
+		Estado.imprimirCubo(clon);
+
+		*/
+		//Algoritmos.busqueda_acotada(leer.leerArchivo(), "anchura", 6);
 				
 		
 		//Nodo n1 = null;
