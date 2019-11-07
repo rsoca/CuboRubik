@@ -46,7 +46,7 @@ public class Nodo implements Comparable<Nodo>{
 	public int getID(){
 		return id;
 	}
-	
+	@Override
 	public int compareTo(Nodo nodo) {
 		return nodo.getID();
 	}
