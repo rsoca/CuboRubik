@@ -10,7 +10,7 @@ public class Main {
 		int [][][] posiciones = leer.leerArchivo();
 		/*Cubo c= new Cubo();
 		clon.setPosiciones(posiciones);
-		
+		//mnsaje
 		
 		c=Movimiento.movimiento(clon, 'L', 0);
 		Estado.imprimirCubo(c);

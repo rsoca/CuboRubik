@@ -7,7 +7,7 @@ public class Nodo implements Comparable<Nodo>{
 	private double costo;
 	private int f;
 	private int d; // profundidad del nodo
-	int id;
+	int id; //int porque llega a 2 millones
 
 	public Nodo(Nodo padre, Cubo estado, String accion, double costo, int d, int id) {
 		this.padre = padre;
