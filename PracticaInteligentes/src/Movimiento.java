@@ -27,13 +27,16 @@ public class Movimiento {
 		return cubo;
 	}
 
-	// Los movimientos están divididos en dos partes, en los metodos 'giro' nos
-	// encargaremos de las caras que tenemos que rotar por completo dentro de sí
-	// mismas (90º y -90º)
-	// ------------------------------
-	// En cuanto a los métodos 'rotación', es donde giraremos aquellas caras que se
-	// sobreescribirán las unas a las otras
 
+	/*
+	 * Los movimientos están divididos en dos partes.
+	 * En los metodos 'giro' nos encargaremos de las caras
+	 *  que tenemos que rotar dentro de sí mismas (90º y -90º).
+	 * 
+	 * En cuanto a los métodos 'rotación', es donde giraremos aquellas caras que se sobreescribirán las unas a las otras.
+	 * 
+	 */
+	
 	private static int[][][] girobB(int[][][] cuboInicial, Cubo cubo, int[][] back, int[][] front, int[] down,
 			int[] left, int[] right, int[] up, int n, char letra, int longitud) {
 		int[][][] cuboRotado = rotacionbB(cuboInicial, down, left, right, up, longitud, n, letra);
@@ -51,31 +54,31 @@ public class Movimiento {
 					}
 				}
 			}
-			// Giramos cara down
+			// Giramos cara back
 			for (int i = 0; i < longitud; i++) {
 				for (int j = 0; j < longitud; j++) {
 					cuboRotado[0][i][j] = back[i][j];
 				}
 			}
 
-		} else if (n == longitud) {
+		} else if (n == longitud - 1) {
 			if (Character.valueOf(letra).equals('b')) {
 				for (int i = 0; i < longitud; i++) {
 					for (int j = 0; j < longitud; j++) {
-						front[longitud - 1 - j][i] = cuboRotado[1][i][j];
+						front[longitud - 1 - j][i] = cuboRotado[2][i][j];
 					}
 				}
 			} else {
 				for (int i = 0; i < longitud; i++) {
 					for (int j = 0; j < longitud; j++) {
-						front[j][longitud - 1 - i] = cuboRotado[1][i][j];
+						front[j][longitud - 1 - i] = cuboRotado[2][i][j];
 					}
 				}
 			}
-			// Giramos cara up
+			// Giramos cara front
 			for (int i = 0; i < longitud; i++) {
 				for (int j = 0; j < longitud; j++) {
-					cuboRotado[1][i][j] = front[i][j];
+					cuboRotado[2][i][j] = front[i][j];
 				}
 			}
 		}
@@ -84,7 +87,6 @@ public class Movimiento {
 
 	private static int[][][] rotacionbB(int[][][] cuboRotarComun, int[] down, int[] left, int[] right, int[] up,
 			int longitud, int n, char letra) {
-
 		if (n >= 0 && n <= longitud) {
 			for (int i = 0; i < longitud; i++) {
 				down[i] = cuboRotarComun[1][n][i];
@@ -139,7 +141,7 @@ public class Movimiento {
 				}
 			}
 
-		} else if (n == longitud) {
+		} else if (n == longitud - 1) {
 			if (Character.valueOf(letra).equals('d')) {
 				for (int i = 0; i < longitud; i++) {
 					for (int j = 0; j < longitud; j++) {
@@ -250,7 +252,7 @@ public class Movimiento {
 				}
 			}
 
-		} else if (n == longitud) {
+		} else if (n == longitud - 1) {
 			if (Character.valueOf(letra).equals('l')) {
 				for (int i = 0; i < longitud; i++) {
 					for (int j = 0; j < longitud; j++) {
