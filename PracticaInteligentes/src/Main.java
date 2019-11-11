@@ -9,8 +9,10 @@ public class Main {
 		
 		int [][][] posiciones = leer.leerArchivo();
 		Cubo c= new Cubo();
-		Cubo clon= new Cubo(c);
-		
+		//Cubo clon= new Cubo(c);
+		Estado.imprimirCubo(c);
+		Algoritmos.busqueda_acotada(posiciones, "e", 6);
+		//Estado.sucesores(c);
 		/*  QUITAR ESTA LINEA PARA QUE EJECUTE EL CODIGO
 
 //-----------------------------------------------------------------------------------------------------------------
@@ -29,12 +31,8 @@ public class Main {
 //------------------------------------------------------------------------------------------------------------------        		
         		//BORRAR CODIGO ENTRE GUIONES PARA QUE HAGA SUCESORES SIN COMPROBAR LOS MOVIMIENTOS
         		
-	    Estado.sucesores(clon);
-		
-		
-		
-		
-		
+	    
+		Estado.sucesores(clon);
 		
 		
 		//c=Movimiento.movimiento(clon, 'L', 0);
@@ -112,7 +110,7 @@ public class Main {
 		System.out.println("El ID es:"+id);	
 		md= Estado.getMD5(id);
 		System.out.println("El MD5 ES:"+md);
-		 * 
+		
 */
 	}
 }

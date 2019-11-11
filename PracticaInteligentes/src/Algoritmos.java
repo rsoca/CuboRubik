@@ -3,8 +3,6 @@ import java.util.*;
 
 public class Algoritmos {
 	
-
-	
 	public static void main (String [] args) throws IOException {
 		
 		Lectura leer = new Lectura();
@@ -34,17 +32,32 @@ public class Algoritmos {
 			
 			String [][] lista_sucesores = Estado.sucesores(c);
 			
+			System.out.println("IMPRIMIMOS LISTA DE SUCESORES OBTENIDA EN EL METODO");
+			
+			for (int i = 0; i < lista_sucesores.length; i++) {
+				System.out.print("(");
+				for (int j = 0; j < lista_sucesores[0].length; j++) {
+					System.out.print(lista_sucesores[i][j] + ","); // se imprime la matriz sucesores
+				}
+				System.out.print(")\n");
+			}
 			Nodo [] lista_nodos = CrearListaNodos(lista_sucesores, nodo_actual, pmaxima, estrategia);
+			/*
+			for(int j=0;j<lista_nodos.length;j++) {
+				String id = Estado.obtenerID(lista_nodos[j].getEstado());
+				System.out.println("Nodo "+lista_nodos[j].getID()+" ESTADO "+id+
+						" coste "+lista_nodos[j].getCosto()+"");
+			}
 			
 			frontera.insertarNodos(lista_nodos);
 			
-			
+			*/
 			} //fin if-else
 		} // fin while
 		
 		
 		if( solucion == true ){
-		
+			System.out.println("Entro a la solucion");
 			CrearSolucion(nodo_actual); //aqui dudo de si tengo que imprimir, devolver true, crear el archivo dentro del metodo...
 		}else{
 		
@@ -62,7 +75,7 @@ public class Algoritmos {
 		Queue <Nodo> f = frontera.getFrontera();
 		
 		nodo = f.poll();
-		//System.out.println("El id es"+nodo.getID());
+		System.out.println("Cojo el nodo de la frontera con id: "+nodo.getID());
 		return nodo;
 	}
 	
@@ -70,6 +83,18 @@ public class Algoritmos {
 		
 		//Esto es en anchura, por tanto la f es igual a la profundidad
 		//Tenemos tambien la limitacion de la pmaxima a la hora de crear los nodos 
+		
+		System.out.println("IMPRIMIMOS LISTA DE SUCESORES DEL MEOTODO CREAR LISTA NODOS");
+		
+		for (int i = 0; i < lista_sucesores.length; i++) {
+			System.out.print("(");
+			for (int j = 0; j < lista_sucesores[0].length; j++) {
+				System.out.print(lista_sucesores[i][j] + ","); // se imprime la matriz sucesores
+			}
+			System.out.print(")\n");
+		}
+		
+		
 		
 		Nodo [] lista = new Nodo[lista_sucesores.length];//creamos la lista de los nodos que tendra la longitud del numero de filas
 		
@@ -81,6 +106,7 @@ public class Algoritmos {
 		double coste=0;
 		int d; //profundidad
 		int id = nodo_actual.getD();
+		System.out.println("Creo la lista nodos del nodo con ID "+ id);
 		
 		if( nodo_actual.getD() < pmaxima) {
 			for(int i = 0; i< lista_sucesores.length; i++) { //recorremos las filas de los sucesores
