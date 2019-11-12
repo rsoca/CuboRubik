@@ -15,5 +15,7 @@ abstract class Frontera {
 	public abstract Nodo eliminarNodo(); 
 	
 	public abstract boolean estaVacia();
+
+	protected abstract Queue<Nodo> getFrontera();
 	
 }

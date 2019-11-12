@@ -106,17 +106,16 @@ public class Estado {
 
 		int costActi = 1; // coste de cada accion
 		int dimension = c.getPosiciones()[0].length; // obtenemos la dimension de la matriz sucesores a partir del
-														// tamaño del cubo
+														// tamaï¿½o del cubo
 
 		String sucesores[][] = new String[dimension * 6][3]; // matriz de sucesores que almacena
 																// [movimiento,nuevoestado,coste]
 		Cubo aux= new Cubo(c);
 		//Cubo n= null;
 		String estado = aux.getEstado(); // obtenemos el estado actual del cubo
-		//System.out.println("Sucesores de (" + id + ")= ");
 
-		for (int i = 0; i < dimension; i++) { // rellenamos la matriz en trozos de 6 "i" veces( el numero de caras por
-												// la dimension del cubo)
+
+		for (int i = 0; i < dimension; i++) { // rellenamos la matriz en trozos de 6 "i" veces( el numero de caras por la dimension del cubo)
 			estado = Estado.obtenerID(Movimiento.movimiento(aux, 'L', i));
 			sucesores[i * 6][0] = "L" + i;
 			sucesores[i * 6][1] = estado;

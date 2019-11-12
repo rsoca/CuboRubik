@@ -14,13 +14,13 @@ public class Main {
 		
 		//Cubo clon= new Cubo(c);
 		//Estado.imprimirCubo(c);
-		//Algoritmos.busqueda_acotada(posiciones, "e", 6);
+		Algoritmo.busqueda_acotada(posiciones, "e", 6);
 		//Estado.sucesores(c);
 		
-		Estado.imprimirCubo(c);
-		System.out.println("Cubo movido");
-		c=Movimiento.movimiento(c, 'B', 2);
-		Estado.imprimirCubo(c);
+		//Estado.imprimirCubo(c);
+		//System.out.println("Cubo movido");
+		//c=Movimiento.movimiento(c, 'd', 2);
+		//Estado.imprimirCubo(c);
 		/*  QUITAR ESTA LINEA PARA QUE EJECUTE EL CODIGO
 
 //-----------------------------------------------------------------------------------------------------------------
