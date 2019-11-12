@@ -2,18 +2,25 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.*;
 
 public class Main {
 	public static void main(String[] args) throws IOException{
+		Cubo c= new Cubo();
+		Cubo clon = new Cubo(c);
 		Lectura leer = new Lectura();
 		
 		int [][][] posiciones = leer.leerArchivo();
-		Cubo c= new Cubo();
+		
 		//Cubo clon= new Cubo(c);
-		Estado.imprimirCubo(c);
-
+		//Estado.imprimirCubo(c);
 		//Algoritmos.busqueda_acotada(posiciones, "e", 6);
-		Estado.sucesores(c);
+		//Estado.sucesores(c);
+		
+		Estado.imprimirCubo(c);
+		System.out.println("Cubo movido");
+		c=Movimiento.movimiento(c, 'B', 2);
+		Estado.imprimirCubo(c);
 		/*  QUITAR ESTA LINEA PARA QUE EJECUTE EL CODIGO
 
 //-----------------------------------------------------------------------------------------------------------------
@@ -55,60 +62,59 @@ public class Main {
 		//System.out.println("Situacion del cubo nuevo");
 		//Estado.imprimirCubo(nuevo);
 		
-		
-		 * MOVIMIENTOS Y MD5 CUBO 
-		 */
 		/*
-		String id = Estado.obtenerID(c);
+		 * MOVIMIENTOS Y MD5 CUBO 
+		 * 
+		String id = Estado.obtenerID(clon);
 		System.out.println("El ID es:"+id);	
 		String md= Estado.getMD5(id);
 		System.out.println("El MD5 ES:"+md);	
 		//Estado.imprimir(clon.getPosiciones());
 		//comprobamos movimientos
-		c=Movimiento.movimiento(c, 'l', 3);
-		id = Estado.obtenerID(c);
+		clon=Movimiento.movimiento(clon, 'l', 3);
+		id = Estado.obtenerID(clon);
 		System.out.println("El ID es:"+id);	
 		md= Estado.getMD5(id);
 		System.out.println("El MD5 ES:"+md);
 		//Estado.imprimir(clon.getPosiciones());
-		c=Movimiento.movimiento(c, 'D', 1);
-		id = Estado.obtenerID(c);
+		clon=Movimiento.movimiento(clon, 'D', 1);
+		id = Estado.obtenerID(clon);
 		System.out.println("El ID es:"+id);	
 		md= Estado.getMD5(id);
 		System.out.println("El MD5 ES:"+md);
 		//Estado.imprimir(clon.getPosiciones());
-		c=Movimiento.movimiento(c, 'l', 1);
-		id = Estado.obtenerID(c);
+		clon=Movimiento.movimiento(clon, 'l', 1);
+		id = Estado.obtenerID(clon);
 		System.out.println("El ID es:"+id);	
 		md= Estado.getMD5(id);
 		System.out.println("El MD5 ES:"+md);
 		//Estado.imprimir(clon.getPosiciones());
-		c=Movimiento.movimiento(c, 'd', 0);
-		id = Estado.obtenerID(c);
+		clon=Movimiento.movimiento(clon, 'd', 0);
+		id = Estado.obtenerID(clon);
 		System.out.println("El ID es:"+id);	
 		md= Estado.getMD5(id);
 		System.out.println("El MD5 ES:"+md);
 		//Estado.imprimir(clon.getPosiciones());
-		c=Movimiento.movimiento(c, 'B', 0);
-		id = Estado.obtenerID(c);
+		clon=Movimiento.movimiento(clon, 'B', 0);
+		id = Estado.obtenerID(clon);
 		System.out.println("El ID es:"+id);	
 		md= Estado.getMD5(id);
 		System.out.println("El MD5 ES:"+md);
 		//Estado.imprimir(clon.getPosiciones());
-		c=Movimiento.movimiento(c, 'b', 5);
-		id = Estado.obtenerID(c);
+		clon=Movimiento.movimiento(clon, 'b', 5);
+		id = Estado.obtenerID(clon);
 		System.out.println("El ID es:"+id);	
 		md= Estado.getMD5(id);
 		System.out.println("El MD5 ES:"+md);
 		//Estado.imprimir(clon.getPosiciones());
-		c=Movimiento.movimiento(c, 'l', 2);
-		id = Estado.obtenerID(c);
+		clon=Movimiento.movimiento(clon, 'l', 2);
+		id = Estado.obtenerID(clon);
 		System.out.println("El ID es:"+id);	
 		md= Estado.getMD5(id);
 		System.out.println("El MD5 ES:"+md);
 		//Estado.imprimir(clon.getPosiciones());
-		c=Movimiento.movimiento(c, 'd', 1);
-		id = Estado.obtenerID(c);
+		clon=Movimiento.movimiento(clon, 'd', 1);
+		id = Estado.obtenerID(clon);
 		System.out.println("El ID es:"+id);	
 		md= Estado.getMD5(id);
 		System.out.println("El MD5 ES:"+md);

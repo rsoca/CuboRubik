@@ -65,13 +65,13 @@ public class Movimiento {
 			if (Character.valueOf(letra).equals('b')) {
 				for (int i = 0; i < longitud; i++) {
 					for (int j = 0; j < longitud; j++) {
-						front[longitud - 1 - j][i] = cuboRotado[2][i][j];
+						front[j][longitud - 1 - i] = cuboRotado[2][i][j];
 					}
 				}
 			} else {
 				for (int i = 0; i < longitud; i++) {
 					for (int j = 0; j < longitud; j++) {
-						front[j][longitud - 1 - i] = cuboRotado[2][i][j];
+						front[longitud - 1 - j][i] = cuboRotado[2][i][j];
 					}
 				}
 			}
@@ -145,13 +145,13 @@ public class Movimiento {
 			if (Character.valueOf(letra).equals('d')) {
 				for (int i = 0; i < longitud; i++) {
 					for (int j = 0; j < longitud; j++) {
-						up[longitud - 1 - j][i] = cuboRotado[5][i][j];
+						up[j][longitud - 1 - i] = cuboRotado[5][i][j];
 					}
 				}
 			} else {
 				for (int i = 0; i < longitud; i++) {
 					for (int j = 0; j < longitud; j++) {
-						up[j][longitud - 1 - i] = cuboRotado[5][i][j];
+						up[longitud - 1 - j][i]= cuboRotado[5][i][j];
 					}
 				}
 			}
@@ -256,13 +256,13 @@ public class Movimiento {
 			if (Character.valueOf(letra).equals('l')) {
 				for (int i = 0; i < longitud; i++) {
 					for (int j = 0; j < longitud; j++) {
-						right[longitud - 1 - j][i] = cuboRotado[4][i][j];
+						right[j][longitud - 1 - i] = cuboRotado[4][i][j];
 					}
 				}
 			} else {
 				for (int i = 0; i < longitud; i++) {
 					for (int j = 0; j < longitud; j++) {
-						right[j][longitud - 1 - i] = cuboRotado[4][i][j];
+						right[longitud - 1 - j][i]= cuboRotado[4][i][j];
 					}
 				}
 			}

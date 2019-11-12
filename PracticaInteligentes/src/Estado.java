@@ -14,7 +14,7 @@ public class Estado {
 				for (int k = 0; k < tri[0][0].length; k++) {
 					System.out.print(tri[i][j][k]);
 				}
-				//System.out.println();
+				System.out.println();
 			}
 		}
 	}
