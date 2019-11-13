@@ -3,6 +3,11 @@ import java.util.*;
 
 public class Algoritmo {
 
+	private static int idN = 0;
+	private static final String ANCHURA = "ANCHURA";
+	private static final String PROFUNDIDAD = "PROFUNDIDAD";
+	private static final String COSTO_UNIFORME = "COSTO UNIFORME";
+
 	public static boolean busqueda(Problema problema, String estrategia, int profMax, int incProf) throws IOException {
 		long profActual = incProf;
 		boolean esSolucion = false;
@@ -13,87 +18,79 @@ public class Algoritmo {
 
 		return esSolucion;
 	}
-	
-	private static boolean busqueda_acotada(Problema problema, String estrategia, int profMax) throws IOException { // en anchura
+
+	private static boolean busqueda_acotada(Problema problema, String estrategia, int profMax) throws IOException { // en
+																													// anchura
 		boolean solucion = false;
 		Cubo c = new Cubo();
 		c.setPosiciones(problema.getPos());
+		c.setEstado(Estado.obtenerID(c));
 		Nodo[] lista_nodos;
 		String[][] lista_sucesores;
-		Frontera frontera = new FronteraPrioridad();
+		Frontera frontera = new FronteraLista();
 		frontera.crearFrontera();
-		Nodo padre = null; // consultar porque me parece raro crearlo
 		Nodo nodo_actual = null;
-		Nodo nodo_inicial = new Nodo(padre, c,"", 0, 0, 0); // nodo padre, estado, accion, coste, profundidad, id
+		Nodo nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 0); // nodo padre, estado, accion, coste, profundidad, id
 		frontera.insertarNodo(nodo_inicial);
 
-		while (!solucion  && !frontera.estaVacia()) {
+		while (!solucion && !frontera.estaVacia()) {
 			nodo_actual = frontera.eliminarNodo();
-			if (Problema.esObjetivo(nodo_actual)) {
-				solucion = true;
+			/*
+			 * if (Problema.esObjetivo(nodo_actual)) { solucion = true; }
+			 */
+			solucion = Problema.esObjetivo(nodo_actual);
+			if (solucion) {
+				System.out.print("Lo tenemos");
 			} else {
 				lista_sucesores = Estado.sucesores(nodo_actual.getEstado());
 				lista_nodos = CrearListaNodos(lista_sucesores, nodo_actual, profMax, estrategia);
-				for(int i=0; i<lista_nodos.length; i++)
+				for (int i = 0; i < lista_nodos.length; i++)
 					frontera.insertarNodo(lista_nodos[i]);
-				/*for (int i = 0; i < lista_sucesores.length; i++) {
-					System.out.print("(");
-					for (int j = 0; j < lista_sucesores[0].length; j++) {
-						System.out.print(lista_sucesores[i][j] + ",");
-						
-					}
-					System.out.print(")\n");
-				}*/
-				
-			} // fin if-else
-		} // fin while
-
+			}
+		}
 		if (solucion) {
-			System.out.println("Entro a la solucion");
-			CrearSolucion(nodo_actual); // aqui dudo de si tengo que imprimir, devolver true, crear el archivo dentro del metodo...
+			System.out.println("Creamos la solucion");
+			CrearSolucion(nodo_actual); // aqui dudo de si tengo que imprimir, devolver true, crear el archivo dentro
+										// del metodo...
 		} else {
-			solucion = false;
+			System.out.println("No la hemos encontrado");
+			// solucion = false;
 		}
 
 		return solucion;
 
 	}// fin busqueda acotada
 
-	
-	//Seleccionar nodo hace lo mismo que eliminar nodo de la clase FronteraPrioridad
-	/*
-	public static Nodo seleccionarNodo(Frontera frontera) {
-		Nodo nodo = null;
-		Queue<Nodo> f = frontera.getFrontera();
-		nodo = f.poll();
-		System.out.println("Cojo el nodo de la frontera con id: " + nodo.getID());
-		return nodo;
-	}*/
-
 	public static Nodo[] CrearListaNodos(String[][] lista_sucesores, Nodo nodo_actual, int pmaxima, String estrategia)
 			throws IOException {
 
-		// Esto es en anchura, por tanto la f es igual a la profundidad
-		// Tenemos tambien la limitacion de la pmaxima a la hora de crear los nodos
-
-		Nodo[] lista = new Nodo[lista_sucesores.length];// creamos la lista de los nodos que tendra la longitud del numero de filas
+		Nodo[] lista = new Nodo[lista_sucesores.length];
 		Nodo nodo = null;
-		Cubo cubo = null; // tiene dentro la matriz de posiciones crear los nodos y meterlos en lista
-		double coste = 0;
-		int d; // profundidad
-		int id = nodo_actual.getD();
+		double valor = 0;
+		int id = nodo_actual.getId();
 		System.out.println("Creo la lista nodos del nodo con ID " + id);
-		
-		if (nodo_actual.getD() < pmaxima) {
-			for (int i = 0; i < lista_sucesores.length; i++) { // recorremos las filas de los sucesores
-				coste = Double.parseDouble(lista_sucesores[i][2]) + nodo_actual.getCosto();
-				d = nodo_actual.getD() + 1;
-				cubo = Estado.obtenerCubo(lista_sucesores[i][1]);
-				nodo = new Nodo(nodo_actual, cubo, lista_sucesores[i][0], coste, d, id);
+		System.out.println("Profundidad: " + nodo_actual.getD());
+		for (int i = 0; i < lista_sucesores.length; i++) { // recorremos las filas de los sucesores
+			switch (estrategia) {
+			case ANCHURA:
+				valor = nodo_actual.getD() + 1;
+				break;
+			case PROFUNDIDAD:
+				valor = (-1) * (nodo.getD() + 1);
+				break;
+			case COSTO_UNIFORME:
+				valor = nodo_actual.getCosto() + Double.parseDouble(lista_sucesores[i][2]);
+			}
+
+			idN = idN + 1; //Actualizamos el id de cada nodo
+			nodo = new Nodo(nodo_actual, Estado.obtenerCubo(lista_sucesores[i][1]), lista_sucesores[i][0],
+					Double.parseDouble(lista_sucesores[i][2]) + nodo_actual.getCosto(), nodo_actual.getD() + 1, idN,
+					valor);
+			if (nodo.getD() <= pmaxima) {
 				lista[i] = nodo;
 			}
-		} else {
-			System.out.println("No se pueden hacer mas nodos");
+			System.out.println("Id: " + nodo.getId());
+
 		}
 
 		return lista;
@@ -110,7 +107,7 @@ public class Algoritmo {
 			pila.push(nodo_actual.getPadre()); // meto el nodo padre del actual
 			nodo_actual = nodo_actual.getPadre(); // convierto al padre en nodo actual
 
-			if (nodo_actual.getID() == 0 && nodo_actual.getPadre() == null) {
+			if (nodo_actual.getId() == 0 && nodo_actual.getPadre() == null) {
 				// compruebo si el nodo actual tiene ID=0, porque seria el primero, el del
 				// inicio
 				// y que no tiene padre
@@ -144,7 +141,7 @@ public class Algoritmo {
 			while (!pila.empty()) {
 				n = pila.pop();
 				String md = Estado.getMD5(Estado.obtenerID(n.getEstado()));
-				pw.println("[" + n.getID() + "]([" + n.getAccion() + "]" + md + "," + n.getCosto() + "," + n.getID()
+				pw.println("[" + n.getId() + "]([" + n.getAccion() + "]" + md + "," + n.getCosto() + "," + n.getId()
 						+ "," + n.getF() + "))");
 			}
 

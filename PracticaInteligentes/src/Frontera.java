@@ -16,6 +16,6 @@ abstract class Frontera {
 	
 	public abstract boolean estaVacia();
 
-	protected abstract Queue<Nodo> getFrontera();
+	protected abstract List<Nodo> getFrontera();
 	
 }

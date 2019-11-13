@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+/*import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -16,7 +16,7 @@ public class FronteraPrioridad extends Frontera{
 	/*
 	 * El funcionamiento de PriorityQueue tiene un funcionamiento similar a la prioridad Heap (explicada en el laboratorio).
 	 * 
-	 */
+	 
 	public FronteraPrioridad() {
 		colaNodoFrontera = new PriorityQueue<Nodo>();
 	}
@@ -45,7 +45,7 @@ public class FronteraPrioridad extends Frontera{
 	}
 	
 	public Nodo eliminarNodo() {
-		return colaNodoFrontera.remove();
+		return colaNodoFrontera.poll();
 	}
 	
 	public boolean estaVacia() {
@@ -69,3 +69,4 @@ public class FronteraPrioridad extends Frontera{
 		return "Tiempo minimo: "+tiempoMinimo+"\n Tiempo maximo: "+tiempoMaximo+"\n Tiempo medio: "+tiempoTotal/tiemposInsercion.size();
 	}
 }
+*/
