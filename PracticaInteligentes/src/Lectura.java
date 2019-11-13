@@ -12,7 +12,7 @@ public class Lectura {
 
 	public int[][][] leerArchivo() throws IOException {
 		try {
-			String ob = FileUtils.readFileToString(new File("cubo2por2.json"));
+			String ob = FileUtils.readFileToString(new File("cuboresuelto.json"));
 			JSONObject json = new JSONObject(ob);
 			// importante mantener el orden de los arrays igual que en el json.
 			JSONArray arrayback = json.getJSONArray("BACK");

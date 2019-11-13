@@ -9,19 +9,33 @@ public class Main {
 		Cubo c= new Cubo();
 		Cubo clon = new Cubo(c);
 		Lectura leer = new Lectura();
-		
 		int [][][] posiciones = leer.leerArchivo();
 		Problema problema = new Problema();
 		//Cubo clon= new Cubo(c);
 		//Estado.imprimirCubo(c);
 		//Algoritmo.busqueda_acotada(posiciones, "e", 6);
-		Algoritmo.busqueda(problema, "ANCHURA", 6, 1);
-		//Estado.sucesores(c);
 		
+		//Algoritmo.busqueda(problema, "ANCHURA", 6, 1);
+		
+		//Estado.sucesores(c);
 		//Estado.imprimirCubo(c);
 		//System.out.println("Cubo movido");
 		//c=Movimiento.movimiento(c, 'd', 2);
 		//Estado.imprimirCubo(c);
+		
+		//----Comprobacion- Crear Solucion-------------------
+		//Nodo padre, Cubo estado, String accion, double costo, int d, int id, double valor
+		/*Nodo padre = null;
+		Nodo h1 = new Nodo(padre, c, "L0", 0, 0, 0, 1);
+		c=Movimiento.movimiento(c, 'd', 2);
+		Nodo h2 = new Nodo(h1, c, "d2", 2, 2, 1, 2);
+		clon=Movimiento.movimiento(c, 'D', 2);
+		Nodo h3 = new Nodo(h2, clon, "D2", 3, 3, 2, 3);
+		clon=Movimiento.movimiento(c, 'D', 2);
+		Nodo h4 = new Nodo(h3, c, "LD2", 22, 12212, 221,112122);
+		Algoritmo.CrearSolucion(h4);*/
+		
+		
 		/*  QUITAR ESTA LINEA PARA QUE EJECUTE EL CODIGO
 
 //-----------------------------------------------------------------------------------------------------------------

@@ -102,20 +102,14 @@ public class Algoritmo {
 		boolean primero = false;
 		pila.push(nodo_actual); // meto el nodo de la solucion
 
-		while (nodo_actual.getPadre() != null && primero == false) {
-
-			pila.push(nodo_actual.getPadre()); // meto el nodo padre del actual
+		 do{
 			nodo_actual = nodo_actual.getPadre(); // convierto al padre en nodo actual
-
-			if (nodo_actual.getId() == 0 && nodo_actual.getPadre() == null) {
-				// compruebo si el nodo actual tiene ID=0, porque seria el primero, el del
-				// inicio
-				// y que no tiene padre
-
-				primero = true; // he encontrado el primero nodo de todo el arbol
-				pila.push(nodo_actual); // meto ese nodo en la pila y me salgo del while
+			pila.push(nodo_actual); // meto ese nodo en la pila y me salgo del while
+			
+			if (nodo_actual.getId() == 0) { //si hemos llegado al primer nodo, ponemos a TRUE
+				primero = true; 
 			}
-		}
+		}while (primero == false);
 
 		// ya tenemos la pila llena, ahora ir sacando y metiendo en el archivo de texto
 		// convertir el cubo a MD5 y guardarlo asi
@@ -133,21 +127,21 @@ public class Algoritmo {
 
 		Nodo n = null;
 		FileWriter fichero = null;
-		PrintWriter pw = null;
 		try {
 			fichero = new FileWriter("solucion.txt");
-			pw = new PrintWriter(fichero);
-
+			//pw = new PrintWriter(fichero);
+			fichero.write("ID NODO, ACCION, ESTADO, COSTE, PROFUNDIDAD, VALOR DE F \n");
 			while (!pila.empty()) {
 				n = pila.pop();
 				String md = Estado.getMD5(Estado.obtenerID(n.getEstado()));
-				pw.println("[" + n.getId() + "]([" + n.getAccion() + "]" + md + "," + n.getCosto() + "," + n.getId()
-						+ "," + n.getF() + "))");
+				fichero.write("[" + n.getId() + "] ([" + n.getAccion() + "] " + md + ", " + n.getCosto() + ", " + n.getD()
+						+ ", " + n.getF() + ")) \n");
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		fichero.close();
 
 	}
 
