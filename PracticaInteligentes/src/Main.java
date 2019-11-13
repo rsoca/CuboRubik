@@ -11,10 +11,11 @@ public class Main {
 		Lectura leer = new Lectura();
 		
 		int [][][] posiciones = leer.leerArchivo();
-		
+		Problema problema = new Problema();
 		//Cubo clon= new Cubo(c);
 		//Estado.imprimirCubo(c);
-		Algoritmo.busqueda_acotada(posiciones, "e", 6);
+		//Algoritmo.busqueda_acotada(posiciones, "e", 6);
+		Algoritmo.busqueda(problema, "e", 6, 0);
 		//Estado.sucesores(c);
 		
 		//Estado.imprimirCubo(c);

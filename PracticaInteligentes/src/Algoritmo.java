@@ -3,27 +3,48 @@ import java.util.*;
 
 public class Algoritmo {
 
-	public static boolean busqueda_acotada(int[][][] problema, String estrategia, int pmaxima) throws IOException { // en anchura
+	public static boolean busqueda(Problema problema, String estrategia, int profMax, int incProf) throws IOException {
+		long profActual = incProf;
+		boolean esSolucion = false;
+		while (!esSolucion && profActual <= profMax) {
+			esSolucion = busqueda_acotada(problema, estrategia, profMax);
+			profActual = profActual + incProf;
+		}
+
+		return esSolucion;
+	}
+	
+	private static boolean busqueda_acotada(Problema problema, String estrategia, int profMax) throws IOException { // en anchura
 		boolean solucion = false;
 		Cubo c = new Cubo();
+		c.setPosiciones(problema.getPos());
 		Nodo[] lista_nodos;
 		String[][] lista_sucesores;
 		Frontera frontera = new FronteraPrioridad();
 		frontera.crearFrontera();
 		Nodo padre = null; // consultar porque me parece raro crearlo
 		Nodo nodo_actual = null;
-		Nodo nodo_inicial = new Nodo(padre, c, "", 0, 0, 0); // nodo padre, estado, accion, coste, profundidad, id
+		Nodo nodo_inicial = new Nodo(padre, c,"", 0, 0, 0); // nodo padre, estado, accion, coste, profundidad, id
 		frontera.insertarNodo(nodo_inicial);
 
 		while (!solucion  && !frontera.estaVacia()) {
-			nodo_actual = seleccionarNodo(frontera);
+			nodo_actual = frontera.eliminarNodo();
 			if (Problema.esObjetivo(nodo_actual)) {
 				solucion = true;
 			} else {
 				lista_sucesores = Estado.sucesores(nodo_actual.getEstado());
-				lista_nodos = CrearListaNodos(lista_sucesores, nodo_actual, pmaxima, estrategia);
+				lista_nodos = CrearListaNodos(lista_sucesores, nodo_actual, profMax, estrategia);
 				for(int i=0; i<lista_nodos.length; i++)
 					frontera.insertarNodo(lista_nodos[i]);
+				/*for (int i = 0; i < lista_sucesores.length; i++) {
+					System.out.print("(");
+					for (int j = 0; j < lista_sucesores[0].length; j++) {
+						System.out.print(lista_sucesores[i][j] + ",");
+						
+					}
+					System.out.print(")\n");
+				}*/
+				
 			} // fin if-else
 		} // fin while
 
@@ -38,13 +59,16 @@ public class Algoritmo {
 
 	}// fin busqueda acotada
 
+	
+	//Seleccionar nodo hace lo mismo que eliminar nodo de la clase FronteraPrioridad
+	/*
 	public static Nodo seleccionarNodo(Frontera frontera) {
 		Nodo nodo = null;
 		Queue<Nodo> f = frontera.getFrontera();
 		nodo = f.poll();
 		System.out.println("Cojo el nodo de la frontera con id: " + nodo.getID());
 		return nodo;
-	}
+	}*/
 
 	public static Nodo[] CrearListaNodos(String[][] lista_sucesores, Nodo nodo_actual, int pmaxima, String estrategia)
 			throws IOException {
@@ -120,7 +144,7 @@ public class Algoritmo {
 			while (!pila.empty()) {
 				n = pila.pop();
 				String md = Estado.getMD5(Estado.obtenerID(n.getEstado()));
-				pw.println("[" + n.getID() + "]([" + n.getAccion() + "]" + md + "," + n.getCosto() + "," + n.getD()
+				pw.println("[" + n.getID() + "]([" + n.getAccion() + "]" + md + "," + n.getCosto() + "," + n.getID()
 						+ "," + n.getF() + "))");
 			}
 

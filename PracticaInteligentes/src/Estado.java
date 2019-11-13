@@ -34,8 +34,10 @@ public class Estado {
 		return ID;
 	}
 	
+	
+	
 	public static Cubo obtenerCubo(String estado) throws IOException {
-		Cubo c=null;
+		Cubo c=new Cubo();
 		int dimension = (int) Math.sqrt(estado.length()/6); //obtenemos la dimension del cubo
 		int [][][] tri = new int [6][dimension][dimension];
 		int contador = 0;
@@ -66,8 +68,8 @@ public class Estado {
 			}
 		}
 		
-		c= new Cubo();
-		
+		c.setPosiciones(tri);
+		c.setEstado(estado);
 		return c;
 	}
 	
@@ -150,13 +152,13 @@ public class Estado {
 
 		System.out.println("\nEl numero de sucesores es: " + sucesores.length);
 
-		for (int i = 0; i < sucesores.length; i++) {
+		/*for (int i = 0; i < sucesores.length; i++) {
 			System.out.print("(");
 			for (int j = 0; j < sucesores[0].length; j++) {
 				System.out.print(sucesores[i][j] + ","); // se imprime la matriz sucesores
 			}
 			System.out.print(")\n");
-		}
+		}*/
 		return sucesores;
 	}
 

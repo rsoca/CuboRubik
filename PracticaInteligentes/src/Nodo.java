@@ -10,13 +10,47 @@ public class Nodo implements Comparable<Nodo>{
 	int id; //int porque llega a 2 millones
 
 	public Nodo(Nodo padre, Cubo estado, String accion, double costo, int d, int id) {
-		this.padre = padre;
-		this.estado = estado;
+		setPadre(padre);
+		setEstado(estado);
+		setAccion(accion);
+		setCosto(costo);
+		setD(d);
+		setId(id);
+		//this.padre = padre;
+		//this.estado = estado;
 		this.f = Integer.valueOf((int) (Math.random() * 10)); // Valor aleatorio entre 0 y 10
+		//this.accion = accion;
+		//this.costo = costo;
+		//this.d = d;
+		//this.id=id;
+	}
+
+	public void setPadre(Nodo padre) {
+		this.padre = padre;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setAccion(String accion) {
 		this.accion = accion;
+	}
+
+	public void setCosto(double costo) {
 		this.costo = costo;
+	}
+
+	public void setF(int f) {
+		this.f = f;
+	}
+
+	public void setD(int d) {
 		this.d = d;
-		this.id=id;
 	}
 
 	public Nodo getPadre() {
@@ -27,6 +61,10 @@ public class Nodo implements Comparable<Nodo>{
 		return estado;
 	}
 
+	public void setEstado(Cubo estado) {
+		this.estado = estado;
+	}
+	
 	public int getF() {
 		return f;
 	}
@@ -35,12 +73,12 @@ public class Nodo implements Comparable<Nodo>{
 		return accion;
 	}
 
-	public double getCosto() {
-		return costo;
-	}
-
 	public int getD() {
 		return d;
+	}
+
+	public double getCosto() {
+		return costo;
 	}
 	
 	public int getID(){

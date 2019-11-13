@@ -45,7 +45,7 @@ public class FronteraPrioridad extends Frontera{
 	}
 	
 	public Nodo eliminarNodo() {
-		return colaNodoFrontera.poll();
+		return colaNodoFrontera.remove();
 	}
 	
 	public boolean estaVacia() {

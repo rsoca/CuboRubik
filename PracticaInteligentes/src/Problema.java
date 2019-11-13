@@ -1,5 +1,28 @@
+import java.io.IOException;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class Problema {
+
+	private int [][][] pos;
+	private Lectura l;
+	public Problema() throws IOException {
+		l=new Lectura();
+		pos = l.leerArchivo();
+	}
+	
+	public Problema problema() throws IOException {
+		Problema p = new Problema();
+		return p;
+	}
+	
+	public int[][][] getPos() {
+		return pos;
+	}
+
+	public void setPos(int[][][] pos) {
+		this.pos = pos;
+	}
 
 	public static boolean esObjetivo(Nodo node) {
 		boolean encontrado = true;
