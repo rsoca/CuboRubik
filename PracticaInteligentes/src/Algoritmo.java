@@ -32,72 +32,46 @@ public class Algoritmo {
 		Nodo nodo_actual = null;
 		Nodo nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 0); // nodo padre, estado, accion, coste, profundidad, id
 		frontera.insertarNodo(nodo_inicial);
-		
-		//PODA
+		boolean per = true;
+		// PODA
 		// el diccionario contiene < estado en forma string, valor de f>
-		Map<String, Double> nodosoguardados=new HashMap<String, Double>();
-		//metemos el primer nodo al diccionario
+		Map<String, Double> nodosoguardados = new HashMap<String, Double>();
+		// metemos el primer nodo al diccionario
 		String n = Estado.obtenerID(nodo_inicial.getEstado());
 		double f = nodo_inicial.getF();
-		nodosoguardados.put(n,f);
-		
+		nodosoguardados.put(n, f);
+
 		while (!solucion && !frontera.estaVacia()) {
 			nodo_actual = frontera.sacarNodo();
-			
+			if (nodosoguardados.containsKey(nodo_actual.getEstado().getEstado())) {
+				nodosoguardados.remove(nodo_actual.getEstado().getEstado());
+			}
 			solucion = Problema.esObjetivo(nodo_actual);
 			if (solucion) {
 				System.out.print("Lo tenemos");
 			} else {
 				lista_sucesores = Estado.sucesores(nodo_actual.getEstado());
 				lista_nodos = CrearListaNodos(lista_sucesores, nodo_actual, profMax, estrategia);
-				//PODA
-				//guardo los nodos obtenidos dentro del diccionario
-				
-				//recorremos la lista de nodos
+				// si no contiene el nodo que hemos creado, lo metemos en los creados y en la
+				// frontera
 				for (int i = 0; i < lista_nodos.length; i++) {
-					
-					//por cada nodo comprobamos que no lo tengamos ya
-					//recorremos lista de nodos guardados
-					for(int j=0; j<nodosoguardados.size();j++) {
-						
-						//obtenemos el estado en forma de string de la lista de nodos creada
-						n = Estado.obtenerID(lista_nodos[i].getEstado());
-						
-						if(nodosoguardados.containsKey(n)) { //si contiene el nodo que hemos creado
-							
-							double valorf = nodosoguardados.get(n); //valor de f que tengo en el diccionario asigna al estado n
-							
-							//si los valores de f son diferentes
-							if(valorf != lista_nodos[i].getF()) {
-								
-								//si el valor de f guardado es mayor que el f que obtengo
-								if(valorf > lista_nodos[i].getF()) {
-									//saco el antiguo
-									nodosoguardados.remove(n);
-									
-									//meto en nuevo nodo
-									n = Estado.obtenerID(lista_nodos[i].getEstado());
-									f = lista_nodos[i].getF();
-									nodosoguardados.put(n,f);
-									
-									//meto el nuevo nodo en la frontera
-									frontera.insertarNodo(lista_nodos[i]);
-								}
-							}
-							
-						}else { //si no contiene el nodo que hemos creado, lo metemos en los creados y en la frontera
-							n = Estado.obtenerID(lista_nodos[i].getEstado());
-							f = lista_nodos[i].getF();
-							nodosoguardados.put(n,f);
-							
-							frontera.insertarNodo(lista_nodos[i]);
+					if (nodosoguardados.containsKey(nodo_actual.getEstado().getEstado())) {
+						double valorf = nodosoguardados.get(n).doubleValue();
+						if (valorf > lista_nodos[i].getF()) {
+							per = false;
+
 						}
 					}
-				}	
+					if (per) {
+						frontera.insertarNodo(lista_nodos[i]);
+						n = Estado.obtenerID(lista_nodos[i].getEstado());
+						f = lista_nodos[i].getF();
+						nodosoguardados.put(n, f);
+					}
+				}
 			}
-			
-		}//fin while
-		
+		}
+
 		if (solucion) {
 			System.out.println("Creamos la solucion");
 			CrearSolucion(nodo_actual); // aqui dudo de si tengo que imprimir, devolver true, crear el archivo dentro
@@ -132,7 +106,7 @@ public class Algoritmo {
 				valorF = nodo_actual.getCosto() + Double.parseDouble(lista_sucesores[i][2]);
 			}
 
-			idN = idN + 1; //Actualizamos el id de cada nodo
+			idN = idN + 1; // Actualizamos el id de cada nodo
 			nodo = new Nodo(nodo_actual, Estado.obtenerCubo(lista_sucesores[i][1]), lista_sucesores[i][0],
 					Double.parseDouble(lista_sucesores[i][2]) + nodo_actual.getCosto(), nodo_actual.getD() + 1, idN,
 					valorF);
@@ -146,21 +120,21 @@ public class Algoritmo {
 		return lista;
 	}
 
-	//acabado
+	// acabado
 	public static void CrearSolucion(Nodo nodo_actual) throws IOException { // importar siempre el java.io
 
 		Stack<Nodo> pila = new Stack<Nodo>(); // creamos la pila donde iran entrando los nodos
 		boolean primero = false;
 		pila.push(nodo_actual); // meto el nodo de la solucion
 
-		 do{
+		do {
 			nodo_actual = nodo_actual.getPadre(); // convierto al padre en nodo actual
 			pila.push(nodo_actual); // meto ese nodo en la pila y me salgo del while
-			
-			if (nodo_actual.getId() == 0) { //si hemos llegado al primer nodo, ponemos a TRUE
-				primero = true; 
+
+			if (nodo_actual.getId() == 0) { // si hemos llegado al primer nodo, ponemos a TRUE
+				primero = true;
 			}
-		}while (primero == false);
+		} while (primero == false);
 
 		// ya tenemos la pila llena, ahora ir sacando y metiendo en el archivo de texto
 		// convertir el cubo a MD5 y guardarlo asi
@@ -180,13 +154,13 @@ public class Algoritmo {
 		FileWriter fichero = null;
 		try {
 			fichero = new FileWriter("solucion.txt");
-			//pw = new PrintWriter(fichero);
+			// pw = new PrintWriter(fichero);
 			fichero.write("ID NODO, ACCION, ESTADO, COSTE, PROFUNDIDAD, VALOR DE F \n");
 			while (!pila.empty()) {
 				n = pila.pop();
 				String md = Estado.getMD5(Estado.obtenerID(n.getEstado()));
-				fichero.write("[" + n.getId() + "] ([" + n.getAccion() + "] " + md + ", " + n.getCosto() + ", " + n.getD()
-						+ ", " + n.getF() + ")) \n");
+				fichero.write("[" + n.getId() + "] ([" + n.getAccion() + "] " + md + ", " + n.getCosto() + ", "
+						+ n.getD() + ", " + n.getF() + ")) \n");
 			}
 
 		} catch (Exception e) {

@@ -28,11 +28,8 @@ public class FronteraLista extends Frontera{
 
 	public void insertarNodo(Nodo nodo) {
 		inicioInsercion = System.currentTimeMillis();
-		//Añadimos poda
-		if(nodeListFrontera.contains(nodo.getId())) {
-			double f = nodo.getF();
-		}
 		nodeListFrontera.add(nodo);
+		Collections.sort(nodeListFrontera);
 		finInsercion = System.currentTimeMillis();
 		tiemposInsercion.add(finInsercion - inicioInsercion);
 	}
