@@ -15,7 +15,7 @@ public class Main {
 		//Estado.imprimirCubo(c);
 		//Algoritmo.busqueda_acotada(posiciones, "e", 6);
 		
-		//Algoritmo.busqueda(problema, "ANCHURA", 6, 1);
+		Algoritmo.busqueda(problema, "ANCHURA", 6, 1);
 		
 		//Estado.sucesores(c);
 		//Estado.imprimirCubo(c);

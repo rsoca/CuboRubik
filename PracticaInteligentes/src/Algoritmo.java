@@ -32,22 +32,72 @@ public class Algoritmo {
 		Nodo nodo_actual = null;
 		Nodo nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 0); // nodo padre, estado, accion, coste, profundidad, id
 		frontera.insertarNodo(nodo_inicial);
-
+		
+		//PODA
+		// el diccionario contiene < estado en forma string, valor de f>
+		Map<String, Double> nodosoguardados=new HashMap<String, Double>();
+		//metemos el primer nodo al diccionario
+		String n = Estado.obtenerID(nodo_inicial.getEstado());
+		double f = nodo_inicial.getF();
+		nodosoguardados.put(n,f);
+		
 		while (!solucion && !frontera.estaVacia()) {
-			nodo_actual = frontera.eliminarNodo();
-			/*
-			 * if (Problema.esObjetivo(nodo_actual)) { solucion = true; }
-			 */
+			nodo_actual = frontera.sacarNodo();
+			
 			solucion = Problema.esObjetivo(nodo_actual);
 			if (solucion) {
 				System.out.print("Lo tenemos");
 			} else {
 				lista_sucesores = Estado.sucesores(nodo_actual.getEstado());
 				lista_nodos = CrearListaNodos(lista_sucesores, nodo_actual, profMax, estrategia);
-				for (int i = 0; i < lista_nodos.length; i++)
-					frontera.insertarNodo(lista_nodos[i]);
+				//PODA
+				//guardo los nodos obtenidos dentro del diccionario
+				
+				//recorremos la lista de nodos
+				for (int i = 0; i < lista_nodos.length; i++) {
+					
+					//por cada nodo comprobamos que no lo tengamos ya
+					//recorremos lista de nodos guardados
+					for(int j=0; j<nodosoguardados.size();j++) {
+						
+						//obtenemos el estado en forma de string de la lista de nodos creada
+						n = Estado.obtenerID(lista_nodos[i].getEstado());
+						
+						if(nodosoguardados.containsKey(n)) { //si contiene el nodo que hemos creado
+							
+							double valorf = nodosoguardados.get(n); //valor de f que tengo en el diccionario asigna al estado n
+							
+							//si los valores de f son diferentes
+							if(valorf != lista_nodos[i].getF()) {
+								
+								//si el valor de f guardado es mayor que el f que obtengo
+								if(valorf > lista_nodos[i].getF()) {
+									//saco el antiguo
+									nodosoguardados.remove(n);
+									
+									//meto en nuevo nodo
+									n = Estado.obtenerID(lista_nodos[i].getEstado());
+									f = lista_nodos[i].getF();
+									nodosoguardados.put(n,f);
+									
+									//meto el nuevo nodo en la frontera
+									frontera.insertarNodo(lista_nodos[i]);
+								}
+							}
+							
+						}else { //si no contiene el nodo que hemos creado, lo metemos en los creados y en la frontera
+							n = Estado.obtenerID(lista_nodos[i].getEstado());
+							f = lista_nodos[i].getF();
+							nodosoguardados.put(n,f);
+							
+							frontera.insertarNodo(lista_nodos[i]);
+						}
+					}
+				}	
 			}
-		}
+			
+		}//fin while
+		
 		if (solucion) {
 			System.out.println("Creamos la solucion");
 			CrearSolucion(nodo_actual); // aqui dudo de si tengo que imprimir, devolver true, crear el archivo dentro
@@ -66,26 +116,26 @@ public class Algoritmo {
 
 		Nodo[] lista = new Nodo[lista_sucesores.length];
 		Nodo nodo = null;
-		double valor = 0;
+		double valorF = 0;
 		int id = nodo_actual.getId();
 		System.out.println("Creo la lista nodos del nodo con ID " + id);
 		System.out.println("Profundidad: " + nodo_actual.getD());
 		for (int i = 0; i < lista_sucesores.length; i++) { // recorremos las filas de los sucesores
 			switch (estrategia) {
 			case ANCHURA:
-				valor = nodo_actual.getD() + 1;
+				valorF = nodo_actual.getD() + 1;
 				break;
 			case PROFUNDIDAD:
-				valor = (-1) * (nodo.getD() + 1);
+				valorF = (-1) * (nodo.getD() + 1);
 				break;
 			case COSTO_UNIFORME:
-				valor = nodo_actual.getCosto() + Double.parseDouble(lista_sucesores[i][2]);
+				valorF = nodo_actual.getCosto() + Double.parseDouble(lista_sucesores[i][2]);
 			}
 
 			idN = idN + 1; //Actualizamos el id de cada nodo
 			nodo = new Nodo(nodo_actual, Estado.obtenerCubo(lista_sucesores[i][1]), lista_sucesores[i][0],
 					Double.parseDouble(lista_sucesores[i][2]) + nodo_actual.getCosto(), nodo_actual.getD() + 1, idN,
-					valor);
+					valorF);
 			if (nodo.getD() <= pmaxima) {
 				lista[i] = nodo;
 			}
@@ -96,6 +146,7 @@ public class Algoritmo {
 		return lista;
 	}
 
+	//acabado
 	public static void CrearSolucion(Nodo nodo_actual) throws IOException { // importar siempre el java.io
 
 		Stack<Nodo> pila = new Stack<Nodo>(); // creamos la pila donde iran entrando los nodos

@@ -37,7 +37,7 @@ public class FronteraLista extends Frontera{
 		tiemposInsercion.add(finInsercion - inicioInsercion);
 	}
 
-	public Nodo eliminarNodo() {
+	public Nodo sacarNodo() {
 		// ordenamos la frontera
 		Collections.sort(nodeListFrontera);
 		return nodeListFrontera.remove(0);

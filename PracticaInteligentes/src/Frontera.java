@@ -12,7 +12,7 @@ abstract class Frontera {
 	
 	public abstract void insertarNodo(Nodo nodo);
 	
-	public abstract Nodo eliminarNodo(); 
+	public abstract Nodo sacarNodo(); 
 	
 	public abstract boolean estaVacia();
 
