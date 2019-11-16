@@ -35,14 +35,17 @@ public class Problema {
 		 * del bucle no coinciden, encontrado pasa a ser false, y nos devuelve
 		 */
 
-		int[] orden = { 3, 1, 2, 4, 5, 0 }; // variable donde tenemos el orden de los colores segun el orden de las
+		//int[] orden = { 3, 1, 2, 4, 5, 0 }; // variable donde tenemos el orden de los colores segun el orden de las
 											// caras
+		int[] orden = { 2, 5, 3, 1, 0, 4 };
+		
 		int recorrido; // variable donde se guarda la ultima cara recorrida
 		int[][][] cubo = estado.getPosiciones();
 
 		int longitud = (6 * cubo[0].length * cubo[0].length); // obtengo el numero total de cuadraditos a recorrer
 		int contador = 0; // el contador para ir sabiendo en que parte de la longitud estoy
 
+		
 		int i, j, k;
 		do {
 			for (i = 0; i < cubo.length; i++) { // este for recorre las caras del cubo
@@ -56,10 +59,10 @@ public class Problema {
 						} else { // este else es porque si resulta que un cuadradito no corresponde con el color
 									// de la cara correspondiente
 							encontrado = false;
-							contador = longitud;
-							i = cubo.length;
-							j = cubo[0].length;
-							k = cubo[0][0].length;
+//							contador = longitud;
+//							i = cubo.length;
+//							j = cubo[0].length;
+//							k = cubo[0][0].length;
 						}
 						contador++;
 					}

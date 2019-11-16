@@ -19,56 +19,30 @@ public class Algoritmo {
 		return esSolucion;
 	}
 
-	private static boolean busqueda_acotada(Problema problema, String estrategia, int profMax) throws IOException { // en
+	public static boolean busqueda_acotada(Problema problema, String estrategia, int profMax) throws IOException { // en
 																													// anchura
 		boolean solucion = false;
 		Cubo c = new Cubo();
 		c.setPosiciones(problema.getPos());
 		c.setEstado(Estado.obtenerID(c));
-		Nodo[] lista_nodos;
+		List<Nodo> lista_nodos;
 		String[][] lista_sucesores;
-		Frontera frontera = new FronteraLista();
+		Frontera frontera = new FronteraPrioridad();
 		frontera.crearFrontera();
 		Nodo nodo_actual = null;
 		Nodo nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 0); // nodo padre, estado, accion, coste, profundidad, id
 		frontera.insertarNodo(nodo_inicial);
-		boolean per = true;
-		// PODA
-		// el diccionario contiene < estado en forma string, valor de f>
-		Map<String, Double> nodosoguardados = new HashMap<String, Double>();
-		// metemos el primer nodo al diccionario
-		String n = Estado.obtenerID(nodo_inicial.getEstado());
-		double f = nodo_inicial.getF();
-		nodosoguardados.put(n, f);
 
 		while (!solucion && !frontera.estaVacia()) {
 			nodo_actual = frontera.sacarNodo();
-			if (nodosoguardados.containsKey(nodo_actual.getEstado().getEstado())) {
-				nodosoguardados.remove(nodo_actual.getEstado().getEstado());
-			}
+			frontera.comprobacion(nodo_actual);
 			solucion = Problema.esObjetivo(nodo_actual);
 			if (solucion) {
 				System.out.print("Lo tenemos");
 			} else {
 				lista_sucesores = Estado.sucesores(nodo_actual.getEstado());
 				lista_nodos = CrearListaNodos(lista_sucesores, nodo_actual, profMax, estrategia);
-				// si no contiene el nodo que hemos creado, lo metemos en los creados y en la
-				// frontera
-				for (int i = 0; i < lista_nodos.length; i++) {
-					if (nodosoguardados.containsKey(nodo_actual.getEstado().getEstado())) {
-						double valorf = nodosoguardados.get(n).doubleValue();
-						if (valorf > lista_nodos[i].getF()) {
-							per = false;
-
-						}
-					}
-					if (per) {
-						frontera.insertarNodo(lista_nodos[i]);
-						n = Estado.obtenerID(lista_nodos[i].getEstado());
-						f = lista_nodos[i].getF();
-						nodosoguardados.put(n, f);
-					}
-				}
+				frontera.insertarNodos(lista_nodos);
 			}
 		}
 
@@ -85,15 +59,16 @@ public class Algoritmo {
 
 	}// fin busqueda acotada
 
-	public static Nodo[] CrearListaNodos(String[][] lista_sucesores, Nodo nodo_actual, int pmaxima, String estrategia)
+	public static List<Nodo> CrearListaNodos(String[][] lista_sucesores, Nodo nodo_actual, int pmaxima, String estrategia)
 			throws IOException {
 
-		Nodo[] lista = new Nodo[lista_sucesores.length];
+		List<Nodo> lista = new ArrayList<Nodo>();
 		Nodo nodo = null;
 		double valorF = 0;
 		int id = nodo_actual.getId();
-		System.out.println("Creo la lista nodos del nodo con ID " + id);
-		System.out.println("Profundidad: " + nodo_actual.getD());
+		System.out.println("nodos de: " + nodo_actual.getId() + " con profundidad "+(nodo_actual.getD()+1));
+		
+			System.out.println("AAAAAAA: " + nodo_actual.getEstado().getEstado());
 		for (int i = 0; i < lista_sucesores.length; i++) { // recorremos las filas de los sucesores
 			switch (estrategia) {
 			case ANCHURA:
@@ -108,12 +83,12 @@ public class Algoritmo {
 
 			idN = idN + 1; // Actualizamos el id de cada nodo
 			nodo = new Nodo(nodo_actual, Estado.obtenerCubo(lista_sucesores[i][1]), lista_sucesores[i][0],
-					Double.parseDouble(lista_sucesores[i][2]) + nodo_actual.getCosto(), nodo_actual.getD() + 1, idN,
+					Double.parseDouble(lista_sucesores[i][2]) + nodo_actual.getCosto(), (nodo_actual.getD()+1) , idN,
 					valorF);
-			if (nodo.getD() <= pmaxima) {
-				lista[i] = nodo;
+			if (nodo.getD() < pmaxima) {
+				lista.add(nodo);
 			}
-			System.out.println("Id: " + nodo.getId());
+			
 
 		}
 

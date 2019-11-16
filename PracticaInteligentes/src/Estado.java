@@ -149,16 +149,6 @@ public class Estado {
 			sucesores[(i * 6) + 5][2] = Integer.toString(costActi);
 			aux= new Cubo(c);
 		}
-
-		System.out.println("\nEl numero de sucesores es: " + sucesores.length);
-
-		/*for (int i = 0; i < sucesores.length; i++) {
-			System.out.print("(");
-			for (int j = 0; j < sucesores[0].length; j++) {
-				System.out.print(sucesores[i][j] + ","); // se imprime la matriz sucesores
-			}
-			System.out.print(")\n");
-		}*/
 		return sucesores;
 	}
 

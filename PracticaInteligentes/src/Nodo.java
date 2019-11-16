@@ -18,7 +18,7 @@ public class Nodo implements Comparable<Nodo>{
 		setId(id);
 		//this.padre = padre;
 		//this.estado = estado;
-		this.f = valor;
+		setF(valor);
 		//this.accion = accion;
 		//this.costo = costo;
 		//this.d = d;
@@ -95,9 +95,15 @@ public class Nodo implements Comparable<Nodo>{
 		this.id = id;
 	}
 
-
 	@Override
 	public int compareTo(Nodo nodo) {
-		return nodo.getId();
+		// El orden sera creciente respecto al valor redondeado de 'f' de los nodos
+		return Double.valueOf(Math.abs(this.getId())).compareTo((double) Math.abs(nodo.getId()));
+		//Hacemos valor absoluto para que funcione para todas las búsquedas (ordenación por profundidad)
 	}
+	
+	/*
+	public int compareTo(Nodo nodo) {
+		return nodo.getId();
+	}*/
 }

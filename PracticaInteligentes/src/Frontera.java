@@ -12,10 +12,13 @@ abstract class Frontera {
 	
 	public abstract void insertarNodo(Nodo nodo);
 	
+	public abstract void insertarNodos(List<Nodo> nodo);
+	
 	public abstract Nodo sacarNodo(); 
 	
 	public abstract boolean estaVacia();
 
-	protected abstract List<Nodo> getFrontera();
+	public abstract void comprobacion(Nodo nodo_actual);
+
 	
 }
