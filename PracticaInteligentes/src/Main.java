@@ -27,8 +27,9 @@ public class Main {
 		c=Movimiento.movimiento(c, 'B', 2);
 		Estado.imprimirCubo(c);*/
 		
-		//Algoritmo.busqueda(problema, "ANCHURA", 6, 0);
-		Algoritmo.busqueda(problema, "ANCHURA", 6, 0);
+		
+		Algoritmo.busqueda(problema, "ANCHURA", 2, 0);
+	
 		
 		//Estado.sucesores(c);
 		//Estado.imprimirCubo(c);
@@ -46,8 +47,14 @@ public class Main {
 		Nodo h3 = new Nodo(h2, clon, "D2", 3, 3, 2, 3);
 		clon=Movimiento.movimiento(c, 'D', 2);
 		Nodo h4 = new Nodo(h3, c, "LD2", 22, 12212, 221,112122);
-		Algoritmo.CrearSolucion(h4);*/
+		//Algoritmo.CrearSolucion(h4);
 		
+		System.out.println("H1"+h1.getEstado().getEstado());
+		System.out.println("H1      "+Estado.obtenerID(h1.getEstado()));
+		System.out.println("H2"+h2.getEstado().getEstado());
+		System.out.println("H3"+h3.getEstado().getEstado());
+		System.out.println("H4"+h4.getEstado().getEstado());*/
+
 		
 		/*  QUITAR ESTA LINEA PARA QUE EJECUTE EL CODIGO
 

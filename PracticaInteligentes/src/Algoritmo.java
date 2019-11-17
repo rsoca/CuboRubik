@@ -36,7 +36,7 @@ public class Algoritmo {
 		while (solucion==false) {//|| frontera.estaVacia()==true he quitado lo de la frontera vacia, porque siempre estara llena { 
 			
 			nodo_actual = frontera.sacarNodo();
-			frontera.comprobacion(nodo_actual);
+			//frontera.comprobacion(nodo_actual);
 			solucion = Problema.esObjetivo(nodo_actual);
 			if (solucion) {
 				System.out.print("Lo tenemos");
@@ -44,6 +44,8 @@ public class Algoritmo {
 				lista_sucesores = Estado.sucesores(nodo_actual.getEstado());
 				lista_nodos = CrearListaNodos(lista_sucesores, nodo_actual, profMax, estrategia);
 				frontera.insertarNodos(lista_nodos);
+				
+				//imprimir frontera
 			}
 		}
 
@@ -52,7 +54,7 @@ public class Algoritmo {
 			CrearSolucion(nodo_actual); // aqui dudo de si tengo que imprimir, devolver true, crear el archivo dentro
 										// del metodo...
 		} else {
-			System.out.println("No la hemos encontrado");
+			System.out.println("NO LA HEMOS ENCONTRADO");
 			// solucion = false;
 		}
 
@@ -67,7 +69,7 @@ public class Algoritmo {
 		Nodo nodo = null;
 		double valorF = 0;
 		int id = nodo_actual.getId();
-		System.out.println("nodos de: " + nodo_actual.getId() + " con profundidad "+(nodo_actual.getD()+1));
+		System.out.println("nodos de: " + id + " con profundidad "+(nodo_actual.getD()+1));
 		
 			System.out.println("AAAAAAA: " + nodo_actual.getEstado().getEstado());
 		for (int i = 0; i < lista_sucesores.length; i++) { // recorremos las filas de los sucesores
@@ -93,7 +95,7 @@ public class Algoritmo {
 			
 			nodo = new Nodo(nodo_actual, cubo, accion, nuevo_coste, d, idN, valorF);
 			
-			if (nodo.getD() < pmaxima) {
+			if (nodo.getD() <= pmaxima) {
 				lista.add(nodo);
 			}
 			

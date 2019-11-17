@@ -5,10 +5,10 @@ import java.util.PriorityQueue;
   
 class Comparar implements Comparator<Nodo> { 
 	
-    public int compare(Nodo nodo1, Nodo nodo2) 
-    { 
+    public int compare(Nodo nodo1, Nodo nodo2) { 
         Integer id1 = nodo1.getId(); 
         Integer id2 = nodo2.getId(); 
+       
         
         return id1.compareTo(id2); 
     } 

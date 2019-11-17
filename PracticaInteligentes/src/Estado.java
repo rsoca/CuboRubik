@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 public class Estado {
 
 	public static void imprimirCubo(Cubo cubo) {
-
+		
 		int[][][] tri = cubo.getPosiciones();
 
 		for (int i = 0; i < tri.length; i++) {
@@ -18,7 +18,8 @@ public class Estado {
 			}
 		}
 	}
-
+	
+	
 	public static String obtenerID(Cubo cubo) {
 		String ID = "";
 		int[][][] tri = cubo.getPosiciones();
@@ -32,11 +33,13 @@ public class Estado {
 		}
 		return ID;
 	}
-
+	
+	
+	
 	public static Cubo obtenerCubo(String estado) throws IOException {
-		Cubo c = new Cubo();
-		int dimension = (int) Math.sqrt(estado.length() / 6); // obtenemos la dimension del cubo
-		int[][][] tri = new int[6][dimension][dimension];
+		Cubo c=new Cubo();
+		int dimension = (int) Math.sqrt(estado.length()/6); //obtenemos la dimension del cubo
+		int [][][] tri = new int [6][dimension][dimension];
 		int contador = 0;
 		int limite = estado.length();
 		// hacemos un vector de string separando el de estado
@@ -52,7 +55,7 @@ public class Estado {
 		for (int g = 0; g < numeros.length; g++) {
 			numeros[g] = Integer.parseInt(lista[g]);
 		}
-
+		
 		for (int i = 0; i < tri.length; i++) {
 			for (int j = 0; j < tri[0].length; j++) {
 				for (int k = 0; k < tri[0][0].length; k++) {
@@ -60,15 +63,17 @@ public class Estado {
 						tri[i][j][k] = numeros[contador];
 						contador++;
 					}
-
+					
 				}
 			}
 		}
-
+		
 		c.setPosiciones(tri);
 		c.setEstado(estado);
 		return c;
 	}
+	
+	
 
 //Metodo md5, utilizar cuando sea necesario
 	public static String getMD5(String input) {
@@ -107,8 +112,8 @@ public class Estado {
 
 		String sucesores[][] = new String[dimension * 6][3]; // matriz de sucesores que almacena
 																// [movimiento,nuevoestado,coste]
-		Cubo aux = new Cubo(c);
-		// Cubo n= null;
+		Cubo aux= new Cubo(c);
+		//Cubo n= null;
 		String estado = aux.getEstado(); // obtenemos el estado actual del cubo
 		char[] orden = { 'B', 'b', 'D', 'd', 'L', 'l' };
 		int bucle = 0;
@@ -123,40 +128,38 @@ public class Estado {
 				bucle++;
 			}
 		}
-
-		/*
-		for (int i = 0; i < dimension; i++) { // rellenamos la matriz en trozos de 6 "i" veces( el numero de caras por
-												// la dimension del cubo)
-			estado = Estado.obtenerID(Movimiento.movimiento(aux, 'B', i));
-			sucesores[i * 6][0] = "B" + i;
+/*
+		for (int i = 0; i < dimension; i++) { // rellenamos la matriz en trozos de 6 "i" veces( el numero de caras por la dimension del cubo)
+			estado = Estado.obtenerID(Movimiento.movimiento(aux, 'L', i));
+			sucesores[i * 6][0] = "L" + i;
 			sucesores[i * 6][1] = estado;
 			sucesores[i * 6][2] = Integer.toString(costActi);
-			aux = new Cubo(c);
-			estado = Estado.obtenerID(Movimiento.movimiento(aux, 'b', i));
-			sucesores[(i * 6) + 1][0] = "b" + i;
+			aux= new Cubo(c);
+			estado = Estado.obtenerID(Movimiento.movimiento(aux, 'l', i));
+			sucesores[(i * 6) + 1][0] = "l" + i;
 			sucesores[(i * 6) + 1][1] = estado;
 			sucesores[(i * 6) + 1][2] = Integer.toString(costActi);
-			aux = new Cubo(c);
+			aux= new Cubo(c);
 			estado = Estado.obtenerID(Movimiento.movimiento(aux, 'D', i));
 			sucesores[(i * 6) + 2][0] = "D" + i;
 			sucesores[(i * 6) + 2][1] = estado;
 			sucesores[(i * 6) + 2][2] = Integer.toString(costActi);
-			aux = new Cubo(c);
+			aux= new Cubo(c);
 			estado = Estado.obtenerID(Movimiento.movimiento(aux, 'd', i));
 			sucesores[(i * 6) + 3][0] = "d" + i;
 			sucesores[(i * 6) + 3][1] = estado;
 			sucesores[(i * 6) + 3][2] = Integer.toString(costActi);
-			aux = new Cubo(c);
-			estado = Estado.obtenerID(Movimiento.movimiento(aux, 'L', i));
-			sucesores[(i * 6) + 4][0] = "L" + i;
+			aux= new Cubo(c);
+			estado = Estado.obtenerID(Movimiento.movimiento(aux, 'B', i));
+			sucesores[(i * 6) + 4][0] = "B" + i;
 			sucesores[(i * 6) + 4][1] = estado;
 			sucesores[(i * 6) + 4][2] = Integer.toString(costActi);
-			aux = new Cubo(c);
-			estado = Estado.obtenerID(Movimiento.movimiento(aux, 'l', i));
-			sucesores[(i * 6) + 5][0] = "l" + i;
+			aux= new Cubo(c);
+			estado = Estado.obtenerID(Movimiento.movimiento(aux, 'b', i));
+			sucesores[(i * 6) + 5][0] = "b" + i;
 			sucesores[(i * 6) + 5][1] = estado;
 			sucesores[(i * 6) + 5][2] = Integer.toString(costActi);
-			aux = new Cubo(c);
+			aux= new Cubo(c);
 		}*/
 		return sucesores;
 	}

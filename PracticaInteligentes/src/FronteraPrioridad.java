@@ -36,16 +36,34 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 	
 	public void insertarNodo(Nodo nodo) {
 		//inicioInsercion = System.currentTimeMillis();
-		boolean pasa = true;
-		if(map.containsKey(nodo.getEstado().getEstado())) {
-			double valorf = map.get(nodo.getEstado().getEstado()).doubleValue();
-			if(Math.abs(nodo.getF()) > valorf) {
+		boolean pasa = true;//si el nodo pasa a la frontera o no
+		
+		String estado= Estado.obtenerID(nodo.getEstado());
+		
+		
+		if(map.containsKey(estado)) {
+			
+			double valorf = map.get(estado).doubleValue();
+			System.out.println("Comparo ACTUAL estado: "+estado+" y F "+nodo.getF()+
+					"\nComparo DICCIO estado: "+map.get(nodo.getF())+" y F "+ valorf);
+			
+			if(nodo.getF() >= valorf) {
+				
 				pasa = false;
+				System.out.println("y es "+pasa+" NO LO METO");
 			}
 		}
-		if(pasa) {
+		if(pasa==true) {
+			System.out.println("y es "+pasa +"  lo meto en la frontera y en el diccionario");
 			colaNodoFrontera.add(nodo);
-			map.put(nodo.getEstado().getEstado(), Math.abs(nodo.getF()));
+			estado = Estado.obtenerID(nodo.getEstado());
+			
+			if(map.containsKey(estado)==false) {//si nodo no esta en el diccionario, lo meto
+			map.put(estado, nodo.getF());
+			}else { //si el nodo esta en el diccionario pero la f es mejor, lo actualizo
+				double valorf = map.get(estado).doubleValue();
+				map.replace(estado, valorf, nodo.getF());
+			}
 		}
 		
 		//finInsercion = System.currentTimeMillis();
@@ -88,6 +106,9 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 		return colaNodoFrontera.remove();
 	}
 	
+	public void imprimirFrontera() {
+		//es con un while
+	}
 	
 	/*public int compareTo(Nodo nodo) {
 		// El orden sera creciente respecto al valor redondeado de 'f' de los nodos
