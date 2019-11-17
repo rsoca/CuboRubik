@@ -33,7 +33,8 @@ public class Algoritmo {
 		Nodo nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 0); // nodo padre, estado, accion, coste, profundidad, id
 		frontera.insertarNodo(nodo_inicial);
 
-		while (!solucion && !frontera.estaVacia()) {
+		while (solucion==false) {//|| frontera.estaVacia()==true he quitado lo de la frontera vacia, porque siempre estara llena { 
+			
 			nodo_actual = frontera.sacarNodo();
 			frontera.comprobacion(nodo_actual);
 			solucion = Problema.esObjetivo(nodo_actual);
@@ -75,21 +76,27 @@ public class Algoritmo {
 				valorF = nodo_actual.getD() + 1;
 				break;
 			case PROFUNDIDAD:
-				valorF = (-1) * (nodo.getD() + 1);
+				valorF = 1/(nodo_actual.getD() + 1);
 				break;
 			case COSTO_UNIFORME:
 				valorF = nodo_actual.getCosto() + Double.parseDouble(lista_sucesores[i][2]);
 			}
 
 			idN = idN + 1; // Actualizamos el id de cada nodo
-			nodo = new Nodo(nodo_actual, Estado.obtenerCubo(lista_sucesores[i][1]), lista_sucesores[i][0],
-					Double.parseDouble(lista_sucesores[i][2]) + nodo_actual.getCosto(), (nodo_actual.getD()+1) , idN,
-					valorF);
+			//Nodo padre, Cubo estado, String accion, double costo, int d, int id, double valor
+			
+			Cubo cubo = Estado.obtenerCubo(lista_sucesores[i][1]);
+			String accion = lista_sucesores[i][0];
+			double coste_sucesor = Double.parseDouble(lista_sucesores[i][2]);
+			double nuevo_coste = coste_sucesor + nodo_actual.getCosto();
+			int d = nodo_actual.getD()+1; //
+			
+			nodo = new Nodo(nodo_actual, cubo, accion, nuevo_coste, d, idN, valorF);
+			
 			if (nodo.getD() < pmaxima) {
 				lista.add(nodo);
 			}
 			
-
 		}
 
 		return lista;

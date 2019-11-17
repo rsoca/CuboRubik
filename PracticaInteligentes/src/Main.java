@@ -14,8 +14,21 @@ public class Main {
 		//Cubo clon= new Cubo(c);
 		//Estado.imprimirCubo(c);
 		//Algoritmo.busqueda_acotada(posiciones, "e", 6);
+		/*Nodo padre = null;
+		Nodo h1 = new Nodo(padre, c, "L0", 0, 0, 0, 1);
+		if (problema.esObjetivo(h1)==true) {
+			System.out.println("El cubo es objetivo");
+		}else {
+			System.out.println("El cubo no es objetivo");
+		}*/
 		
-		Algoritmo.busqueda_acotada(problema, "ANCHURA", 6);
+		/*c=Movimiento.movimiento(c, 'L', 2);
+		c=Movimiento.movimiento(c, 'D', 2);
+		c=Movimiento.movimiento(c, 'B', 2);
+		Estado.imprimirCubo(c);*/
+		
+		//Algoritmo.busqueda(problema, "ANCHURA", 6, 0);
+		Algoritmo.busqueda(problema, "ANCHURA", 6, 0);
 		
 		//Estado.sucesores(c);
 		//Estado.imprimirCubo(c);

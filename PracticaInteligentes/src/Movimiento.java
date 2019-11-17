@@ -11,14 +11,19 @@ public class Movimiento {
 		int[] left = new int[longitud];
 		int[] right = new int[longitud];
 		if (Character.valueOf(letra).equals('l') || Character.valueOf(letra).equals('L')) {
+			
 			int[][] left1 = new int[longitud][longitud];
 			int[][] right1 = new int[longitud][longitud];
 			cubo.setPosiciones(girolL(cuboRotar, cubo, up, down, front, back, left1, right1, n, letra, longitud));
+			
 		} else if (Character.valueOf(letra).equals('d') || Character.valueOf(letra).equals('D')) {
+			
 			int[][] down1 = new int[longitud][longitud];
 			int[][] up1 = new int[longitud][longitud];
 			cubo.setPosiciones(girodD(cuboRotar, cubo, up1, down1, front, back, left, right, n, letra, longitud));
+			
 		} else if (Character.valueOf(letra).equals('b') || Character.valueOf(letra).equals('B')) {
+			
 			int[][] back1 = new int[longitud][longitud];
 			int[][] front1 = new int[longitud][longitud];
 			cubo.setPosiciones(girobB(cuboRotar, cubo, back1, front1, down, left, right, up, n, letra, longitud));

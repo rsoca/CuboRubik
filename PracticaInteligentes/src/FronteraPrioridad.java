@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-public class FronteraPrioridad extends Frontera{
+public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 
 	private Queue<Nodo> colaNodoFrontera;
 	private List<Long> tiemposInsercion = new ArrayList<Long>(); //tiempos de insercion
@@ -21,7 +21,7 @@ public class FronteraPrioridad extends Frontera{
 	 */
 	 
 	public FronteraPrioridad() {
-		colaNodoFrontera = new PriorityQueue<Nodo>();
+		colaNodoFrontera = new PriorityQueue<Nodo>(new Comparar());
 		map = new HashMap<>();
 	}
 	
@@ -87,11 +87,21 @@ public class FronteraPrioridad extends Frontera{
 	public Nodo sacarNodo() {
 		return colaNodoFrontera.remove();
 	}
+	
+	
+	/*public int compareTo(Nodo nodo) {
+		// El orden sera creciente respecto al valor redondeado de 'f' de los nodos
+		return Double.valueOf(Math.abs(this.getId())).compareTo((double) Math.abs(nodo.getId()));
+		//Hacemos valor absoluto para que funcione para todas las búsquedas (ordenación por profundidad)
+	}*/
 
 	@Override
 	public void comprobacion(Nodo nodo_actual) {
-		if (map.containsKey(nodo_actual.getEstado().getEstado())) {
-			map.remove(nodo_actual.getEstado().getEstado());
+		double f = map.get(nodo_actual.getEstado().getEstado());
+		double f_actual = nodo_actual.getF();
+		if (map.containsKey(nodo_actual.getEstado().getEstado()) && f_actual> f) {
+			//map.remove(nodo_actual.getEstado().getEstado());
+			map.replace(nodo_actual.getEstado().getEstado(), f, f_actual);
 		}
 		
 	}

@@ -1,5 +1,5 @@
  
-public class Nodo implements Comparable<Nodo>{
+public class Nodo { // implements Comparable<Nodo>{
 	
 	private Nodo padre;
 	private Cubo estado; // como el estado es una representacion del cubo, pues es un cubo
@@ -95,12 +95,7 @@ public class Nodo implements Comparable<Nodo>{
 		this.id = id;
 	}
 
-	@Override
-	public int compareTo(Nodo nodo) {
-		// El orden sera creciente respecto al valor redondeado de 'f' de los nodos
-		return Double.valueOf(Math.abs(this.getId())).compareTo((double) Math.abs(nodo.getId()));
-		//Hacemos valor absoluto para que funcione para todas las búsquedas (ordenación por profundidad)
-	}
+	
 	
 	/*
 	public int compareTo(Nodo nodo) {
