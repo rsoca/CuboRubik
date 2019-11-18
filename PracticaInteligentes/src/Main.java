@@ -11,8 +11,8 @@ public class Main {
 		Lectura leer = new Lectura();
 		int [][][] posiciones = leer.leerArchivo();
 		Problema problema = new Problema();
-		
-		//Algoritmo.busqueda_acotada(problema, "ANCHURA", 6);
+	
+		Algoritmo.busqueda(problema, "ANCHURA", 6, 0); //prueba del 4por4
 		
 		
 		//PRUEBA ORDENACION DE LA COLA 
@@ -57,10 +57,12 @@ public class Main {
 		}else {
 			System.out.println("El cubo no es objetivo");
 		}*/
-		
-		/*c=Movimiento.movimiento(c, 'L', 2);
-		c=Movimiento.movimiento(c, 'D', 2);
-		c=Movimiento.movimiento(c, 'B', 2);
+		/*Estado.imprimirCubo(c);
+		c=Movimiento.movimiento(c, 'b', 0);
+		c=Movimiento.movimiento(c, 'b', 0);
+		c=Movimiento.movimiento(c, 'D', 1);
+		c=Movimiento.movimiento(c, 'd', 0);
+		c=Movimiento.movimiento(c, 'B', 0);
 		Estado.imprimirCubo(c);*/
 		
 		
@@ -73,23 +75,6 @@ public class Main {
 		//c=Movimiento.movimiento(c, 'd', 2);
 		//Estado.imprimirCubo(c);
 		
-		//----Comprobacion- Crear Solucion-------------------
-		//Nodo padre, Cubo estado, String accion, double costo, int d, int id, double valor
-		/*Nodo padre = null;
-		Nodo h1 = new Nodo(padre, c, "L0", 0, 0, 0, 1);
-		c=Movimiento.movimiento(c, 'd', 2);
-		Nodo h2 = new Nodo(h1, c, "d2", 2, 2, 1, 2);
-		clon=Movimiento.movimiento(c, 'D', 2);
-		Nodo h3 = new Nodo(h2, clon, "D2", 3, 3, 2, 3);
-		clon=Movimiento.movimiento(c, 'D', 2);
-		Nodo h4 = new Nodo(h3, c, "LD2", 22, 12212, 221,112122);
-		//Algoritmo.CrearSolucion(h4);
-		
-		System.out.println("H1"+h1.getEstado().getEstado());
-		System.out.println("H1      "+Estado.obtenerID(h1.getEstado()));
-		System.out.println("H2"+h2.getEstado().getEstado());
-		System.out.println("H3"+h3.getEstado().getEstado());
-		System.out.println("H4"+h4.getEstado().getEstado());*/
 
 		
 		/*  QUITAR ESTA LINEA PARA QUE EJECUTE EL CODIGO
