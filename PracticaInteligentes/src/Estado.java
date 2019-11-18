@@ -113,7 +113,6 @@ public class Estado {
 		String sucesores[][] = new String[dimension * 6][3]; // matriz de sucesores que almacena
 																// [movimiento,nuevoestado,coste]
 		Cubo aux= new Cubo(c);
-		//Cubo n= null;
 		String estado = aux.getEstado(); // obtenemos el estado actual del cubo
 		char[] orden = { 'B', 'b', 'D', 'd', 'L', 'l' };
 		int bucle = 0;
@@ -128,39 +127,6 @@ public class Estado {
 				bucle++;
 			}
 		}
-/*
-		for (int i = 0; i < dimension; i++) { // rellenamos la matriz en trozos de 6 "i" veces( el numero de caras por la dimension del cubo)
-			estado = Estado.obtenerID(Movimiento.movimiento(aux, 'L', i));
-			sucesores[i * 6][0] = "L" + i;
-			sucesores[i * 6][1] = estado;
-			sucesores[i * 6][2] = Integer.toString(costActi);
-			aux= new Cubo(c);
-			estado = Estado.obtenerID(Movimiento.movimiento(aux, 'l', i));
-			sucesores[(i * 6) + 1][0] = "l" + i;
-			sucesores[(i * 6) + 1][1] = estado;
-			sucesores[(i * 6) + 1][2] = Integer.toString(costActi);
-			aux= new Cubo(c);
-			estado = Estado.obtenerID(Movimiento.movimiento(aux, 'D', i));
-			sucesores[(i * 6) + 2][0] = "D" + i;
-			sucesores[(i * 6) + 2][1] = estado;
-			sucesores[(i * 6) + 2][2] = Integer.toString(costActi);
-			aux= new Cubo(c);
-			estado = Estado.obtenerID(Movimiento.movimiento(aux, 'd', i));
-			sucesores[(i * 6) + 3][0] = "d" + i;
-			sucesores[(i * 6) + 3][1] = estado;
-			sucesores[(i * 6) + 3][2] = Integer.toString(costActi);
-			aux= new Cubo(c);
-			estado = Estado.obtenerID(Movimiento.movimiento(aux, 'B', i));
-			sucesores[(i * 6) + 4][0] = "B" + i;
-			sucesores[(i * 6) + 4][1] = estado;
-			sucesores[(i * 6) + 4][2] = Integer.toString(costActi);
-			aux= new Cubo(c);
-			estado = Estado.obtenerID(Movimiento.movimiento(aux, 'b', i));
-			sucesores[(i * 6) + 5][0] = "b" + i;
-			sucesores[(i * 6) + 5][1] = estado;
-			sucesores[(i * 6) + 5][2] = Integer.toString(costActi);
-			aux= new Cubo(c);
-		}*/
 		return sucesores;
 	}
 

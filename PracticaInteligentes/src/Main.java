@@ -11,9 +11,45 @@ public class Main {
 		Lectura leer = new Lectura();
 		int [][][] posiciones = leer.leerArchivo();
 		Problema problema = new Problema();
-		//Cubo clon= new Cubo(c);
-		//Estado.imprimirCubo(c);
-		//Algoritmo.busqueda_acotada(posiciones, "e", 6);
+		
+		//Algoritmo.busqueda_acotada(problema, "ANCHURA", 6);
+		
+		
+		//PRUEBA ORDENACION DE LA COLA 
+		/*int profMax = 3;
+		String estrategia = "ANCHURA";
+		Frontera frontera = new FronteraPrioridad();
+		frontera.crearFrontera();
+		Nodo nodo_padre=null;
+		Nodo nodo_actual = null;
+		Nodo nodo_inicial = new Nodo(nodo_padre, c, "", 0, 0, 0, 0);
+		
+		List<Nodo> lista_nodos;
+		String[][] lista_sucesores;
+		frontera.insertarNodo(nodo_inicial);
+		
+		int cr=0;
+		do {
+		nodo_actual = frontera.sacarNodo();
+		System.out.println("El estado es: " + Estado.obtenerID(nodo_actual.getEstado())+
+				" El Id es: "+nodo_actual.getId()+" La F es: "+nodo_actual.getF());
+		lista_sucesores = Estado.sucesores(nodo_actual.getEstado());
+		lista_nodos = Algoritmo.CrearListaNodos(lista_sucesores, nodo_actual, profMax, estrategia);
+		frontera.insertarNodos(lista_nodos);
+		cr++;
+		}while(cr<100);
+		
+		while(frontera.estaVacia()!=true) {
+			Nodo nodo = frontera.sacarNodo();
+			
+			System.out.println("El estado es: " + Estado.obtenerID(nodo.getEstado())+
+					" El Id es: "+nodo.getId()+" La F es: "+nodo.getF());
+		}*/
+		
+		
+		
+		
+		
 		/*Nodo padre = null;
 		Nodo h1 = new Nodo(padre, c, "L0", 0, 0, 0, 1);
 		if (problema.esObjetivo(h1)==true) {
@@ -28,7 +64,7 @@ public class Main {
 		Estado.imprimirCubo(c);*/
 		
 		
-		Algoritmo.busqueda(problema, "ANCHURA", 2, 0);
+		
 	
 		
 		//Estado.sucesores(c);

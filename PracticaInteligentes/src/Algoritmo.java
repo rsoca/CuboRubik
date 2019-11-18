@@ -32,12 +32,15 @@ public class Algoritmo {
 		Nodo nodo_actual = null;
 		Nodo nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 0); // nodo padre, estado, accion, coste, profundidad, id
 		frontera.insertarNodo(nodo_inicial);
+		
+		//HOY QUE CONTROLAR EL FALLO DE LA PROFUNDIDAD, NO SE PARA, SE PASA
 
-		while (solucion==false) {//|| frontera.estaVacia()==true he quitado lo de la frontera vacia, porque siempre estara llena { 
+		while (solucion==false ) {//|| frontera.estaVacia()==true he quitado lo de la frontera vacia, porque siempre estara llena { 
 			
 			nodo_actual = frontera.sacarNodo();
 			//frontera.comprobacion(nodo_actual);
 			solucion = Problema.esObjetivo(nodo_actual);
+			
 			if (solucion) {
 				System.out.print("Lo tenemos");
 			} else {
@@ -47,6 +50,7 @@ public class Algoritmo {
 				
 				//imprimir frontera
 			}
+			
 		}
 
 		if (solucion) {
@@ -98,9 +102,7 @@ public class Algoritmo {
 			if (nodo.getD() <= pmaxima) {
 				lista.add(nodo);
 			}
-			
 		}
-
 		return lista;
 	}
 

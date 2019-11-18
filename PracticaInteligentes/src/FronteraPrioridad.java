@@ -40,21 +40,22 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 		
 		String estado= Estado.obtenerID(nodo.getEstado());
 		
-		
 		if(map.containsKey(estado)) {
 			
 			double valorf = map.get(estado).doubleValue();
-			System.out.println("Comparo ACTUAL estado: "+estado+" y F "+nodo.getF()+
-					"\nComparo DICCIO estado: "+map.get(nodo.getF())+" y F "+ valorf);
+			//System.out.println("Comparo ACTUAL estado: "+estado+" y F "+nodo.getF()+
+			//		"\nComparo DICCIO estado: "+map.get(nodo.getF())+" y F "+ valorf);
 			
 			if(nodo.getF() >= valorf) {
 				
 				pasa = false;
-				System.out.println("y es "+pasa+" NO LO METO");
+				estado= Estado.obtenerID(nodo.getEstado());
+				
+				System.out.println("El estado es: "+estado+" y es "+pasa+" NO LO METO, con id "+nodo.getId());
 			}
 		}
 		if(pasa==true) {
-			System.out.println("y es "+pasa +"  lo meto en la frontera y en el diccionario");
+			//System.out.println("y es "+pasa +"  lo meto en la frontera y en el diccionario");
 			colaNodoFrontera.add(nodo);
 			estado = Estado.obtenerID(nodo.getEstado());
 			
