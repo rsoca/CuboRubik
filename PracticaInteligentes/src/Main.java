@@ -12,8 +12,7 @@ public class Main {
 		int [][][] posiciones = leer.leerArchivo();
 		Problema problema = new Problema();
 	
-		Algoritmo.busqueda(problema, "ANCHURA", 6, 0); //prueba del 4por4
-		
+		Algoritmo.busqueda(problema, "ANCHURA", 6, 0); 
 		
 		//PRUEBA ORDENACION DE LA COLA 
 		/*int profMax = 3;
