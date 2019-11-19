@@ -49,9 +49,7 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 			if(nodo.getF() >= valorf) {
 				
 				pasa = false;
-				estado= Estado.obtenerID(nodo.getEstado());
-				
-				System.out.println("El estado es: "+estado+" y es "+pasa+" NO LO METO, con id "+nodo.getId());
+
 			}
 		}
 		if(pasa==true) {

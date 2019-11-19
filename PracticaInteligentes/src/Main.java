@@ -4,6 +4,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
+//1010	4545	0101	3232	3232	4545
+//1022	4455	3301	3031	1202	4545
+//2222	4455	3333	0011	1100	4455
+
 public class Main {
 	public static void main(String[] args) throws IOException{
 		Cubo c= new Cubo();
@@ -11,7 +15,25 @@ public class Main {
 		Lectura leer = new Lectura();
 		int [][][] posiciones = leer.leerArchivo();
 		Problema problema = new Problema();
-	
+		String id="";
+		id = Estado.obtenerID(clon);
+		System.out.println("El ID es:"+id);	
+		clon=Movimiento.movimiento(clon, 'b', 0);
+		id = Estado.obtenerID(clon);
+		System.out.println("El ID es:"+id);	
+		clon=Movimiento.movimiento(clon, 'D', 0);
+		id = Estado.obtenerID(clon);
+		System.out.println("El ID es:"+id);	
+		clon=Movimiento.movimiento(clon, 'd', 1);
+		id = Estado.obtenerID(clon);
+		System.out.println("El ID es:"+id);	
+		clon=Movimiento.movimiento(clon, 'B', 0);
+		id = Estado.obtenerID(clon);
+		System.out.println("El ID es:"+id);	
+		System.out.println("El ID es:"+id);	
+		clon=Movimiento.movimiento(clon, 'B', 0);
+		id = Estado.obtenerID(clon);
+		System.out.println("El ID es:"+id);	
 		Algoritmo.busqueda(problema, "ANCHURA", 6, 0); 
 		
 		//PRUEBA ORDENACION DE LA COLA 
@@ -119,8 +141,8 @@ public class Main {
 		
 		/*
 		 * MOVIMIENTOS Y MD5 CUBO 
-		 * 
-		String id = Estado.obtenerID(clon);
+		 *
+		id = Estado.obtenerID(clon);
 		System.out.println("El ID es:"+id);	
 		String md= Estado.getMD5(id);
 		System.out.println("El MD5 ES:"+md);	
@@ -173,7 +195,7 @@ public class Main {
 		System.out.println("El ID es:"+id);	
 		md= Estado.getMD5(id);
 		System.out.println("El MD5 ES:"+md);
-		
-*/
+		*/
+
 	}
 }
