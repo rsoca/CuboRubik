@@ -106,14 +106,11 @@ public class Estado {
 
 	public static String[][] sucesores(Cubo c) {
 
-		int costActi = 1; // coste de cada accion
-		int dimension = c.getPosiciones()[0].length; // obtenemos la dimension de la matriz sucesores a partir del
-														// tama�o del cubo
-
-		String sucesores[][] = new String[dimension * 6][3]; // matriz de sucesores que almacena
-																// [movimiento,nuevoestado,coste]
+		int costActi = 1; 
+		int dimension = c.getPosiciones()[0].length; 
+		String sucesores[][] = new String[dimension * 6][3]; 
 		Cubo aux= new Cubo(c);
-		String estado = aux.getEstado(); // obtenemos el estado actual del cubo
+		String estado = aux.getEstado();
 		char[] orden = { 'B', 'b', 'D', 'd', 'L', 'l' };
 		int bucle = 0;
 		for (int contador = 0; contador < orden.length; contador++) {

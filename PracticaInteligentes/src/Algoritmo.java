@@ -33,34 +33,26 @@ public class Algoritmo {
 		Nodo nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 0); // nodo padre, estado, accion, coste, profundidad, id
 		frontera.insertarNodo(nodo_inicial);
 
-		// HOY QUE CONTROLAR EL FALLO DE LA PROFUNDIDAD, NO SE PARA, SE PASA
-
-		while (solucion == false) {// || frontera.estaVacia()==true he quitado lo de la frontera vacia, porque
-									// siempre estara llena {
-
+		while (solucion == false) {
 			nodo_actual = frontera.sacarNodo();
-			// frontera.comprobacion(nodo_actual);
+			frontera.comprobacion(nodo_actual);
 			solucion = Problema.esObjetivo(nodo_actual);
 
 			if (solucion) {
-				System.out.print("Lo tenemos");
+				System.out.println("¡Hemos encontrado una solución!");
 			} else {
 				lista_sucesores = Estado.sucesores(nodo_actual.getEstado());
 				lista_nodos = CrearListaNodos(lista_sucesores, nodo_actual, profMax, estrategia);
 				frontera.insertarNodos(lista_nodos);
-
-				// imprimir frontera
 			}
 
 		}
 
 		if (solucion) {
-			System.out.println("Creamos la solucion");
-			CrearSolucion(nodo_actual); // aqui dudo de si tengo que imprimir, devolver true, crear el archivo dentro
-										// del metodo...
+			System.out.println("Creamos la solucion... (archivo solucion.txt)");
+			CrearSolucion(nodo_actual);
 		} else {
 			System.out.println("NO LA HEMOS ENCONTRADO");
-			// solucion = false;
 		}
 
 		return solucion;
@@ -74,16 +66,15 @@ public class Algoritmo {
 		Nodo nodo = null;
 		double valorF = 0;
 		int id = nodo_actual.getId();
-		System.out.println("nodos de: " + id + " con profundidad " + (nodo_actual.getD() + 1));
-
-		System.out.println("AAAAAAA: " + nodo_actual.getEstado().getEstado());
+		System.out.println("Generamos los nodos de: " + id);
+		System.out.println("Estado del nodo: " + nodo_actual.getEstado().getEstado());
 		for (int i = 0; i < lista_sucesores.length; i++) { // recorremos las filas de los sucesores
 			switch (estrategia) {
 			case ANCHURA:
 				valorF = nodo_actual.getD() + 1;
 				break;
 			case PROFUNDIDAD:
-				valorF = 1 / (nodo_actual.getD() + 1);
+				valorF = 1/(nodo_actual.getD() + 1);
 				break;
 			case COSTO_UNIFORME:
 				valorF = nodo_actual.getCosto() + Double.parseDouble(lista_sucesores[i][2]);

@@ -52,18 +52,19 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 
 			}
 		}
-		if(pasa==true) {
+		if(pasa) {
 			//System.out.println("y es "+pasa +"  lo meto en la frontera y en el diccionario");
 			colaNodoFrontera.add(nodo);
 			estado = Estado.obtenerID(nodo.getEstado());
-			
-			if(map.containsKey(estado)==false) {//si nodo no esta en el diccionario, lo meto
+			map.put(estado, nodo.getF());
+		}
+			/*if(map.containsKey(estado)==false) {//si nodo no esta en el diccionario, lo meto
 			map.put(estado, nodo.getF());
 			}else { //si el nodo esta en el diccionario pero la f es mejor, lo actualizo
 				double valorf = map.get(estado).doubleValue();
 				map.replace(estado, valorf, nodo.getF());
 			}
-		}
+		}*/
 		
 		//finInsercion = System.currentTimeMillis();
 		//tiemposInsercion.add(finInsercion - inicioInsercion);
@@ -102,25 +103,18 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 
 	@Override
 	public Nodo sacarNodo() {
-		return colaNodoFrontera.remove();
+		return colaNodoFrontera.poll();
 	}
 	
 	public void imprimirFrontera() {
 		//es con un while
 	}
-	
-	/*public int compareTo(Nodo nodo) {
-		// El orden sera creciente respecto al valor redondeado de 'f' de los nodos
-		return Double.valueOf(Math.abs(this.getId())).compareTo((double) Math.abs(nodo.getId()));
-		//Hacemos valor absoluto para que funcione para todas las búsquedas (ordenación por profundidad)
-	}*/
 
 	@Override
 	public void comprobacion(Nodo nodo_actual) {
 		double f = map.get(nodo_actual.getEstado().getEstado());
 		double f_actual = nodo_actual.getF();
 		if (map.containsKey(nodo_actual.getEstado().getEstado()) && f_actual> f) {
-			//map.remove(nodo_actual.getEstado().getEstado());
 			map.replace(nodo_actual.getEstado().getEstado(), f, f_actual);
 		}
 		
