@@ -7,7 +7,7 @@ import java.util.*;
 public class Main {
 	public static void main(String[] args) throws IOException{
 		Problema problema = new Problema();
-		Algoritmo.busqueda(problema, "ANCHURA", 6, 1);
+		Algoritmo.busqueda(problema, "ANCHURA", 6, 0);
 
 	}
 }

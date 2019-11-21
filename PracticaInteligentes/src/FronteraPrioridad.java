@@ -25,9 +25,6 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 		map = new HashMap<>();
 	}
 	
-	public Queue getFrontera() {
-		return colaNodoFrontera;
-	}
 	
 	public FronteraPrioridad crearFrontera() {
 		FronteraPrioridad frontera = new FronteraPrioridad();
@@ -41,11 +38,7 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 		String estado= Estado.obtenerID(nodo.getEstado());
 		
 		if(map.containsKey(estado)) {
-			
 			double valorf = map.get(estado).doubleValue();
-			//System.out.println("Comparo ACTUAL estado: "+estado+" y F "+nodo.getF()+
-			//		"\nComparo DICCIO estado: "+map.get(nodo.getF())+" y F "+ valorf);
-			
 			if(nodo.getF() >= valorf) {
 				
 				pasa = false;
@@ -53,18 +46,10 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 			}
 		}
 		if(pasa) {
-			//System.out.println("y es "+pasa +"  lo meto en la frontera y en el diccionario");
 			colaNodoFrontera.add(nodo);
 			estado = Estado.obtenerID(nodo.getEstado());
 			map.put(estado, nodo.getF());
 		}
-			/*if(map.containsKey(estado)==false) {//si nodo no esta en el diccionario, lo meto
-			map.put(estado, nodo.getF());
-			}else { //si el nodo esta en el diccionario pero la f es mejor, lo actualizo
-				double valorf = map.get(estado).doubleValue();
-				map.replace(estado, valorf, nodo.getF());
-			}
-		}*/
 		
 		//finInsercion = System.currentTimeMillis();
 		//tiemposInsercion.add(finInsercion - inicioInsercion);
@@ -106,15 +91,13 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 		return colaNodoFrontera.poll();
 	}
 	
-	public void imprimirFrontera() {
-		//es con un while
-	}
+
 
 	@Override
 	public void comprobacion(Nodo nodo_actual) {
 		double f = map.get(nodo_actual.getEstado().getEstado());
 		double f_actual = nodo_actual.getF();
-		if (map.containsKey(nodo_actual.getEstado().getEstado()) && f_actual> f) {
+		if (map.containsKey(nodo_actual.getEstado().getEstado()) && f_actual>f) {
 			map.replace(nodo_actual.getEstado().getEstado(), f, f_actual);
 		}
 		

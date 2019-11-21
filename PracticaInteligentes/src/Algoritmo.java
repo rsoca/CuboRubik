@@ -92,7 +92,7 @@ public class Algoritmo {
 
 			nodo = new Nodo(nodo_actual, cubo, accion, nuevo_coste, d, idN, valorF);
 
-			if (nodo.getD() <= pmaxima) {
+			if (nodo.getD() < pmaxima) {
 				lista.add(nodo);
 			}
 		}
