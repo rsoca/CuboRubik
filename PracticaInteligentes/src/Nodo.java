@@ -9,8 +9,10 @@ public class Nodo /*implements Comparable<Nodo>*/ {
 	private double f;
 	private int d; // profundidad del nodo
 	private int id; // int porque llega a 2 millones
+	
+	private double h; //heuristica
 
-	public Nodo(Nodo padre, Cubo estado, String accion, double costo, int d, int id, double valor) {
+	public Nodo(Nodo padre, Cubo estado, String accion, double costo, int d, int id, double valor, double h) {
 		setPadre(padre);
 		setEstado(estado);
 		setAccion(accion);
@@ -18,6 +20,8 @@ public class Nodo /*implements Comparable<Nodo>*/ {
 		setD(d);
 		setId(id);
 		setF(valor);
+		setH(h);
+		
 	}
 
 	public Nodo getPadre() {
@@ -76,6 +80,13 @@ public class Nodo /*implements Comparable<Nodo>*/ {
 		this.id = id;
 	}
 
+	public double getH() {
+		return h;
+	}
+	
+	public void setH(double h) {
+		this.h=h;
+	}
 
 	/*
 	 * public int compareTo(Nodo nodo) { return nodo.getId(); }

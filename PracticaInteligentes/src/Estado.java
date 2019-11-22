@@ -34,8 +34,7 @@ public class Estado {
 		return ID;
 	}
 	
-	
-	
+
 	public static Cubo obtenerCubo(String estado) throws IOException {
 		Cubo c=new Cubo();
 		int dimension = (int) Math.sqrt(estado.length()/6); //obtenemos la dimension del cubo

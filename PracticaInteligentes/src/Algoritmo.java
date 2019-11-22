@@ -7,6 +7,8 @@ public class Algoritmo {
 	private static final String ANCHURA = "ANCHURA";
 	private static final String PROFUNDIDAD = "PROFUNDIDAD";
 	private static final String COSTO_UNIFORME = "COSTO UNIFORME";
+	private static final String A = "A";
+	private static final String VORAZ = "VORAZ";
 
 	public static boolean busqueda(Problema problema, String estrategia, int profMax, int incProf) throws IOException {
 		long profActual = incProf;
@@ -30,7 +32,8 @@ public class Algoritmo {
 		Frontera frontera = new FronteraPrioridad();
 		frontera.crearFrontera();
 		Nodo nodo_actual = null;
-		Nodo nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 0); // nodo padre, estado, accion, coste, profundidad, id
+		double h = calcularEntropia(c);
+		Nodo nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 0, h);//nodo padre, estado, accion, coste, profundidad, id, heuristica
 		frontera.insertarNodo(nodo_inicial);
 
 		while (solucion == false) {
@@ -50,7 +53,7 @@ public class Algoritmo {
 
 		if (solucion) {
 			System.out.println("Creamos la solucion... (archivo solucion.txt)");
-			CrearSolucion(nodo_actual);
+			CrearSolucion(nodo_actual, estrategia);
 		} else {
 			System.out.println("NO LA HEMOS ENCONTRADO");
 		}
@@ -78,6 +81,10 @@ public class Algoritmo {
 				break;
 			case COSTO_UNIFORME:
 				valorF = nodo_actual.getCosto() + Double.parseDouble(lista_sucesores[i][2]);
+			case A:
+				valorF = nodo_actual.getH()+nodo_actual.getCosto();
+			case VORAZ:
+				valorF = nodo_actual.getH();
 			}
 
 			idN = idN + 1; // Actualizamos el id de cada nodo
@@ -89,8 +96,9 @@ public class Algoritmo {
 			double coste_sucesor = Double.parseDouble(lista_sucesores[i][2]);
 			double nuevo_coste = coste_sucesor + nodo_actual.getCosto();
 			int d = nodo_actual.getD() + 1; //
-
-			nodo = new Nodo(nodo_actual, cubo, accion, nuevo_coste, d, idN, valorF);
+			double h = calcularEntropia(cubo);
+			
+			nodo = new Nodo(nodo_actual, cubo, accion, nuevo_coste, d, idN, valorF, h);
 
 			if (nodo.getD() < pmaxima) {
 				lista.add(nodo);
@@ -100,7 +108,7 @@ public class Algoritmo {
 	}
 
 	// acabado
-	public static void CrearSolucion(Nodo nodo_actual) throws IOException { // importar siempre el java.io
+	public static void CrearSolucion(Nodo nodo_actual, String estrategia) throws IOException { // importar siempre el java.io
 
 		Stack<Nodo> pila = new Stack<Nodo>(); // creamos la pila donde iran entrando los nodos
 		boolean primero = false;
@@ -120,9 +128,9 @@ public class Algoritmo {
 
 		// LIMPIAMOS EL ANTERIOR ARCHIVO POR SI HUBIERAN DATOS
 
-		BufferedWriter bw = new BufferedWriter(new FileWriter("solucion.txt"));
-		bw.write("");
-		bw.close();
+		//BufferedWriter bw = new BufferedWriter(new FileWriter("solucion.txt"));
+		//bw.write("");
+		//bw.close();
 
 		// Formato de guardado de los datos en el archivo
 		// Prepresentaciï¿½n del nodo del ï¿½rbol: [ID_Nodo]([accion]
@@ -135,6 +143,20 @@ public class Algoritmo {
 			fichero = new FileWriter("solucion.txt");
 			// pw = new PrintWriter(fichero);
 			fichero.write("ID NODO, ACCION, ESTADO, COSTE, PROFUNDIDAD, VALOR DE F \n");
+			
+			switch(estrategia) {
+			case ANCHURA:
+				fichero.write("\nANCHURA \n ================================================= \n");
+			case PROFUNDIDAD:
+				fichero.write("\nPROFUNDIDAD \n ================================================= \n");
+			case COSTO_UNIFORME:
+				fichero.write("\nCOSTO UNIFORME \n ================================================= \n");
+			case A:
+				fichero.write("\nA* \n ================================================= \n");
+			case VORAZ:
+				fichero.write("\nVORAZ \n ================================================= \n");
+			}
+			
 			while (!pila.empty()) {
 				n = pila.pop();
 				String md = Estado.getMD5(Estado.obtenerID(n.getEstado()));
@@ -147,6 +169,36 @@ public class Algoritmo {
 		}
 		fichero.close();
 
+	}
+	
+	
+	public static double calcularEntropia(Cubo cubo) {
+		double entropia=0;
+		//cubo = nodo.getEstado();
+		int [][][] matriz = cubo.getPosiciones();
+		int N = matriz[0].length;
+		int NN = N*N;
+		int contador [] [] = new int [6][6]; //contador para los colores de las caras, 6 caras(filas) , y 6 colores(columnas)
+		
+		for (int i = 0; i < matriz.length; i++) {
+			for (int j = 0; j < matriz[0].length; j++) {
+				for (int k = 0; k < matriz[0][0].length; k++) {
+					int valor = matriz[i][j][k];
+					contador[i][valor]++;
+				}
+			}
+		}
+		
+		for(int i =0; i< contador.length; i++) {
+			for(int j=0; j< contador.length; j++) {
+				
+				//entropía = entropía + contador[c]/(N*N) * math.log(contador[c]/(N*N),6)
+				entropia = entropia + ((contador[i][j]/NN)*Math.log(contador[i][j]/NN));
+			}
+		}
+		
+		
+		return entropia;
 	}
 
 }
