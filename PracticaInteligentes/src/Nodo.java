@@ -1,5 +1,5 @@
 
-public class Nodo /*implements Comparable<Nodo>*/ {
+public class Nodo implements Comparable<Nodo> {
 
 	private Nodo padre;
 	private Cubo estado; // como el estado es una representacion del cubo, pues es un cubo
@@ -76,8 +76,8 @@ public class Nodo /*implements Comparable<Nodo>*/ {
 		this.id = id;
 	}
 
+	public int compareTo(Nodo nodo) {
+		return Double.valueOf(this.f).compareTo(nodo.getF());
+	}
 
-	/*
-	 * public int compareTo(Nodo nodo) { return nodo.getId(); }
-	 */
 }

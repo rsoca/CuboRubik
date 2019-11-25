@@ -10,9 +10,9 @@ abstract class Frontera {
 	 */
 	public abstract Frontera crearFrontera();
 	
-	public abstract void insertarNodo(Nodo nodo);
+	public abstract void insertarNodo(Nodo nodo, String estrategia);
 	
-	public abstract void insertarNodos(List<Nodo> nodo);
+	public abstract void insertarNodos(List<Nodo> nodo, String estrategia);
 	
 	public abstract Nodo sacarNodo(); 
 	

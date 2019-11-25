@@ -21,7 +21,7 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 	 */
 	 
 	public FronteraPrioridad() {
-		colaNodoFrontera = new PriorityQueue<Nodo>(new Comparar());
+		colaNodoFrontera = new PriorityQueue<Nodo>(/*new Comparar()*/);
 		map = new HashMap<>();
 	}
 	
@@ -31,7 +31,7 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 		return frontera;
 	}
 	
-	public void insertarNodo(Nodo nodo) {
+	public void insertarNodo(Nodo nodo, String estrategia) {
 		//inicioInsercion = System.currentTimeMillis();
 		boolean pasa = true;//si el nodo pasa a la frontera o no
 		
@@ -39,10 +39,12 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 		
 		if(map.containsKey(estado)) {
 			double valorf = map.get(estado).doubleValue();
-			if(nodo.getF() >= valorf) {
-				
+			if(nodo.getF() <= valorf &&  estrategia.equals("PROFUNDIDAD")) {
 				pasa = false;
 
+			}
+			else if(nodo.getF() >= valorf){
+				pasa = false;
 			}
 		}
 		if(pasa) {
@@ -55,9 +57,9 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 		//tiemposInsercion.add(finInsercion - inicioInsercion);
 	}
 	
-	public void insertarNodos(List<Nodo> lista_nodos) {
+	public void insertarNodos(List<Nodo> lista_nodos, String estrategia) {
 		for(int i=0; i<lista_nodos.size(); i++) {
-			insertarNodo(lista_nodos.get(i));
+			insertarNodo(lista_nodos.get(i), estrategia);
 		}
 	}
 	
@@ -95,10 +97,13 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 
 	@Override
 	public void comprobacion(Nodo nodo_actual) {
-		double f = map.get(nodo_actual.getEstado().getEstado());
+		String estado= Estado.obtenerID(nodo_actual.getEstado());
+		double f = map.get(estado).doubleValue();
 		double f_actual = nodo_actual.getF();
-		if (map.containsKey(nodo_actual.getEstado().getEstado()) && f_actual>f) {
-			map.replace(nodo_actual.getEstado().getEstado(), f, f_actual);
+		if ((map.containsKey(nodo_actual.getEstado().getEstado()) && f_actual<f) || nodo_actual.getId()==0) {
+			//map.replace(nodo_actual.getEstado().getEstado(), f, f_actual);
+			map.remove(nodo_actual.getEstado().getEstado());
+			//
 		}
 		
 	}

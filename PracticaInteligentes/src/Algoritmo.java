@@ -29,9 +29,9 @@ public class Algoritmo {
 		String[][] lista_sucesores;
 		Frontera frontera = new FronteraPrioridad();
 		frontera.crearFrontera();
-		Nodo nodo_actual = null;
-		Nodo nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 0); // nodo padre, estado, accion, coste, profundidad, id
-		frontera.insertarNodo(nodo_inicial);
+//		Nodo nodo_actual = null;
+		Nodo nodo_actual = new Nodo(null, c, "", 0, 0, 0, 0); // nodo padre, estado, accion, coste, profundidad, id
+		frontera.insertarNodo(nodo_actual, estrategia);
 
 		while (solucion == false) {
 			nodo_actual = frontera.sacarNodo();
@@ -43,7 +43,7 @@ public class Algoritmo {
 			} else {
 				lista_sucesores = Estado.sucesores(nodo_actual.getEstado());
 				lista_nodos = CrearListaNodos(lista_sucesores, nodo_actual, profMax, estrategia);
-				frontera.insertarNodos(lista_nodos);
+				frontera.insertarNodos(lista_nodos, estrategia);
 			}
 
 		}
