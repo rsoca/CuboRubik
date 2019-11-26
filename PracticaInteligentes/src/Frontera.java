@@ -16,7 +16,6 @@ abstract class Frontera {
 	
 	public abstract Nodo sacarNodo(); 
 	
-	
 	public abstract boolean estaVacia();
 
 	public abstract void comprobacion(Nodo nodo_actual);

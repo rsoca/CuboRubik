@@ -12,6 +12,7 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 	private Map<String, Double> map;
 	private long inicioInsercion;
 	private long finInsercion;
+	private List<Nodo> nodosGenerados = new ArrayList<Nodo>();
 	long tiempoTotal;
 	long tiempoMaximo;
 	long tiempoMinimo;
@@ -21,7 +22,7 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 	 */
 	 
 	public FronteraPrioridad() {
-		colaNodoFrontera = new PriorityQueue<Nodo>(/*new Comparar()*/);
+		colaNodoFrontera = new PriorityQueue<Nodo>(new Comparar());
 		map = new HashMap<>();
 	}
 	
@@ -33,20 +34,19 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 	
 	public void insertarNodo(Nodo nodo, String estrategia) {
 		//inicioInsercion = System.currentTimeMillis();
-		boolean pasa = true;//si el nodo pasa a la frontera o no
-		
+		boolean pasa = true;
 		String estado= Estado.obtenerID(nodo.getEstado());
 		
 		if(map.containsKey(estado)) {
 			double valorf = map.get(estado).doubleValue();
 			if(nodo.getF() <= valorf &&  estrategia.equals("PROFUNDIDAD")) {
 				pasa = false;
-
 			}
-			else if(nodo.getF() >= valorf){
+			else if(nodo.getF() >= valorf && !estrategia.equals("PROFUNDIDAD")){
 				pasa = false;
 			}
 		}
+		
 		if(pasa) {
 			colaNodoFrontera.add(nodo);
 			estado = Estado.obtenerID(nodo.getEstado());
@@ -93,18 +93,22 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 		return colaNodoFrontera.poll();
 	}
 	
+	
+	
 
 
 	@Override
 	public void comprobacion(Nodo nodo_actual) {
-		String estado= Estado.obtenerID(nodo_actual.getEstado());
+		String estado = Estado.obtenerID(nodo_actual.getEstado());
 		double f = map.get(estado).doubleValue();
 		double f_actual = nodo_actual.getF();
-		if ((map.containsKey(nodo_actual.getEstado().getEstado()) && f_actual<f) || nodo_actual.getId()==0) {
-			//map.replace(nodo_actual.getEstado().getEstado(), f, f_actual);
+		if ((map.containsKey(nodo_actual.getEstado().getEstado()) &&  nodo_actual.getId()==0)) {
 			map.remove(nodo_actual.getEstado().getEstado());
-			//
 		}
+//		if ((map.containsKey(nodo_actual.getEstado().getEstado()) && f_actual < f)) {
+//			map.replace(nodo_actual.getEstado().getEstado(), f, f_actual);
+//			//
+//		}
 		
 	}
 
