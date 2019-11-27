@@ -39,13 +39,14 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 		
 		if(map.containsKey(estado)) {
 			double valorf = map.get(estado).doubleValue();
-			if(nodo.getF() <= valorf &&  estrategia.equals("PROFUNDIDAD")) {
+			if(nodo.getF() <= valorf && estrategia.equals("PROFUNDIDAD")) {
 				pasa = false;
 			}
 			else if(nodo.getF() >= valorf && !estrategia.equals("PROFUNDIDAD")){
 				pasa = false;
 			}
 		}
+
 		
 		if(pasa) {
 			colaNodoFrontera.add(nodo);
@@ -92,23 +93,13 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 	public Nodo sacarNodo() {
 		return colaNodoFrontera.poll();
 	}
-	
-	
-	
 
 
 	@Override
 	public void comprobacion(Nodo nodo_actual) {
-		String estado = Estado.obtenerID(nodo_actual.getEstado());
-		double f = map.get(estado).doubleValue();
-		double f_actual = nodo_actual.getF();
 		if ((map.containsKey(nodo_actual.getEstado().getEstado()) &&  nodo_actual.getId()==0)) {
 			map.remove(nodo_actual.getEstado().getEstado());
 		}
-//		if ((map.containsKey(nodo_actual.getEstado().getEstado()) && f_actual < f)) {
-//			map.replace(nodo_actual.getEstado().getEstado(), f, f_actual);
-//			//
-//		}
 		
 	}
 

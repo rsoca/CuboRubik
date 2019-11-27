@@ -6,7 +6,7 @@ public class Algoritmo {
 	private static int idN = 0;
 	private static final String ANCHURA = "ANCHURA";
 	private static final String PROFUNDIDAD = "PROFUNDIDAD";
-	private static final String COSTO_UNIFORME = "COSTO UNIFORME";
+	private static final String COSTO_UNIFORME = "COSTO_UNIFORME";
 
 	public static boolean busqueda(Problema problema, String estrategia, int profMax, int incProf) throws IOException {
 		long profActual = incProf;
@@ -62,7 +62,7 @@ public class Algoritmo {
 
 		List<Nodo> lista = new ArrayList<Nodo>();
 		Nodo nodo = null;
-		double valorF = 0;
+		double valorF = 0.0;
 		int id = nodo_actual.getId();
 		System.out.println("Generamos los nodos de: " + id);
 		System.out.println("Estado del nodo: " + nodo_actual.getEstado().getEstado());
@@ -72,10 +72,11 @@ public class Algoritmo {
 				valorF = nodo_actual.getD() + 1;
 				break;
 			case PROFUNDIDAD:
-				valorF = 1/(nodo_actual.getD() + 1);
+				valorF = (double)1/(nodo_actual.getD() + 1);
 				break;
 			case COSTO_UNIFORME:
-				valorF = nodo_actual.getCosto() + Double.parseDouble(lista_sucesores[i][2]);
+				valorF = (double)nodo_actual.getCosto() + Double.parseDouble(lista_sucesores[i][2]);
+				break;
 			}
 
 			idN = idN + 1; // Actualizamos el id de cada nodo
@@ -118,9 +119,9 @@ public class Algoritmo {
 
 		// LIMPIAMOS EL ANTERIOR ARCHIVO POR SI HUBIERAN DATOS
 
-		//BufferedWriter bw = new BufferedWriter(new FileWriter("solucion.txt"));
-		//bw.write("");
-		//bw.close();
+		BufferedWriter bw = new BufferedWriter(new FileWriter("solucion.txt"));
+		bw.write("");
+		bw.close();
 
 		// Formato de guardado de los datos en el archivo
 		// Prepresentaci�n del nodo del �rbol: [ID_Nodo]([accion]
