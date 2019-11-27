@@ -90,16 +90,16 @@ public class Algoritmo {
 				valorF = nodo_actual.getD() + 1;
 				break;
 			case PROFUNDIDAD:
-				valorF = (double)1/(nodo_actual.getD() + 1);
+				valorF = (double)redondearDecimales((1/(nodo_actual.getD() + 1)),2);
 				break;
 			case COSTO_UNIFORME:
-				valorF = (double)nodo_actual.getCosto() + Double.parseDouble(lista_sucesores[i][2]);
+				valorF = (double)redondearDecimales((nodo_actual.getCosto() + Double.parseDouble(lista_sucesores[i][2])), 2);
 				break;
 			case A:
-				valorF = (double)nodo_actual.getH()+nodo_actual.getCosto();
+				valorF = (double)redondearDecimales((nodo_actual.getH()+nodo_actual.getCosto()),2);
 				break;
 			case VORAZ:
-				valorF = (double)nodo_actual.getH();
+				valorF = (double)redondearDecimales(nodo_actual.getH(),2);
 				break;
 			}
 
