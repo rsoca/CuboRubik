@@ -4,7 +4,7 @@ public class Nodo /*implements Comparable<Nodo>*/ {
 	private Nodo padre;
 	private Cubo estado; // como el estado es una representacion del cubo, pues es un cubo
 	private String accion; // desde el padre para alcanzar el nodo actual (supongo que se refiere al
-							// movimiento) ?�?�?
+							// movimiento)
 	private double costo;
 	private double f;
 	private int d; // profundidad del nodo
@@ -87,8 +87,4 @@ public class Nodo /*implements Comparable<Nodo>*/ {
 	public void setH(double h) {
 		this.h=h;
 	}
-
-	/*
-	 * public int compareTo(Nodo nodo) { return nodo.getId(); }
-	 */
 }
