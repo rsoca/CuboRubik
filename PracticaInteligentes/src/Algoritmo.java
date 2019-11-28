@@ -7,7 +7,7 @@ public class Algoritmo {
 	private static int idN = 0;
 	private static final String ANCHURA = "ANCHURA";
 	private static final String PROFUNDIDAD = "PROFUNDIDAD";
-	private static final String COSTO_UNIFORME = "COSTO UNIFORME";
+	private static final String COSTO_UNIFORME = "COSTO_UNIFORME";
 	private static final String A = "A";
 	private static final String VORAZ = "VORAZ";
 
@@ -24,7 +24,7 @@ public class Algoritmo {
 
 	public static boolean busqueda_acotada(Problema problema, String estrategia, int profMax) throws IOException { // en
 																													// anchura
-		boolean solucion = false, salir = false;
+		boolean solucion = false;
 		Cubo c = new Cubo();
 		c.setPosiciones(problema.getPos());
 		c.setEstado(Estado.obtenerID(c));
@@ -34,39 +34,37 @@ public class Algoritmo {
 		frontera.crearFrontera();
 		Nodo nodo_actual = null;
 		Nodo mejor_entropia = null;
-
 		double h = calcularEntropia(c);
-		
-		Nodo nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 0, h);//nodo padre, estado, accion, coste, profundidad, id, heuristica
-		frontera.insertarNodo(nodo_inicial,estrategia);
-		//calcular entropia (cubo cubo)
 
-		while (solucion == false && salir == false && frontera.estaVacia()==false) {
+		Nodo nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 0, h);// nodo padre, estado, accion, coste, profundidad, id,
+																	// heuristica
+		frontera.insertarNodo(nodo_inicial, estrategia);
+		// calcular entropia (cubo cubo)
+
+		while (solucion == false) {
 			nodo_actual = frontera.sacarNodo();
 			frontera.comprobacion(nodo_actual);
 			solucion = Problema.esObjetivo(nodo_actual);
 
-			if (solucion) { System.out.println("¡Hemos encontrado una solucion!"); salir = true;
-			} else{
-				if(nodo_actual.getD() == profMax && nodo_actual.getH() < mejor_entropia.getH()) {
-					//si no solucion, y maxima profundidad, y la h del actual es menor que la que tenemos
-					//asignamos el actual al que ya teniamos
-					mejor_entropia = nodo_actual; 
-				}
-				
-				if(nodo_actual.getD() > profMax) { //si nos pasamos de profundidad y no hay solucion, salimos del while
-					salir=true;
+			if (solucion) {
+				System.out.println("Solucion");
+			} else {
+				if (nodo_actual.getD() == profMax && nodo_actual.getH() < mejor_entropia.getH()) {
+					// si no solucion, y maxima profundidad, y la h del actual es menor que la que
+					// tenemos
+					// asignamos el actual al que ya teniamos
+					mejor_entropia = nodo_actual;
 				}
 				lista_sucesores = Estado.sucesores(nodo_actual.getEstado());
 				lista_nodos = CrearListaNodos(lista_sucesores, nodo_actual, profMax, estrategia);
-				frontera.insertarNodos(lista_nodos,estrategia);
+				frontera.insertarNodos(lista_nodos, estrategia);
 			}
 		}
 
 		if (solucion) {
 			System.out.println("Creamos la solucion... (archivo solucion.txt)");
 			CrearSolucion(nodo_actual, estrategia);
-		} else{
+		} else {
 			System.out.println("No hay solucion.\nLa mejor solucion es (archivo solucion.txt)");
 			CrearSolucion(mejor_entropia, estrategia);
 		}
@@ -85,21 +83,27 @@ public class Algoritmo {
 		System.out.println("Generamos los nodos de: " + id);
 		System.out.println("Estado del nodo: " + nodo_actual.getEstado().getEstado());
 		for (int i = 0; i < lista_sucesores.length; i++) { // recorremos las filas de los sucesores
+			Cubo cubo = Estado.obtenerCubo(lista_sucesores[i][1]);
+			String accion = lista_sucesores[i][0];
+			double coste_sucesor = Double.parseDouble(lista_sucesores[i][2]);
+			double nuevo_coste = coste_sucesor + nodo_actual.getCosto();
+			int d = nodo_actual.getD() + 1; //
+			double h = calcularEntropia(cubo);
 			switch (estrategia) {
 			case ANCHURA:
 				valorF = nodo_actual.getD() + 1;
 				break;
 			case PROFUNDIDAD:
-				valorF = (double)redondearDecimales((1/(nodo_actual.getD() + 1)),2);
+				valorF = redondearDecimales(((double)1/(nodo_actual.getD() + 1)),2);
 				break;
 			case COSTO_UNIFORME:
-				valorF = (double)redondearDecimales((nodo_actual.getCosto() + Double.parseDouble(lista_sucesores[i][2])), 2);
+				valorF = redondearDecimales((double)nodo_actual.getCosto() + Double.parseDouble(lista_sucesores[i][2]), 2);
 				break;
 			case A:
-				valorF = (double)redondearDecimales((nodo_actual.getH()+nodo_actual.getCosto()),2);
+				valorF = redondearDecimales(((double)h + nuevo_coste), 2);
 				break;
 			case VORAZ:
-				valorF = (double)redondearDecimales(nodo_actual.getH(),2);
+				valorF = redondearDecimales((double)h, 2);
 				break;
 			}
 
@@ -107,13 +111,6 @@ public class Algoritmo {
 			// Nodo padre, Cubo estado, String accion, double costo, int d, int id, double
 			// valor
 
-			Cubo cubo = Estado.obtenerCubo(lista_sucesores[i][1]);
-			String accion = lista_sucesores[i][0];
-			double coste_sucesor = Double.parseDouble(lista_sucesores[i][2]);
-			double nuevo_coste = coste_sucesor + nodo_actual.getCosto();
-			int d = nodo_actual.getD() + 1; //
-			double h = calcularEntropia(cubo);
-			
 			nodo = new Nodo(nodo_actual, cubo, accion, nuevo_coste, d, idN, valorF, h);
 
 			if (nodo.getD() < pmaxima) {
@@ -124,12 +121,13 @@ public class Algoritmo {
 	}
 
 	// acabado
-	public static void CrearSolucion(Nodo nodo_actual, String estrategia) throws IOException { // importar siempre el java.io
+	public static void CrearSolucion(Nodo nodo_actual, String estrategia) throws IOException { // importar siempre el
+																								// java.io
 
 		Stack<Nodo> pila = new Stack<Nodo>(); // creamos la pila donde iran entrando los nodos
 		boolean primero = false;
 		pila.push(nodo_actual); // meto el nodo de la solucion
-		
+
 		do {
 			nodo_actual = nodo_actual.getPadre(); // convierto al padre en nodo actual
 			pila.push(nodo_actual); // meto ese nodo en la pila y me salgo del while
@@ -144,9 +142,9 @@ public class Algoritmo {
 
 		// LIMPIAMOS EL ANTERIOR ARCHIVO POR SI HUBIERAN DATOS
 
-		//BufferedWriter bw = new BufferedWriter(new FileWriter("solucion.txt"));
-		//bw.write("");
-		//bw.close();
+		// BufferedWriter bw = new BufferedWriter(new FileWriter("solucion.txt"));
+		// bw.write("");
+		// bw.close();
 
 		// Formato de guardado de los datos en el archivo
 		// Prepresentaciï¿½n del nodo del ï¿½rbol: [ID_Nodo]([accion]
@@ -159,8 +157,8 @@ public class Algoritmo {
 			fichero = new FileWriter("solucion.txt");
 			// pw = new PrintWriter(fichero);
 			fichero.write("ID NODO, ACCION, ESTADO, COSTE, PROFUNDIDAD, VALOR DE F \n");
-			
-			switch(estrategia) {
+
+			switch (estrategia) {
 			case ANCHURA:
 				fichero.write("\nANCHURA \n ================================================= \n");
 				break;
@@ -177,17 +175,17 @@ public class Algoritmo {
 				fichero.write("\nVORAZ \n ================================================= \n");
 				break;
 			}
-			
+
 			while (!pila.empty()) {
 				n = pila.pop();
 				String md = Estado.getMD5(Estado.obtenerID(n.getEstado()));
-				
-				if(n.getId()==0) {
-					fichero.write("[" + n.getId() + "] ([None] " + md + ", c=" + n.getCosto() + ", p="
-							+ n.getD() + ", f=" + n.getF() + " , h=" +n.getH() +")) \n");	
-				}else {
-				fichero.write("[" + n.getId() + "] ([" + n.getAccion() + "] " + md + ", c=" + n.getCosto() + ", p="
-						+ n.getD() + ", f=" + n.getF() + " , h=" +n.getH() +")) \n");
+
+				if (n.getId() == 0) {
+					fichero.write("[" + n.getId() + "] ([None] " + md + ", c=" + n.getCosto() + ", p=" + n.getD()
+							+ ", f=" + n.getF() + " , h=" + n.getH() + ")) \n");
+				} else {
+					fichero.write("[" + n.getId() + "] ([" + n.getAccion() + "] " + md + ", c=" + n.getCosto() + ", p="
+							+ n.getD() + ", f=" + n.getF() + " , h=" + n.getH() + ")) \n");
 				}
 			}
 
@@ -197,59 +195,58 @@ public class Algoritmo {
 		fichero.close();
 
 	}
-	
-	
+
 	public static double calcularEntropia(Cubo cubo) {
-		double entropia=0.0;
-		//cubo = nodo.getEstado();
-		int [][][] matriz = cubo.getPosiciones();
+		double entropia = 0.0;
+		// cubo = nodo.getEstado();
+		int[][][] matriz = cubo.getPosiciones();
 		int N = matriz[0].length;
-		int NN = N*N;
-		int contador [] = new int[6]; //contador para los colores de las caras, 6 caras(filas) , y 6 colores(columnas)
-		
-		for (int i = 0; i < matriz.length; i++) { //caras
-			
+		int NN = N * N;
+		int contador[] = new int[6]; // contador para los colores de las caras, 6 caras(filas) , y 6
+										// colores(columnas)
+
+		for (int i = 0; i < matriz.length; i++) { // caras
+
 			contador = new int[6];
-				for (int j = 0; j < matriz[0].length; j++) { //filas
-					for (int k = 0; k < matriz[0][0].length; k++) { //columnas
-						int valor = matriz[i][j][k];
-						contador[valor]++;
-					}
+			for (int j = 0; j < matriz[0].length; j++) { // filas
+				for (int k = 0; k < matriz[0][0].length; k++) { // columnas
+					int valor = matriz[i][j][k];
+					contador[valor]++;
 				}
-			
-			for(int l=0; l< contador.length; l++) {
-				if(contador[l]>0.0) {
-				//entropía = entropía + contador[c]/(N*N) * math.log(contador[c]/(N*N),6)
-				double c = contador[l];
-				double n = NN;
-				//System.out.println("El c "+ c);
-				double v =(c/n);
-				double log = Math.log(v)/Math.log(6.0);
-				//System.out.println("El primero"+ contador[l]);
-				//System.out.println("El segundo"+ NN);
-				//System.out.println("El v "+ v);
-				//System.out.println("El logaritmo"+ (Math.log(v)));
-				
-				entropia =entropia + (v*log);
-				}
-				//System.out.println("Entropia vale "+Math.floor(entropia));
 			}
-			
+
+			for (int l = 0; l < contador.length; l++) {
+				if (contador[l] > 0.0) {
+					// entropï¿½a = entropï¿½a + contador[c]/(N*N) * math.log(contador[c]/(N*N),6)
+					double c = contador[l];
+					double n = NN;
+					// System.out.println("El c "+ c);
+					double v = (c / n);
+					double log = Math.log(v) / Math.log(6.0);
+					// System.out.println("El primero"+ contador[l]);
+					// System.out.println("El segundo"+ NN);
+					// System.out.println("El v "+ v);
+					// System.out.println("El logaritmo"+ (Math.log(v)));
+
+					entropia = entropia + (v * log);
+				}
+				// System.out.println("Entropia vale "+Math.floor(entropia));
+			}
+
 		}
 		double h_final = Math.abs(redondearDecimales(entropia, 2));
-		
+
 		return h_final;
 	}
-	
-	
+
 	public static double redondearDecimales(double valorInicial, int numeroDecimales) {
-        double parteEntera, resultado;
-        resultado = valorInicial;
-        parteEntera = Math.floor(resultado);
-        resultado=(resultado-parteEntera)*Math.pow(10, numeroDecimales);
-        resultado=Math.round(resultado);
-        resultado=(resultado/Math.pow(10, numeroDecimales))+parteEntera;
-        return resultado;
-    }
+		double parteEntera, resultado;
+		resultado = valorInicial;
+		parteEntera = Math.floor(resultado);
+		resultado = (resultado - parteEntera) * Math.pow(10, numeroDecimales);
+		resultado = Math.round(resultado);
+		resultado = (resultado / Math.pow(10, numeroDecimales)) + parteEntera;
+		return resultado;
+	}
 
 }

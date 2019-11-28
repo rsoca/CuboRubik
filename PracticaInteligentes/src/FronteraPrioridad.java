@@ -105,8 +105,6 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 		
 		if (map.containsKey(nodo_actual.getEstado().getEstado()) && nodo_actual.getId()==0) {
 			map.remove(nodo_actual.getEstado().getEstado());
-		}else if( map.containsKey(nodo_actual.getEstado().getEstado()) && f_actual<f) {
-			map.replace(nodo_actual.getEstado().getEstado(), f, f_actual);
 		}
 	}
 
