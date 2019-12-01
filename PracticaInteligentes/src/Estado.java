@@ -19,7 +19,6 @@ public class Estado {
 		}
 	}
 	
-	
 	public static String obtenerID(Cubo cubo) {
 		String ID = "";
 		int[][][] tri = cubo.getPosiciones();
@@ -72,9 +71,7 @@ public class Estado {
 		return c;
 	}
 	
-	
 
-//Metodo md5, utilizar cuando sea necesario
 	public static String getMD5(String input) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
