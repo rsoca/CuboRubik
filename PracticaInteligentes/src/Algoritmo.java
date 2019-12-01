@@ -11,6 +11,7 @@ public class Algoritmo {
 	private static final String VORAZ = "VORAZ";
 
 	public static void busqueda(Problema problema, String estrategia, int profMax, int incProf) throws IOException {
+		idN=0;
 		long profActual = incProf;
 		boolean esSolucion = false;
 		while (esSolucion==false && profActual <= profMax) {
@@ -114,9 +115,7 @@ public class Algoritmo {
 				break;
 			}
 
-			idN = idN + 1; // Actualizamos el id de cada nodo
-			// Nodo padre, Cubo estado, String accion, double costo, int d, int id, double
-			// valor
+			idN = idN + 1;
 
 			nodo = new Nodo(nodo_actual, cubo, accion, nuevo_coste, d, idN, valorF, h);
 
@@ -130,26 +129,23 @@ public class Algoritmo {
 	
 	public static void CrearSolucion(Nodo nodo_actual, String estrategia) throws IOException { 
 
-		Stack<Nodo> pila = new Stack<Nodo>(); // creamos la pila donde iran entrando los nodos
+		Stack<Nodo> pila = new Stack<Nodo>(); 
 		boolean primero = false;
-		pila.push(nodo_actual); // meto el nodo de la solucion
+		pila.push(nodo_actual); 
 
 		do {
-			nodo_actual = nodo_actual.getPadre(); // convierto al padre en nodo actual
-			pila.push(nodo_actual); // meto ese nodo en la pila y me salgo del while
+			nodo_actual = nodo_actual.getPadre(); 
+			pila.push(nodo_actual);
 
-			if (nodo_actual.getId() == 0) { // si hemos llegado al primer nodo, ponemos a TRUE
+			if (nodo_actual.getId() == 0) {
 				primero = true;
 			}
 		} while (primero == false);
-
-		// ya tenemos la pila llena, ahora ir sacando y metiendo en el archivo de texto convertir el cubo a MD5 y guardarlo asi
 
 		Nodo n = null;
 		FileWriter fichero = null;
 		try {
 			fichero = new FileWriter("solucion.txt");
-			// pw = new PrintWriter(fichero);
 			fichero.write("ID NODO, ACCION, ESTADO, COSTE, PROFUNDIDAD, VALOR DE F \n");
 
 			switch (estrategia) {
@@ -195,13 +191,13 @@ public class Algoritmo {
 		int[][][] matriz = cubo.getPosiciones();
 		int N = matriz[0].length;
 		int NN = N * N;
-		int contador[] = new int[6]; // contador para los colores de las caras, 6 caras(filas) , y 6 colores(columnas)
+		int contador[] = new int[6]; 
 
-		for (int i = 0; i < matriz.length; i++) { // caras
+		for (int i = 0; i < matriz.length; i++) {
 
 			contador = new int[6];
-			for (int j = 0; j < matriz[0].length; j++) { // filas
-				for (int k = 0; k < matriz[0][0].length; k++) { // columnas
+			for (int j = 0; j < matriz[0].length; j++) { 
+				for (int k = 0; k < matriz[0][0].length; k++) {
 					int valor = matriz[i][j][k];
 					contador[valor]++;
 				}

@@ -33,7 +33,8 @@ public class Main {
 			case 3:
 				Algoritmo.busqueda(problema, "PROFUNDIDAD", profundidad, incprof);
 				break;
-			case 4:Algoritmo.busqueda(problema, "COSTO_UNIFORME", profundidad, incprof);
+			case 4:
+				Algoritmo.busqueda(problema, "COSTO_UNIFORME", profundidad, incprof);
 				break;
 			case 5:
 				Algoritmo.busqueda(problema, "VORAZ", profundidad, incprof);

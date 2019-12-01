@@ -14,15 +14,11 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 	long tiempoMaximo;
 	long tiempoMinimo;
 	
-	
-	 /* El funcionamiento de PriorityQueue tiene un funcionamiento similar a la prioridad Heap (explicada en el laboratorio).
-	 */
-	 
 	public FronteraPrioridad() {
 		colaNodoFrontera = new PriorityQueue<Nodo>(new Comparar());
 		map = new HashMap<>();
+		map.clear();
 	}
-	
 	
 	public FronteraPrioridad crearFrontera() {
 		FronteraPrioridad frontera = new FronteraPrioridad();
@@ -43,7 +39,6 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 				pasa = false;
 			}
 		}
-
 		
 		if(pasa) {
 			colaNodoFrontera.add(nodo);
@@ -92,8 +87,6 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 		return colaNodoFrontera.poll();
 	}
 	
-
-
 	@Override
 	public void comprobacion(Nodo nodo_actual) {
 		
