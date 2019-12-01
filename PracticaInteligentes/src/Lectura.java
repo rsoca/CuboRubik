@@ -1,8 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Iterator;
+import java.io.*;
 import org.apache.commons.io.FileUtils;
 import org.json.*;
 
@@ -13,6 +9,7 @@ public class Lectura {
 	public int[][][] leerArchivo() throws IOException {
 		try {
 			String ob = FileUtils.readFileToString(new File("cubo2por2.json"));
+			
 			JSONObject json = new JSONObject(ob);
 			JSONArray arrayback = json.getJSONArray("BACK");
 			JSONArray arraydown = json.getJSONArray("DOWN");

@@ -1,15 +1,13 @@
 
-public class Nodo /*implements Comparable<Nodo>*/ {
+public class Nodo {
 
 	private Nodo padre;
-	private Cubo estado; // como el estado es una representacion del cubo, pues es un cubo
-	private String accion; // desde el padre para alcanzar el nodo actual (supongo que se refiere al
-							// movimiento)
+	private Cubo estado; 
+	private String accion; 
 	private double costo;
 	private double f;
 	private int d; // profundidad del nodo
-	private int id; // int porque llega a 2 millones
-	
+	private int id; 
 	private double h; //heuristica
 
 	public Nodo(Nodo padre, Cubo estado, String accion, double costo, int d, int id, double valor, double h) {
@@ -21,7 +19,6 @@ public class Nodo /*implements Comparable<Nodo>*/ {
 		setId(id);
 		setF(valor);
 		setH(h);
-		
 	}
 
 	public Nodo getPadre() {

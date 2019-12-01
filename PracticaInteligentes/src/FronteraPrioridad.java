@@ -10,9 +10,6 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 	private Queue<Nodo> colaNodoFrontera;
 	private List<Long> tiemposInsercion = new ArrayList<Long>(); //tiempos de insercion
 	private Map<String, Double> map;
-	private long inicioInsercion;
-	private long finInsercion;
-	private List<Nodo> nodosGenerados = new ArrayList<Nodo>();
 	long tiempoTotal;
 	long tiempoMaximo;
 	long tiempoMinimo;
@@ -99,9 +96,6 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 
 	@Override
 	public void comprobacion(Nodo nodo_actual) {
-
-		double f_actual = nodo_actual.getF();
-		double f = map.get(nodo_actual.getEstado().getEstado());
 		
 		if (map.containsKey(nodo_actual.getEstado().getEstado()) && nodo_actual.getId()==0) {
 			map.remove(nodo_actual.getEstado().getEstado());

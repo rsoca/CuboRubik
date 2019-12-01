@@ -1,7 +1,4 @@
 import java.io.IOException;
-import java.util.PriorityQueue;
-import java.util.Queue;
-
 public class Problema {
 
 	private int [][][] matriz;

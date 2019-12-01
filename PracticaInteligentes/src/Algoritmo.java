@@ -1,5 +1,4 @@
 import java.io.*;
-import java.text.DecimalFormat;
 import java.util.*;
 
 public class Algoritmo {
@@ -11,20 +10,18 @@ public class Algoritmo {
 	private static final String A = "A";
 	private static final String VORAZ = "VORAZ";
 
-	public static boolean busqueda(Problema problema, String estrategia, int profMax, int incProf) throws IOException {
+	public static void busqueda(Problema problema, String estrategia, int profMax, int incProf) throws IOException {
 		long profActual = incProf;
 		boolean esSolucion = false;
-		while (!esSolucion && profActual <= profMax) {
+		while (esSolucion==false && profActual <= profMax) {
 			esSolucion = busqueda_acotada(problema, estrategia, profMax);
 			profActual = profActual + incProf;
 		}
-
-		return esSolucion;
 	}
 
 	public static boolean busqueda_acotada(Problema problema, String estrategia, int profMax) throws IOException { // en
 																													// anchura
-		boolean solucion = false;
+		
 		Cubo c = new Cubo();
 		c.setPosiciones(problema.getPos());
 		c.setEstado(Estado.obtenerID(c));
@@ -33,42 +30,52 @@ public class Algoritmo {
 		Frontera frontera = new FronteraPrioridad();
 		frontera.crearFrontera();
 		Nodo nodo_actual = null;
-		Nodo mejor_entropia = null;
+		
 		double h = calcularEntropia(c);
-
-		Nodo nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 0, h);// nodo padre, estado, accion, coste, profundidad, id,
-																	// heuristica
+		double valorf=0.0;
+		Nodo nodo_inicial = null ;//nodo padre, estado, accion, coste, profundidad, id, heuristica
+		
+		switch(estrategia) {
+		case ANCHURA:
+			nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 0, h);
+			break;
+		case PROFUNDIDAD:
+			nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 1.0, h);
+			break;
+		case COSTO_UNIFORME:
+			nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 0, h);
+			break;
+		case A:
+			nodo_inicial = new Nodo(null, c, "", 0, 0, 0, h, h);
+			break;
+		case VORAZ:
+			valorf = h;
+			nodo_inicial = new Nodo(null, c, "", 0, 0, 0, valorf, h);
+			break;
+			
+		}
 		frontera.insertarNodo(nodo_inicial, estrategia);
-		// calcular entropia (cubo cubo)
-
-		while (solucion == false) {
+		boolean solucion = false;
+		while (frontera.estaVacia()==false && solucion==false ) {
 			nodo_actual = frontera.sacarNodo();
 			frontera.comprobacion(nodo_actual);
 			solucion = Problema.esObjetivo(nodo_actual);
-
 			if (solucion) {
-				System.out.println("Solucion");
-			} else {
-				if (nodo_actual.getD() == profMax && nodo_actual.getH() < mejor_entropia.getH()) {
-					// si no solucion, y maxima profundidad, y la h del actual es menor que la que
-					// tenemos
-					// asignamos el actual al que ya teniamos
-					mejor_entropia = nodo_actual;
-				}
+				System.out.println("\nENCONTRAMOS LA SOLUCION\n");
+			} else{
 				lista_sucesores = Estado.sucesores(nodo_actual.getEstado());
 				lista_nodos = CrearListaNodos(lista_sucesores, nodo_actual, profMax, estrategia);
 				frontera.insertarNodos(lista_nodos, estrategia);
+			
 			}
 		}
-
-		if (solucion) {
-			System.out.println("Creamos la solucion... (archivo solucion.txt)");
+		
+		if(solucion==true) {
+			System.out.println("LA SOLUCION ESTA EN : solucion.txt\n");
 			CrearSolucion(nodo_actual, estrategia);
-		} else {
-			System.out.println("No hay solucion.\nLa mejor solucion es (archivo solucion.txt)");
-			CrearSolucion(mejor_entropia, estrategia);
+		}else {
+			System.out.println("NO HAY SOLUCION \n");
 		}
-
 		return solucion;
 
 	}// fin busqueda acotada
@@ -97,7 +104,7 @@ public class Algoritmo {
 				valorF = redondearDecimales(((double)1/(nodo_actual.getD() + 1)),2);
 				break;
 			case COSTO_UNIFORME:
-				valorF = redondearDecimales((double)nodo_actual.getCosto() + Double.parseDouble(lista_sucesores[i][2]), 2);
+				valorF = redondearDecimales((double)nuevo_coste, 2);
 				break;
 			case A:
 				valorF = redondearDecimales(((double)h + nuevo_coste), 2);
@@ -120,9 +127,8 @@ public class Algoritmo {
 		return lista;
 	}
 
-	// acabado
-	public static void CrearSolucion(Nodo nodo_actual, String estrategia) throws IOException { // importar siempre el
-																								// java.io
+	
+	public static void CrearSolucion(Nodo nodo_actual, String estrategia) throws IOException { 
 
 		Stack<Nodo> pila = new Stack<Nodo>(); // creamos la pila donde iran entrando los nodos
 		boolean primero = false;
@@ -137,19 +143,7 @@ public class Algoritmo {
 			}
 		} while (primero == false);
 
-		// ya tenemos la pila llena, ahora ir sacando y metiendo en el archivo de texto
-		// convertir el cubo a MD5 y guardarlo asi
-
-		// LIMPIAMOS EL ANTERIOR ARCHIVO POR SI HUBIERAN DATOS
-
-		// BufferedWriter bw = new BufferedWriter(new FileWriter("solucion.txt"));
-		// bw.write("");
-		// bw.close();
-
-		// Formato de guardado de los datos en el archivo
-		// Prepresentaci�n del nodo del �rbol: [ID_Nodo]([accion]
-		// ID_ESTADO,costo,profundidad,valor del nodo (f))
-		// La profundidad es el valor d
+		// ya tenemos la pila llena, ahora ir sacando y metiendo en el archivo de texto convertir el cubo a MD5 y guardarlo asi
 
 		Nodo n = null;
 		FileWriter fichero = null;
@@ -198,12 +192,10 @@ public class Algoritmo {
 
 	public static double calcularEntropia(Cubo cubo) {
 		double entropia = 0.0;
-		// cubo = nodo.getEstado();
 		int[][][] matriz = cubo.getPosiciones();
 		int N = matriz[0].length;
 		int NN = N * N;
-		int contador[] = new int[6]; // contador para los colores de las caras, 6 caras(filas) , y 6
-										// colores(columnas)
+		int contador[] = new int[6]; // contador para los colores de las caras, 6 caras(filas) , y 6 colores(columnas)
 
 		for (int i = 0; i < matriz.length; i++) { // caras
 
@@ -217,25 +209,15 @@ public class Algoritmo {
 
 			for (int l = 0; l < contador.length; l++) {
 				if (contador[l] > 0.0) {
-					// entrop�a = entrop�a + contador[c]/(N*N) * math.log(contador[c]/(N*N),6)
 					double c = contador[l];
 					double n = NN;
-					// System.out.println("El c "+ c);
 					double v = (c / n);
 					double log = Math.log(v) / Math.log(6.0);
-					// System.out.println("El primero"+ contador[l]);
-					// System.out.println("El segundo"+ NN);
-					// System.out.println("El v "+ v);
-					// System.out.println("El logaritmo"+ (Math.log(v)));
-
 					entropia = entropia + (v * log);
 				}
-				// System.out.println("Entropia vale "+Math.floor(entropia));
 			}
-
 		}
 		double h_final = Math.abs(redondearDecimales(entropia, 2));
-
 		return h_final;
 	}
 

@@ -1,7 +1,6 @@
 //https://www.geeksforgeeks.org/priorityqueue-comparator-method-in-java/
 //https://stackoverflow.com/questions/39352302/confused-over-compareto-implementation-with-priorityqueue
 import java.util.*; 
-import java.util.PriorityQueue; 
   
 class Comparar implements Comparator<Nodo> { 
 	

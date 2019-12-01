@@ -1,7 +1,9 @@
 public class Movimiento {
+	
 	// Back (0) - Down (1) - Front (2) - Left (3) - Right (4) - Up (5)
 	public static Cubo movimiento(Cubo cubo, char letra, int n) {
-		// Definimos las variables que vamos a utilizar de las caras
+		
+	
 		int[][][] cuboRotar = cubo.getPosiciones();
 		int longitud = cuboRotar[0].length;
 		int[] up = new int[longitud];
@@ -10,6 +12,7 @@ public class Movimiento {
 		int[] back = new int[longitud];
 		int[] left = new int[longitud];
 		int[] right = new int[longitud];
+		
 		if (Character.valueOf(letra).equals('l') || Character.valueOf(letra).equals('L')) {
 			
 			int[][] left1 = new int[longitud][longitud];
