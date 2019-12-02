@@ -1,79 +1,56 @@
-import java.io.IOException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.io.*;
+import java.util.*;
 
 public class Main {
 	public static void main(String[] args) throws IOException{
-		Lectura leer = new Lectura();
-		Cubo c= new Cubo(leer.leerArchivo());
-		Cubo clon = c.clone();
 		
-		Nodo n1 = null;
-		Nodo n2 = new Nodo(n1, clon, "s", 1, 2);
+		Problema problema = new Problema();
+		Scanner leer = new Scanner (System.in);
+		int profundidad=0;
+		int incprof= 1;
+		boolean salida = false; 
+		do {
+			System.out.println("Introduzca el numero de una opcion: "
+					+ "\n 1. Estrategia A*"
+					+ "\n 2. Estrategia ANCHURA"
+					+ "\n 3. Estrategia PROFUNDIDAD"
+					+ "\n 4. Estrategia COSTE UNIFORME"
+					+ "\n 5. Estrategia VORAZ"
+					+ "\n 6. SALIR");
+			int eleccion= leer.nextInt();
+			if(eleccion >= 1 && eleccion <=5) {
+			System.out.println("Introduzca la profundidad acotada:");
+			profundidad= leer.nextInt();
+			}
+			
+			switch(eleccion) {
+			case 1:
+				Algoritmo.busqueda(problema, "A", profundidad, incprof);
+				break;
+			case 2:
+				Algoritmo.busqueda(problema, "ANCHURA", profundidad, incprof);
+				break;
+			case 3:
+				Algoritmo.busqueda(problema, "PROFUNDIDAD", profundidad, incprof);
+				break;
+			case 4:
+				Algoritmo.busqueda(problema, "COSTO_UNIFORME", profundidad, incprof);
+				break;
+			case 5:
+				Algoritmo.busqueda(problema, "VORAZ", profundidad, incprof);
+				break;
+			case 6:
+				System.out.println("APLICACIÓN FINALIZADA");
+				salida = true;
+				break;
+			default:
+				System.out.println("ELECCION INCORRECTA!!\n");
+			break;
+			}
+		}while(salida==false);
 		
-		boolean objetivo = Problema.esObjetivo(n2);
-		System.out.println("Nodo prueba (Objetivo): "+objetivo);
-		Estado.sucesores(c);
+		leer.close();
+		}
 		
-		
-		/*
-		 * MOVIMIENTOS Y MD5 CUBO 
-		 * 
-		String id = Estado.obtenerID(clon);
-		System.out.println("El ID es:"+id);	
-		String md= Estado.getMD5(id);
-		System.out.println("El MD5 ES:"+md);	
-		//Estado.imprimir(clon.getPosiciones());
-		//comprobamos movimientos
-		clon=Movimiento.movimiento(clon, 'l', 3);
-		id = Estado.obtenerID(clon);
-		System.out.println("El ID es:"+id);	
-		md= Estado.getMD5(id);
-		System.out.println("El MD5 ES:"+md);
-		//Estado.imprimir(clon.getPosiciones());
-		clon=Movimiento.movimiento(clon, 'D', 1);
-		id = Estado.obtenerID(clon);
-		System.out.println("El ID es:"+id);	
-		md= Estado.getMD5(id);
-		System.out.println("El MD5 ES:"+md);
-		//Estado.imprimir(clon.getPosiciones());
-		clon=Movimiento.movimiento(clon, 'l', 1);
-		id = Estado.obtenerID(clon);
-		System.out.println("El ID es:"+id);	
-		md= Estado.getMD5(id);
-		System.out.println("El MD5 ES:"+md);
-		//Estado.imprimir(clon.getPosiciones());
-		clon=Movimiento.movimiento(clon, 'd', 0);
-		id = Estado.obtenerID(clon);
-		System.out.println("El ID es:"+id);	
-		md= Estado.getMD5(id);
-		System.out.println("El MD5 ES:"+md);
-		//Estado.imprimir(clon.getPosiciones());
-		clon=Movimiento.movimiento(clon, 'B', 0);
-		id = Estado.obtenerID(clon);
-		System.out.println("El ID es:"+id);	
-		md= Estado.getMD5(id);
-		System.out.println("El MD5 ES:"+md);
-		//Estado.imprimir(clon.getPosiciones());
-		clon=Movimiento.movimiento(clon, 'b', 5);
-		id = Estado.obtenerID(clon);
-		System.out.println("El ID es:"+id);	
-		md= Estado.getMD5(id);
-		System.out.println("El MD5 ES:"+md);
-		//Estado.imprimir(clon.getPosiciones());
-		clon=Movimiento.movimiento(clon, 'l', 2);
-		id = Estado.obtenerID(clon);
-		System.out.println("El ID es:"+id);	
-		md= Estado.getMD5(id);
-		System.out.println("El MD5 ES:"+md);
-		//Estado.imprimir(clon.getPosiciones());
-		clon=Movimiento.movimiento(clon, 'd', 1);
-		id = Estado.obtenerID(clon);
-		System.out.println("El ID es:"+id);	
-		md= Estado.getMD5(id);
-		System.out.println("El MD5 ES:"+md);
-		 * 
-*/
-	}
+	
 }

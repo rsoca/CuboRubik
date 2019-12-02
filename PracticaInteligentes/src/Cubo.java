@@ -1,18 +1,25 @@
 import java.io.IOException;
-import java.util.Set;
 
 public class Cubo implements Cloneable{
+	Lectura leer = new Lectura();
 	private String estado;
 	private int posiciones[][][];
 
-	public Cubo(int[][][] posiciones) { // metodo constructor que determina el estado inicial
-		this.posiciones = posiciones;
+	public Cubo() throws IOException {
+		this.posiciones=leer.leerArchivo();
 	}
 
-	//metodo para clonar el cubo
-	public Cubo clone() {
-		Cubo clon = new Cubo(this.posiciones);
-		return clon;
+	public Cubo(Cubo c){
+		int[][][] pos=c.getPosiciones();
+		int [][][] nueva = new int[pos.length][pos[0].length][pos[0][0].length];
+		for (int i = 0; i < pos.length; i++) {
+			for (int j = 0; j < pos[0].length; j++) {
+				for (int k = 0; k < pos[0][0].length; k++) {
+					nueva[i][j][k]=pos[i][j][k];
+				}
+			}
+		}
+		posiciones=nueva;
 	}
 	
 	

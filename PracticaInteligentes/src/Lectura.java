@@ -1,8 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Iterator;
+import java.io.*;
 import org.apache.commons.io.FileUtils;
 import org.json.*;
 
@@ -12,9 +8,9 @@ public class Lectura {
 
 	public int[][][] leerArchivo() throws IOException {
 		try {
-			String ob = FileUtils.readFileToString(new File("cuboresuelto.json"));
+			String ob = FileUtils.readFileToString(new File("cubo2por2.json"));
+			
 			JSONObject json = new JSONObject(ob);
-			// importante mantener el orden de los arrays igual que en el json.
 			JSONArray arrayback = json.getJSONArray("BACK");
 			JSONArray arraydown = json.getJSONArray("DOWN");
 			JSONArray arrayfront = json.getJSONArray("FRONT");
@@ -62,17 +58,8 @@ public class Lectura {
 					estado += f.get(j);
 				}
 			}
-
-			// hacemos un vector de string separando el de estado
 			String[] lista = estado.split("");
-
-			// creamos el vector donde guardaremos los numeros con la longitud de la lista
-			// anterior
 			int[] numeros = new int[lista.length];
-			// int limite = 6 * dimension * dimension;
-
-			// recorremos el string numeros y guardamos en cada posicion el estado
-			// correspondiente
 			for (int g = 0; g < numeros.length; g++) {
 				numeros[g] = Integer.parseInt(lista[g]);
 			}

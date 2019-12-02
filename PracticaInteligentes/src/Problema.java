@@ -1,49 +1,68 @@
+import java.io.IOException;
+
+/**
+ * ***************************************************************
+ *
+ * Class Name: Problema
+ * 
+ * Main Author/s name: Ricardo Rodríguez Mateos-Aparicio, Razvan Dan Socaciu, Juan Manuel Palacios Navas
+ * 
+ * En esta clase obtendremos nuestro cubo a resolver leyendo nuestro archivo json a través de la clase lectura, 
+ * y comprobaremos si hemos llegado a un nodo objetivo. 
+ */
+
 
 public class Problema {
+
+	private int [][][] matriz;
+	private Lectura l;
+	public Problema() throws IOException {
+		l=new Lectura();
+		matriz = l.leerArchivo();
+	}
+	
+	public Problema problema() throws IOException {
+		Problema p = new Problema();
+		return p;
+	}
+	
+	public int[][][] getPos() {
+		return matriz;
+	}
+
+	public void setPos(int[][][] pos) {
+		this.matriz = pos;
+	}
+	
+	/**
+	 * ***************************************************************
+	 *
+	 * Method Name: esObjetivo()
+	 * 
+	 * 
+	 * Este método se encargará de comprobar si un nodo es objetivo. Para ello, recorrerá el estado del nodo (una representación
+	 * de un cubo), y en caso de que las caras tengan todos los números iguales, será un nodo objetivo.
+	 */
 
 	public static boolean esObjetivo(Nodo node) {
 		boolean encontrado = true;
 		Cubo estado = node.getEstado();
-
-		/*
-		 * El bucle DO-WHILE recorre el cubo. Mientras coincidan los colores de las
-		 * caras con los correspondientes segun su orden alfabetico, el bucle continua,
-		 * y encontrado = true es decir, lo esta encontrando. Si resulta que en medio
-		 * del bucle no coinciden, encontrado pasa a ser false, y nos devuelve
-		 */
-
-		int[] orden = { 3, 1, 2, 4, 5, 0 }; // variable donde tenemos el orden de los colores segun el orden de las
-											// caras
-		int recorrido; // variable donde se guarda la ultima cara recorrida
+		int recorrido;
 		int[][][] cubo = estado.getPosiciones();
-
-		int longitud = (6 * cubo[0].length * cubo[0].length); // obtengo el numero total de cuadraditos a recorrer
-		int contador = 0; // el contador para ir sabiendo en que parte de la longitud estoy
-
-		int i, j, k;
-		do {
-			for (i = 0; i < cubo.length; i++) { // este for recorre las caras del cubo
-				recorrido = orden[i];
+		int i,j,k;
+			for (i = 0; i < cubo.length; i++) { 
+				recorrido = cubo [i][0][0];
 				for (j = 0; j < cubo[0].length; j++) {
 					for (k = 0; k < cubo[0][0].length; k++) {
-						if (recorrido == cubo[i][j][k] && contador < longitud && encontrado == true) {
-							
+						if (recorrido == cubo[i][j][k] && encontrado) {
 							encontrado = true;
 							
-						} else { // este else es porque si resulta que un cuadradito no corresponde con el color
-									// de la cara correspondiente
+						} else { 
 							encontrado = false;
-							contador = longitud;
-							i = cubo.length;
-							j = cubo[0].length;
-							k = cubo[0][0].length;
 						}
-						contador++;
 					}
 				}
 			}
-
-		} while (encontrado == true && contador < longitud);
 
 		return encontrado;
 	}
