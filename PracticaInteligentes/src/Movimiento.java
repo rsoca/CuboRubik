@@ -1,9 +1,22 @@
 public class Movimiento {
 	
-	// Back (0) - Down (1) - Front (2) - Left (3) - Right (4) - Up (5)
-	public static Cubo movimiento(Cubo cubo, char letra, int n) {
-		
+	/**
+	 * ***************************************************************
+	 *
+	 * Class Name: Movimiento
+	 * 
+ * Main Author/s name: Ricardo Rodríguez Mateos-Aparicio, Razvan Dan Socaciu, Juan Manuel Palacios Navas
+	 * 
+	 * En esta clase implementaremos los movimientos que realizaremos sobre las caras del cubo.
+	 * Los movimientos están divididos en dos partes. 
+	 * En los metodos 'giro' nos encargaremos de las caras que tenemos que rotar dentro de sí mismas (90º y -90º).
+	 * En cuanto a los métodos 'rotación', es donde giraremos aquellas caras que se sobreescribirán las unas a las otras.
+	 * 
+	 * 
+	 * Caras: Back (0) - Down (1) - Front (2) - Left (3) - Right (4) - Up (5)
+	 */
 	
+	public static Cubo movimiento(Cubo cubo, char letra, int n) {
 		int[][][] cuboRotar = cubo.getPosiciones();
 		int longitud = cuboRotar[0].length;
 		int[] up = new int[longitud];
@@ -14,19 +27,14 @@ public class Movimiento {
 		int[] right = new int[longitud];
 		
 		if (Character.valueOf(letra).equals('l') || Character.valueOf(letra).equals('L')) {
-			
 			int[][] left1 = new int[longitud][longitud];
 			int[][] right1 = new int[longitud][longitud];
 			cubo.setPosiciones(girolL(cuboRotar, cubo, up, down, front, back, left1, right1, n, letra, longitud));
-			
 		} else if (Character.valueOf(letra).equals('d') || Character.valueOf(letra).equals('D')) {
-			
 			int[][] down1 = new int[longitud][longitud];
 			int[][] up1 = new int[longitud][longitud];
 			cubo.setPosiciones(girodD(cuboRotar, cubo, up1, down1, front, back, left, right, n, letra, longitud));
-			
 		} else if (Character.valueOf(letra).equals('b') || Character.valueOf(letra).equals('B')) {
-			
 			int[][] back1 = new int[longitud][longitud];
 			int[][] front1 = new int[longitud][longitud];
 			cubo.setPosiciones(girobB(cuboRotar, cubo, back1, front1, down, left, right, up, n, letra, longitud));
@@ -35,16 +43,6 @@ public class Movimiento {
 		return cubo;
 	}
 
-
-	/*
-	 * Los movimientos están divididos en dos partes.
-	 * En los metodos 'giro' nos encargaremos de las caras
-	 *  que tenemos que rotar dentro de sí mismas (90º y -90º).
-	 * 
-	 * En cuanto a los métodos 'rotación', es donde giraremos aquellas caras que se sobreescribirán las unas a las otras.
-	 * 
-	 */
-	
 	private static int[][][] girobB(int[][][] cuboInicial, Cubo cubo, int[][] back, int[][] front, int[] down,
 			int[] left, int[] right, int[] up, int n, char letra, int longitud) {
 		int[][][] cuboRotado = rotacionbB(cuboInicial, down, left, right, up, longitud, n, letra);
@@ -153,7 +151,6 @@ public class Movimiento {
 			if (Character.valueOf(letra).equals('d')) {
 				for (int i = 0; i < longitud; i++) {
 					for (int j = 0; j < longitud; j++) {
-						//up[j][longitud - 1 - i] = cuboRotado[5][i][j];
 						up[longitud - 1 - j][i]= cuboRotado[5][i][j];
 					}
 				}

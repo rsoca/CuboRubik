@@ -5,11 +5,10 @@ public class Cubo implements Cloneable{
 	private String estado;
 	private int posiciones[][][];
 
-	public Cubo() throws IOException { // metodo constructor que determina el estado inicial
+	public Cubo() throws IOException {
 		this.posiciones=leer.leerArchivo();
 	}
 
-	//metodo para clonar el cubo
 	public Cubo(Cubo c){
 		int[][][] pos=c.getPosiciones();
 		int [][][] nueva = new int[pos.length][pos[0].length][pos[0][0].length];

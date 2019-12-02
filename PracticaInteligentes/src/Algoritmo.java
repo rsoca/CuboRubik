@@ -1,9 +1,20 @@
 import java.io.*;
 import java.util.*;
 
-public class Algoritmo {
+/**
+ * ***************************************************************
+ *
+ * Class Name: Algoritmo
+ * 
+ * Main Author/s name: Ricardo Rodríguez Mateos-Aparicio, Razvan Dan Socaciu, Juan Manuel Palacios Navas
+ * 
+ * Esta clase se encargará de realizar la búsqueda de la solución partiendo de un cubo leído a través de la clase problema. Contaremos
+ * con una variable global idN que nos permitirá asignar a los nodos sus ids correspondientes de forma que no se repitan y ordenados, y
+ * una variable para cada una de las estrategias.
+ */
 
-	private static int idN = 0;
+public class Algoritmo {
+	private static int idN;
 	private static final String ANCHURA = "ANCHURA";
 	private static final String PROFUNDIDAD = "PROFUNDIDAD";
 	private static final String COSTO_UNIFORME = "COSTO_UNIFORME";
@@ -20,9 +31,18 @@ public class Algoritmo {
 		}
 	}
 
-	public static boolean busqueda_acotada(Problema problema, String estrategia, int profMax) throws IOException { // en
-																													// anchura
-		
+	
+	/**
+	 * ***************************************************************
+	 *
+	 * Method name: busqueda_acotada()
+	 * 
+	 * Este método se encargará de buscar la solución. Si un nodo no es solución, generaremos sus sucesores y crearemos sus nodos
+	 * correspondientes, para finalmente añadirlos a la frontera y seguir buscando el nodo objetivo recorriendo dicha frontera.
+	 *
+	 */
+	
+	public static boolean busqueda_acotada(Problema problema, String estrategia, int profMax) throws IOException { 
 		Cubo c = new Cubo();
 		c.setPosiciones(problema.getPos());
 		c.setEstado(Estado.obtenerID(c));
@@ -34,17 +54,17 @@ public class Algoritmo {
 		
 		double h = calcularEntropia(c);
 		double valorf=0.0;
-		Nodo nodo_inicial = null ;//nodo padre, estado, accion, coste, profundidad, id, heuristica
+		Nodo nodo_inicial = null ;
 		
 		switch(estrategia) {
 		case ANCHURA:
-			nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 0, h);
+			nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 0, 0);
 			break;
 		case PROFUNDIDAD:
-			nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 1.0, h);
+			nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 1.0, 0);
 			break;
 		case COSTO_UNIFORME:
-			nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 0, h);
+			nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 0, 0);
 			break;
 		case A:
 			nodo_inicial = new Nodo(null, c, "", 0, 0, 0, h, h);
@@ -65,7 +85,7 @@ public class Algoritmo {
 				System.out.println("\nENCONTRAMOS LA SOLUCION\n");
 			} else{
 				lista_sucesores = Estado.sucesores(nodo_actual.getEstado());
-				lista_nodos = CrearListaNodos(lista_sucesores, nodo_actual, profMax, estrategia);
+				lista_nodos = crearListaNodos(lista_sucesores, nodo_actual, profMax, estrategia);
 				frontera.insertarNodos(lista_nodos, estrategia);
 			
 			}
@@ -73,51 +93,60 @@ public class Algoritmo {
 		
 		if(solucion==true) {
 			System.out.println("LA SOLUCION ESTA EN : solucion.txt\n");
-			CrearSolucion(nodo_actual, estrategia);
+			crearSolucion(nodo_actual, estrategia);
 		}else {
 			System.out.println("NO HAY SOLUCION \n");
 		}
 		return solucion;
 
-	}// fin busqueda acotada
+	}
 
-	public static List<Nodo> CrearListaNodos(String[][] lista_sucesores, Nodo nodo_actual, int pmaxima,
+	/**
+	 * ***************************************************************
+	 *
+	 * Method name: crearListaNodos
+	 * 
+	 * Creación de los nodos a partir de los sucesores generados anteriormente y donde tendremos en cuenta las diferentes estrategias
+	 *
+	 */
+	
+	public static List<Nodo> crearListaNodos(String[][] lista_sucesores, Nodo nodo_actual, int pmaxima,
 			String estrategia) throws IOException {
-
 		List<Nodo> lista = new ArrayList<Nodo>();
-		Nodo nodo = null;
 		double valorF = 0.0;
+		double h = 0.0;
 		int id = nodo_actual.getId();
 		System.out.println("Generamos los nodos de: " + id);
 		System.out.println("Estado del nodo: " + nodo_actual.getEstado().getEstado());
-		for (int i = 0; i < lista_sucesores.length; i++) { // recorremos las filas de los sucesores
+		for (int i = 0; i < lista_sucesores.length; i++) { 
 			Cubo cubo = Estado.obtenerCubo(lista_sucesores[i][1]);
 			String accion = lista_sucesores[i][0];
 			double coste_sucesor = Double.parseDouble(lista_sucesores[i][2]);
 			double nuevo_coste = coste_sucesor + nodo_actual.getCosto();
 			int d = nodo_actual.getD() + 1; //
-			double h = calcularEntropia(cubo);
 			switch (estrategia) {
 			case ANCHURA:
 				valorF = nodo_actual.getD() + 1;
 				break;
 			case PROFUNDIDAD:
-				valorF = redondearDecimales(((double)1/(nodo_actual.getD() + 1)),2);
+				valorF = redondearDecimales(((double)1/(d + 1)),2);
 				break;
 			case COSTO_UNIFORME:
 				valorF = redondearDecimales((double)nuevo_coste, 2);
 				break;
 			case A:
+				h = calcularEntropia(cubo);
 				valorF = redondearDecimales(((double)h + nuevo_coste), 2);
 				break;
 			case VORAZ:
+				h = calcularEntropia(cubo);
 				valorF = redondearDecimales((double)h, 2);
 				break;
 			}
 
 			idN = idN + 1;
 
-			nodo = new Nodo(nodo_actual, cubo, accion, nuevo_coste, d, idN, valorF, h);
+			Nodo nodo = new Nodo(nodo_actual, cubo, accion, nuevo_coste, d, idN, valorF, h);
 
 			if (nodo.getD() < pmaxima) {
 				lista.add(nodo);
@@ -126,8 +155,16 @@ public class Algoritmo {
 		return lista;
 	}
 
+	/**
+	 * ***************************************************************
+	 *
+	 * Method name: crearSolucion
+	 * 
+	 * Generamos el archivo que contendrá nuestra solución
+	 *
+	 */
 	
-	public static void CrearSolucion(Nodo nodo_actual, String estrategia) throws IOException { 
+	public static void crearSolucion(Nodo nodo_actual, String estrategia) throws IOException { 
 
 		Stack<Nodo> pila = new Stack<Nodo>(); 
 		boolean primero = false;
@@ -186,6 +223,15 @@ public class Algoritmo {
 
 	}
 
+	/**
+	 * ***************************************************************
+	 *
+	 * Method name: calcularEntropia
+	 * 
+	 * En este método calcularemos la entropía en base al estado del cubo
+	 *
+	 */
+	
 	public static double calcularEntropia(Cubo cubo) {
 		double entropia = 0.0;
 		int[][][] matriz = cubo.getPosiciones();

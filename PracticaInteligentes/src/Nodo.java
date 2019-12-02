@@ -6,9 +6,9 @@ public class Nodo {
 	private String accion; 
 	private double costo;
 	private double f;
-	private int d; // profundidad del nodo
+	private int d; 
 	private int id; 
-	private double h; //heuristica
+	private double h; 
 
 	public Nodo(Nodo padre, Cubo estado, String accion, double costo, int d, int id, double valor, double h) {
 		setPadre(padre);

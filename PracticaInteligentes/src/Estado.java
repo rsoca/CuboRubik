@@ -3,6 +3,19 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * ***************************************************************
+ *
+ * Class Name: Estado
+ * 
+ * Main Author/s name: Ricardo Rodríguez Mateos-Aparicio, Razvan Dan Socaciu, Juan Manuel Palacios Navas
+ * 
+ * En esta clase tendremos los métodos para imprimir nuestro cubo (imprimirCubo), retornar su estado en forma de ID (obtenerID)
+ * retornar el propio cubo (obtenerCubo), obtener el MD5 de nuestro cubo y la generación de los sucesores de un nodo.
+ * 
+ */
+
+
 public class Estado {
 
 	public static void imprimirCubo(Cubo cubo) {
@@ -36,24 +49,15 @@ public class Estado {
 
 	public static Cubo obtenerCubo(String estado) throws IOException {
 		Cubo c=new Cubo();
-		int dimension = (int) Math.sqrt(estado.length()/6); //obtenemos la dimension del cubo
+		int dimension = (int) Math.sqrt(estado.length()/6);
 		int [][][] tri = new int [6][dimension][dimension];
 		int contador = 0;
 		int limite = estado.length();
-		// hacemos un vector de string separando el de estado
 		String[] lista = estado.split("");
-
-		// creamos el vector donde guardaremos los numeros con la longitud de la lista
-		// anterior
 		int[] numeros = new int[lista.length];
-		// int limite = 6 * dimension * dimension;
-
-		// recorremos el string numeros y guardamos en cada posicion el estado
-		// correspondiente
 		for (int g = 0; g < numeros.length; g++) {
 			numeros[g] = Integer.parseInt(lista[g]);
 		}
-		
 		for (int i = 0; i < tri.length; i++) {
 			for (int j = 0; j < tri[0].length; j++) {
 				for (int k = 0; k < tri[0][0].length; k++) {
@@ -65,7 +69,6 @@ public class Estado {
 				}
 			}
 		}
-		
 		c.setPosiciones(tri);
 		c.setEstado(estado);
 		return c;
@@ -85,18 +88,6 @@ public class Estado {
 			return hashtext;
 		} catch (NoSuchAlgorithmException e) {
 			throw new RuntimeException(e);
-		}
-	}
-
-	public static void imprimirMatriz(int[][][] cubo) {
-
-		for (int i = 0; i < cubo.length; i++) {
-			for (int j = 0; j < cubo[0].length; j++) {
-				for (int k = 0; k < cubo[0][0].length; k++) {
-					System.out.print(" " + cubo[i][j][k]);
-				}
-				System.out.println();
-			}
 		}
 	}
 

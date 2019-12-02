@@ -58,17 +58,8 @@ public class Lectura {
 					estado += f.get(j);
 				}
 			}
-
-			// hacemos un vector de string separando el de estado
 			String[] lista = estado.split("");
-
-			// creamos el vector donde guardaremos los numeros con la longitud de la lista
-			// anterior
 			int[] numeros = new int[lista.length];
-			// int limite = 6 * dimension * dimension;
-
-			// recorremos el string numeros y guardamos en cada posicion el estado
-			// correspondiente
 			for (int g = 0; g < numeros.length; g++) {
 				numeros[g] = Integer.parseInt(lista[g]);
 			}

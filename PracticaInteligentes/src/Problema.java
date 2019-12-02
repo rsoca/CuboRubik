@@ -1,4 +1,17 @@
 import java.io.IOException;
+
+/**
+ * ***************************************************************
+ *
+ * Class Name: Problema
+ * 
+ * Main Author/s name: Ricardo Rodríguez Mateos-Aparicio, Razvan Dan Socaciu, Juan Manuel Palacios Navas
+ * 
+ * En esta clase obtendremos nuestro cubo a resolver leyendo nuestro archivo json a través de la clase lectura, 
+ * y comprobaremos si hemos llegado a un nodo objetivo. 
+ */
+
+
 public class Problema {
 
 	private int [][][] matriz;
@@ -20,41 +33,36 @@ public class Problema {
 	public void setPos(int[][][] pos) {
 		this.matriz = pos;
 	}
+	
+	/**
+	 * ***************************************************************
+	 *
+	 * Method Name: esObjetivo()
+	 * 
+	 * 
+	 * Este método se encargará de comprobar si un nodo es objetivo. Para ello, recorrerá el estado del nodo (una representación
+	 * de un cubo), y en caso de que las caras tengan todos los números iguales, será un nodo objetivo.
+	 */
 
 	public static boolean esObjetivo(Nodo node) {
 		boolean encontrado = true;
 		Cubo estado = node.getEstado();
-
-		int recorrido; // variable donde se guarda la ultima cara recorrida
+		int recorrido;
 		int[][][] cubo = estado.getPosiciones();
-
-		int longitud = (6 * cubo[0].length * cubo[0].length); // obtengo el numero total de cuadraditos a recorrer
-		int contador = 0; // el contador para ir sabiendo en que parte de la longitud estoy
-
 		int i,j,k;
-		do {
-			for (i = 0; i < cubo.length; i++) { // este for recorre las caras del cubo
+			for (i = 0; i < cubo.length; i++) { 
 				recorrido = cubo [i][0][0];
 				for (j = 0; j < cubo[0].length; j++) {
 					for (k = 0; k < cubo[0][0].length; k++) {
-						if (recorrido == cubo[i][j][k] && contador < longitud && encontrado == true) {
+						if (recorrido == cubo[i][j][k] && encontrado) {
 							encontrado = true;
 							
-						} else { // este else es porque si resulta que un cuadradito no corresponde con el color
-									// de la cara correspondiente
-							
+						} else { 
 							encontrado = false;
-							contador = longitud;
-							i = cubo.length;
-							j = cubo[0].length;
-							k = cubo[0][0].length;
 						}
-						contador++;
 					}
 				}
 			}
-
-		} while (encontrado == true && contador < longitud);
 
 		return encontrado;
 	}

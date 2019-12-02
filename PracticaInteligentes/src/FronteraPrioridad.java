@@ -5,14 +5,36 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
+/**
+ * ***************************************************************
+ *
+ * Class Name: FronteraPrioridad
+ * 
+ * Main Author/s name: Ricardo Rodríguez Mateos-Aparicio, Razvan Dan Socaciu, Juan Manuel Palacios Navas
+ * 
+ * En esta clase implementaremos nuestra frontera de tipo cola prioridad que nos permitirá insertar, borrar y comparar
+ * nodos para llegar al nodo objetivo que buscamos.
+ *
+ */
+
+public class FronteraPrioridad extends Frontera { 
 
 	private Queue<Nodo> colaNodoFrontera;
-	private List<Long> tiemposInsercion = new ArrayList<Long>(); //tiempos de insercion
+	private List<Long> tiemposInsercion = new ArrayList<Long>(); 
 	private Map<String, Double> map;
 	long tiempoTotal;
 	long tiempoMaximo;
 	long tiempoMinimo;
+	
+	/**
+	 * ***************************************************************
+	 *
+	 * Method name: FronteraPrioridad()
+	 * 
+	 * En este método buscaremos la inicialización de nuestra frontera y donde compararemos nodos cada vez que queramos introducirlos
+	 * en la frontera, viendo sus valores F y sus ids
+	 *
+	 */
 	
 	public FronteraPrioridad() {
 		colaNodoFrontera = new PriorityQueue<Nodo>(new Comparar());
@@ -25,11 +47,24 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 		return frontera;
 	}
 	
+	
+	/**
+	 * ***************************************************************
+	 *
+	 * Method name: insertarNodo
+	 * 
+	 * En este método se encargará de insertar los nodos en la frontera. Antes de dicha inserción, realizaremos una poda comprobando
+	 * que no estuviese ese nodo ya en nuestro diccionario.
+	 * 
+	 * En caso de que no esté, lo añadiremos a la frontera y lo indexaremos a nuestro diccionario. Si está, comprobaremos su valorf y
+	 * su valoración dependerá de la estrategia que utilicemos..
+	 *
+	 */
+	
 	public void insertarNodo(Nodo nodo, String estrategia) {
 		//inicioInsercion = System.currentTimeMillis();
 		boolean pasa = true;
-		String estado= Estado.obtenerID(nodo.getEstado());
-		
+		String estado= Estado.getMD5(Estado.obtenerID(nodo.getEstado()));
 		if(map.containsKey(estado)) {
 			double valorf = map.get(estado).doubleValue();
 			if(nodo.getF() <= valorf && estrategia.equals("PROFUNDIDAD")) {
@@ -42,10 +77,8 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 		
 		if(pasa) {
 			colaNodoFrontera.add(nodo);
-			estado = Estado.obtenerID(nodo.getEstado());
 			map.put(estado, nodo.getF());
 		}
-		
 		//finInsercion = System.currentTimeMillis();
 		//tiemposInsercion.add(finInsercion - inicioInsercion);
 	}
@@ -87,11 +120,19 @@ public class FronteraPrioridad extends Frontera { //implements Comparable<Nodo>{
 		return colaNodoFrontera.poll();
 	}
 	
+	/**
+	 * ***************************************************************
+	 *
+	 * Method name: comprobacion()
+	 * 
+	 * En este método eliminará el nodo del diccionario que insertamos por primera vez
+	 *
+	 */
+	
 	@Override
 	public void comprobacion(Nodo nodo_actual) {
-		
-		if (map.containsKey(nodo_actual.getEstado().getEstado()) && nodo_actual.getId()==0) {
-			map.remove(nodo_actual.getEstado().getEstado());
+		if (map.containsKey(Estado.getMD5(Estado.obtenerID(nodo_actual.getEstado()))) && nodo_actual.getId()==0) {
+			map.remove(Estado.getMD5(nodo_actual.getEstado().getEstado()));
 		}
 	}
 

@@ -40,7 +40,7 @@ public class Main {
 				Algoritmo.busqueda(problema, "VORAZ", profundidad, incprof);
 				break;
 			case 6:
-				System.out.println("FINALIZANDO LA APLICACION. ADIOS");
+				System.out.println("APLICACIÓN FINALIZADA");
 				salida = true;
 				break;
 			default:
