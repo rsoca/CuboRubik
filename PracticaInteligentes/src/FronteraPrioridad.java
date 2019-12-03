@@ -66,7 +66,7 @@ public class FronteraPrioridad extends Frontera {
 		boolean pasa = true;
 		String estado= Estado.getMD5(Estado.obtenerID(nodo.getEstado()));
 		
-		if(map.containsKey(estado) && poda == true) {
+		if(map.containsKey(estado) ) { //&& poda == true) {
 			double valorf = map.get(estado).doubleValue();
 			if(nodo.getF() <= valorf && estrategia.equals("PROFUNDIDAD")) {
 				pasa = false;
