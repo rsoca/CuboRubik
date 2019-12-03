@@ -9,6 +9,8 @@ public class Main {
 		int profundidad=0;
 		int incprof= 1;
 		boolean salida = false; 
+		char respuesta;
+		boolean poda = true;
 		do {
 			System.out.println("Introduzca el numero de una opcion: "
 					+ "\n 1. Estrategia A*"
@@ -21,12 +23,15 @@ public class Main {
 			if(eleccion >= 1 && eleccion <=5) {
 			System.out.println("Introduzca la profundidad acotada:");
 			profundidad= leer.nextInt();
-			}
+			do {
 			System.out.println("¿Quieres poder podar los nodos del árbol? (S/N):");
-			char respuesta = leer.next().toUpperCase().charAt(0);
-			boolean poda = true;
-			if(respuesta == 'N')
+			respuesta = leer.next().toUpperCase().charAt(0);
+			}while(respuesta != 'S' && respuesta != 'N');
+			
+			if(respuesta == 'N') {
 				poda = false;
+			}
+			}
 			
 			switch(eleccion) {
 			case 1:
