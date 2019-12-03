@@ -15,9 +15,9 @@ abstract class Frontera {
 	
 	public abstract Frontera crearFrontera();
 	
-	public abstract void insertarNodo(Nodo nodo, String estrategia);
+	public abstract void insertarNodo(Nodo nodo, String estrategia, boolean poda);
 	
-	public abstract void insertarNodos(List<Nodo> nodo, String estrategia);
+	public abstract void insertarNodos(List<Nodo> nodo, String estrategia, boolean poda);
 	
 	public abstract Nodo sacarNodo(); 
 	

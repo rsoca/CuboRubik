@@ -22,22 +22,27 @@ public class Main {
 			System.out.println("Introduzca la profundidad acotada:");
 			profundidad= leer.nextInt();
 			}
+			System.out.println("¿Quieres poder podar los nodos del árbol? (S/N):");
+			char respuesta = leer.next().toUpperCase().charAt(0);
+			boolean poda = true;
+			if(respuesta == 'N')
+				poda = false;
 			
 			switch(eleccion) {
 			case 1:
-				Algoritmo.busqueda(problema, "A", profundidad, incprof);
+				Algoritmo.busqueda(problema, "A", profundidad, incprof, poda);
 				break;
 			case 2:
-				Algoritmo.busqueda(problema, "ANCHURA", profundidad, incprof);
+				Algoritmo.busqueda(problema, "ANCHURA", profundidad, incprof, poda);
 				break;
 			case 3:
-				Algoritmo.busqueda(problema, "PROFUNDIDAD", profundidad, incprof);
+				Algoritmo.busqueda(problema, "PROFUNDIDAD", profundidad, incprof, poda);
 				break;
 			case 4:
-				Algoritmo.busqueda(problema, "COSTO_UNIFORME", profundidad, incprof);
+				Algoritmo.busqueda(problema, "COSTO_UNIFORME", profundidad, incprof, poda);
 				break;
 			case 5:
-				Algoritmo.busqueda(problema, "VORAZ", profundidad, incprof);
+				Algoritmo.busqueda(problema, "VORAZ", profundidad, incprof, poda);
 				break;
 			case 6:
 				System.out.println("APLICACIÓN FINALIZADA");

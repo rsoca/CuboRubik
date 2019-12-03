@@ -61,11 +61,11 @@ public class FronteraPrioridad extends Frontera {
 	 *
 	 */
 	
-	public void insertarNodo(Nodo nodo, String estrategia) {
+	public void insertarNodo(Nodo nodo, String estrategia, boolean poda) {
 		//inicioInsercion = System.currentTimeMillis();
 		boolean pasa = true;
 		String estado= Estado.getMD5(Estado.obtenerID(nodo.getEstado()));
-		if(map.containsKey(estado)) {
+		if(map.containsKey(estado) && poda) {
 			double valorf = map.get(estado).doubleValue();
 			if(nodo.getF() <= valorf && estrategia.equals("PROFUNDIDAD")) {
 				pasa = false;
@@ -84,9 +84,9 @@ public class FronteraPrioridad extends Frontera {
 	}
 	
 	
-	public void insertarNodos(List<Nodo> lista_nodos, String estrategia) {
+	public void insertarNodos(List<Nodo> lista_nodos, String estrategia, boolean poda) {
 		for(int i=0; i<lista_nodos.size(); i++) {
-			insertarNodo(lista_nodos.get(i), estrategia);
+			insertarNodo(lista_nodos.get(i), estrategia, poda);
 		}
 	}
 	

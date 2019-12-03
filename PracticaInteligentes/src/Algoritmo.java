@@ -21,12 +21,12 @@ public class Algoritmo {
 	private static final String A = "A";
 	private static final String VORAZ = "VORAZ";
 
-	public static void busqueda(Problema problema, String estrategia, int profMax, int incProf) throws IOException {
+	public static void busqueda(Problema problema, String estrategia, int profMax, int incProf, boolean poda) throws IOException {
 		idN=0;
 		long profActual = incProf;
 		boolean esSolucion = false;
 		while (esSolucion==false && profActual <= profMax) {
-			esSolucion = busqueda_acotada(problema, estrategia, profMax);
+			esSolucion = busqueda_acotada(problema, estrategia, profMax, poda);
 			profActual = profActual + incProf;
 		}
 	}
@@ -42,7 +42,7 @@ public class Algoritmo {
 	 *
 	 */
 	
-	public static boolean busqueda_acotada(Problema problema, String estrategia, int profMax) throws IOException { 
+	public static boolean busqueda_acotada(Problema problema, String estrategia, int profMax, boolean poda) throws IOException { 
 		Cubo c = new Cubo();
 		c.setPosiciones(problema.getPos());
 		c.setEstado(Estado.obtenerID(c));
@@ -75,7 +75,7 @@ public class Algoritmo {
 			break;
 			
 		}
-		frontera.insertarNodo(nodo_inicial, estrategia);
+		frontera.insertarNodo(nodo_inicial, estrategia, poda);
 		boolean solucion = false;
 		while (frontera.estaVacia()==false && solucion==false ) {
 			nodo_actual = frontera.sacarNodo();
@@ -86,7 +86,7 @@ public class Algoritmo {
 			} else{
 				lista_sucesores = Estado.sucesores(nodo_actual.getEstado());
 				lista_nodos = crearListaNodos(lista_sucesores, nodo_actual, profMax, estrategia);
-				frontera.insertarNodos(lista_nodos, estrategia);
+				frontera.insertarNodos(lista_nodos, estrategia, poda);
 			
 			}
 		}
@@ -264,13 +264,11 @@ public class Algoritmo {
 	}
 
 	public static double redondearDecimales(double valorInicial, int numeroDecimales) {
-		double parteEntera, resultado;
-		resultado = valorInicial;
-		parteEntera = Math.floor(resultado);
-		resultado = (resultado - parteEntera) * Math.pow(10, numeroDecimales);
-		resultado = Math.round(resultado);
-		resultado = (resultado / Math.pow(10, numeroDecimales)) + parteEntera;
-		return resultado;
+		double resultado;
+        resultado = valorInicial * Math.pow(10, 2);
+        resultado = Math.round(resultado);
+        resultado = resultado/Math.pow(10, 2);
+        return resultado;
 	}
 
 }
