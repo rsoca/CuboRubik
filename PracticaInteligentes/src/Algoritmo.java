@@ -16,7 +16,8 @@ import java.util.*;
 public class Algoritmo {
 	private static int idN;
 	private static final String ANCHURA = "ANCHURA";
-	private static final String PROFUNDIDAD = "PROFUNDIDAD";
+	private static final String PROFUNDIDAD_ITERATIVA = "PROFUNDIDAD_ITERATIVA";
+	private static final String PROFUNDIDAD_ACOTADA = "PROFUNDIDAD_ACOTADA";
 	private static final String COSTO_UNIFORME = "COSTO_UNIFORME";
 	private static final String A = "A";
 	private static final String VORAZ = "VORAZ";
@@ -30,7 +31,7 @@ public class Algoritmo {
 			profActual = profActual + incProf;
 		}
 	}
-
+	
 	
 	/**
 	 * ***************************************************************
@@ -42,7 +43,7 @@ public class Algoritmo {
 	 *
 	 */
 	
-	public static boolean busqueda_acotada(Problema problema, String estrategia, int profMax, boolean poda) throws IOException { 
+	private static boolean busqueda_acotada(Problema problema, String estrategia, int profMax, boolean poda) throws IOException { 
 		Cubo c = new Cubo();
 		c.setPosiciones(problema.getPos());
 		c.setEstado(Estado.obtenerID(c));
@@ -53,14 +54,16 @@ public class Algoritmo {
 		Nodo nodo_actual = null;
 		
 		double h = calcularEntropia(c);
-		double valorf=0.0;
 		Nodo nodo_inicial = null ;
 		
 		switch(estrategia) {
 		case ANCHURA:
 			nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 0, 0);
 			break;
-		case PROFUNDIDAD:
+		case PROFUNDIDAD_ITERATIVA:
+			nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 1.0, 0);
+			break;
+		case PROFUNDIDAD_ACOTADA:
 			nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 1.0, 0);
 			break;
 		case COSTO_UNIFORME:
@@ -70,8 +73,7 @@ public class Algoritmo {
 			nodo_inicial = new Nodo(null, c, "", 0, 0, 0, h, h);
 			break;
 		case VORAZ:
-			valorf = h;
-			nodo_inicial = new Nodo(null, c, "", 0, 0, 0, valorf, h);
+			nodo_inicial = new Nodo(null, c, "", 0, 0, 0, h, h);
 			break;
 			
 		}
@@ -110,7 +112,7 @@ public class Algoritmo {
 	 *
 	 */
 	
-	public static List<Nodo> crearListaNodos(String[][] lista_sucesores, Nodo nodo_actual, int pmaxima,
+	private static List<Nodo> crearListaNodos(String[][] lista_sucesores, Nodo nodo_actual, int pmaxima,
 			String estrategia) throws IOException {
 		List<Nodo> lista = new ArrayList<Nodo>();
 		double valorF = 0.0;
@@ -128,7 +130,10 @@ public class Algoritmo {
 			case ANCHURA:
 				valorF = nodo_actual.getD() + 1;
 				break;
-			case PROFUNDIDAD:
+			case PROFUNDIDAD_ITERATIVA:
+				valorF = redondearDecimales(((double)1/(d + 1)),2);
+				break;
+			case PROFUNDIDAD_ACOTADA:
 				valorF = redondearDecimales(((double)1/(d + 1)),2);
 				break;
 			case COSTO_UNIFORME:
@@ -164,7 +169,7 @@ public class Algoritmo {
 	 *
 	 */
 	
-	public static void crearSolucion(Nodo nodo_actual, String estrategia) throws IOException { 
+	private static void crearSolucion(Nodo nodo_actual, String estrategia) throws IOException { 
 
 		Stack<Nodo> pila = new Stack<Nodo>(); 
 		boolean primero = false;
@@ -189,8 +194,11 @@ public class Algoritmo {
 			case ANCHURA:
 				fichero.write("\nANCHURA \n ================================================= \n");
 				break;
-			case PROFUNDIDAD:
-				fichero.write("\nPROFUNDIDAD \n ================================================= \n");
+			case PROFUNDIDAD_ITERATIVA:
+				fichero.write("\nPROFUNDIDAD ITERATIVA \n ================================================= \n");
+				break;
+			case PROFUNDIDAD_ACOTADA:
+				fichero.write("\nPROFUNDIDAD ACOTADA \n ================================================= \n");
 				break;
 			case COSTO_UNIFORME:
 				fichero.write("\nCOSTO UNIFORME \n ================================================= \n");
@@ -232,7 +240,7 @@ public class Algoritmo {
 	 *
 	 */
 	
-	public static double calcularEntropia(Cubo cubo) {
+	private static double calcularEntropia(Cubo cubo) {
 		double entropia = 0.0;
 		int[][][] matriz = cubo.getPosiciones();
 		int N = matriz[0].length;
@@ -263,7 +271,7 @@ public class Algoritmo {
 		return h_final;
 	}
 
-	public static double redondearDecimales(double valorInicial, int numeroDecimales) {
+	private static double redondearDecimales(double valorInicial, int numeroDecimales) {
 		double resultado;
         resultado = valorInicial * Math.pow(10, 2);
         resultado = Math.round(resultado);
