@@ -68,10 +68,10 @@ public class FronteraPrioridad extends Frontera {
 		
 		if(map.containsKey(estado) && poda) {
 			double valorf = map.get(estado).doubleValue();
-			if(nodo.getF() <= valorf && (estrategia.equals("PROFUNDIDAD_ITERATIVA") || estrategia.equals("PROFUNDIDAD_ACOTADA"))) {
+			if((nodo.getF() <= valorf) && (estrategia.contains("PROFUNDIDAD"))) {
 				pasa = false;
 			}
-			else if(nodo.getF() >= valorf && (!estrategia.equals("PROFUNDIDAD_ITERATIVA") || !estrategia.equals("PROFUNDIDAD_ACOTADA"))){
+			else if((nodo.getF() >= valorf) && (!estrategia.contains("PROFUNDIDAD"))){
 				pasa = false;
 			}
 		}
