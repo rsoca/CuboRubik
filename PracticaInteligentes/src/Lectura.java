@@ -22,7 +22,7 @@ public class Lectura {
 					existe = true;
 				else {
 					existe = false;
-					System.out.println("El archivo que has indicado no existe.\n");
+					System.out.println("No conseguimos encontrar el archivo indicado. Prueba otra vez.\nRecuerda que los ficheros json estan en la ruta /src/json/.\n");
 				}
 			}while(!existe);
 			String ob = FileUtils.readFileToString(archivo);
