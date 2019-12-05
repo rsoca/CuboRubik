@@ -12,15 +12,19 @@ public class Main {
 		char respuesta;
 		boolean poda = true;
 		do {
-			System.out.println("Introduzca el numero de una opcion: " + "\n 1. Estrategia A*"
-					+ "\n 2. Estrategia ANCHURA" + "\n 3. Estrategia PROFUNDIDAD SIMPLE"
-					+ "\n 4. Estrategia PROFUNDIDAD ITERATIVA" + "\n 5. Estrategia PROFUNDIDAD ACOTADA"
-					+ "\n 6. Estrategia COSTE UNIFORME" + "\n 7. Estrategia VORAZ" + "\n 8. SALIR");
+			System.out.println("Introduzca el numero de una opcion: "
+					+ "\n 1. Estrategia A*"
+					+ "\n 2. Estrategia ANCHURA"
+					+ "\n 3. Estrategia PROFUNDIDAD ITERATIVA"
+					+ "\n 4. Estrategia PROFUNDIDAD ACOTADA"
+					+ "\n 5. Estrategia COSTE UNIFORME" 
+					+ "\n 6. Estrategia VORAZ"
+					+ "\n 7. SALIR");
 			int eleccion = leer.nextInt();
-			if (eleccion >= 1 && eleccion <= 7) {
-				System.out.println("Introduzca la profundidad acotada:");
+			if (eleccion >= 1 && eleccion <= 6) {
+				System.out.println("Introduzca la profundidad maxima:");
 				profundidad = leer.nextInt();
-				if (eleccion == 4) {
+				if (eleccion == 3) {
 					System.out.println("Elija un incremento de profundidad");
 					incProf = leer.nextInt();
 				}
@@ -42,21 +46,18 @@ public class Main {
 				Algoritmo.busqueda(problema, "ANCHURA", profundidad, incProf, poda);
 				break;
 			case 3:
-				Algoritmo.busqueda(problema, "PROFUNDIDAD_SIMPLE", profundidad, incProf, poda);
-				break;
-			case 4:
 				Algoritmo.busqueda(problema, "PROFUNDIDAD_ITERATIVA", profundidad, incProf, poda);
 				break;
-			case 5:
+			case 4:
 				Algoritmo.busqueda(problema, "PROFUNDIDAD_ACOTADA", profundidad, incProf, poda);
 				break;
-			case 6:
+			case 5:
 				Algoritmo.busqueda(problema, "COSTO_UNIFORME", profundidad, incProf, poda);
 				break;
-			case 7:
+			case 6:
 				Algoritmo.busqueda(problema, "VORAZ", profundidad, incProf, poda);
 				break;
-			case 8:
+			case 7:
 				System.out.println("APLICACIÓN FINALIZADA");
 				salida = true;
 				break;

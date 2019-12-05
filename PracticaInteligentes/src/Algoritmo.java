@@ -16,11 +16,10 @@ import java.util.*;
 public class Algoritmo {
 	private static int idN;
 	private static final String ANCHURA = "ANCHURA";
-	private static final String PROFUNDIDAD_SIMPLE = "PROFUNDIDAD_SIMPLE";
 	private static final String PROFUNDIDAD_ITERATIVA = "PROFUNDIDAD_ITERATIVA";
 	private static final String PROFUNDIDAD_ACOTADA = "PROFUNDIDAD_ACOTADA";
 	private static final String COSTO_UNIFORME = "COSTO_UNIFORME";
-	private static final String A = "A";
+	private static final String A = "A*";
 	private static final String VORAZ = "VORAZ";
 
 	public static void busqueda(Problema problema, String estrategia, int profMax, int incProf, boolean poda) throws IOException {
@@ -62,13 +61,10 @@ public class Algoritmo {
 			nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 0, 0);
 			break;
 		case PROFUNDIDAD_ITERATIVA:
-			nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 0, 0);
-			break;
-		case PROFUNDIDAD_SIMPLE:
-			nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 0, 0);
+			nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 1.0, 0);
 			break;
 		case PROFUNDIDAD_ACOTADA:
-			nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 0, 0);
+			nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 1.0, 0);
 			break;
 		case COSTO_UNIFORME:
 			nodo_inicial = new Nodo(null, c, "", 0, 0, 0, 0, 0);
@@ -140,9 +136,6 @@ public class Algoritmo {
 			case PROFUNDIDAD_ACOTADA:
 				valorF = redondearDecimales(((double)1/(d + 1)),2);
 				break;
-			case PROFUNDIDAD_SIMPLE:
-				valorF = redondearDecimales(((double)1/(d + 1)),2);
-				break;
 			case COSTO_UNIFORME:
 				valorF = redondearDecimales((double)nuevo_coste, 2);
 				break;
@@ -203,9 +196,6 @@ public class Algoritmo {
 				break;
 			case PROFUNDIDAD_ITERATIVA:
 				fichero.write("\nPROFUNDIDAD ITERATIVA \n ================================================= \n");
-				break;
-			case PROFUNDIDAD_SIMPLE:
-				fichero.write("\nPROFUNDIDAD SIMPLE \n ================================================= \n");
 				break;
 			case PROFUNDIDAD_ACOTADA:
 				fichero.write("\nPROFUNDIDAD ACOTADA \n ================================================= \n");
