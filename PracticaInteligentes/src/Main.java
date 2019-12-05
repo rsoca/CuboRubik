@@ -18,6 +18,8 @@ public class Main {
 					System.out.println("Elija un incremento de profundidad");
 					incProf = leer.nextInt();
 				}
+				else
+					incProf = profundidad;
 				poda = recogidaPoda();
 			}
 

@@ -26,7 +26,7 @@ public class Algoritmo {
 		long profActual = incProf;
 		boolean esSolucion = false;
 		while (esSolucion==false && profActual <= profMax) {
-			esSolucion = busqueda_acotada(problema, estrategia, profMax, poda);
+			esSolucion = busqueda_acotada(problema, estrategia, profActual, poda);
 			profActual = profActual + incProf;
 		}
 	}
@@ -42,7 +42,7 @@ public class Algoritmo {
 	 *
 	 */
 	
-	private static boolean busqueda_acotada(Problema problema, String estrategia, int profMax, boolean poda) throws IOException { 
+	private static boolean busqueda_acotada(Problema problema, String estrategia, long profMax, boolean poda) throws IOException { 
 		idN=0;
 		Cubo c = new Cubo();
 		c.setPosiciones(problema.getPos());
@@ -112,7 +112,7 @@ public class Algoritmo {
 	 *
 	 */
 	
-	private static List<Nodo> crearListaNodos(String[][] lista_sucesores, Nodo nodo_actual, int pmaxima,
+	private static List<Nodo> crearListaNodos(String[][] lista_sucesores, Nodo nodo_actual, long pmaxima,
 			String estrategia) throws IOException {
 		List<Nodo> lista = new ArrayList<Nodo>();
 		double valorF = 0.0;
