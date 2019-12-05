@@ -1,14 +1,31 @@
 import java.io.*;
+import java.util.Scanner;
+
 import org.apache.commons.io.FileUtils;
 import org.json.*;
 
 public class Lectura {
 	private String estado = "";
 	private int cubo[][][];
+	static Scanner TECLADO = new Scanner(System.in);
 
 	public int[][][] leerArchivo() throws IOException {
 		try {
-			String ob = FileUtils.readFileToString(new File("cubo2por2.json"));
+			File archivo;
+			boolean existe = false;
+			String archivoJson;
+			do {
+				System.out.println("Introduce el nombre del archivo json sin la extension (.json) :");
+				archivoJson = "src/json/" + TECLADO.nextLine() + ".json";
+				archivo = new File(archivoJson);
+				if (archivo.exists())
+					existe = true;
+				else {
+					existe = false;
+					System.out.println("El archivo que has indicado no existe.\n");
+				}
+			}while(!existe);
+			String ob = FileUtils.readFileToString(archivo);
 			
 			JSONObject json = new JSONObject(ob);
 			JSONArray arrayback = json.getJSONArray("BACK");

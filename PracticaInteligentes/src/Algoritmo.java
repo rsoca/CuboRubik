@@ -23,7 +23,6 @@ public class Algoritmo {
 	private static final String VORAZ = "VORAZ";
 
 	public static void busqueda(Problema problema, String estrategia, int profMax, int incProf, boolean poda) throws IOException {
-		idN=0;
 		long profActual = incProf;
 		boolean esSolucion = false;
 		while (esSolucion==false && profActual <= profMax) {
@@ -44,6 +43,7 @@ public class Algoritmo {
 	 */
 	
 	private static boolean busqueda_acotada(Problema problema, String estrategia, int profMax, boolean poda) throws IOException { 
+		idN=0;
 		Cubo c = new Cubo();
 		c.setPosiciones(problema.getPos());
 		c.setEstado(Estado.obtenerID(c));

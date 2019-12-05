@@ -5,8 +5,8 @@ public class Cubo implements Cloneable{
 	private String estado;
 	private int posiciones[][][];
 
-	public Cubo() throws IOException {
-		this.posiciones=leer.leerArchivo();
+	public Cubo() {
+		//this.posiciones=leer.leerArchivo();
 	}
 
 	public Cubo(Cubo c){
