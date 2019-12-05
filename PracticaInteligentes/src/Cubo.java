@@ -6,7 +6,6 @@ public class Cubo implements Cloneable{
 	private int posiciones[][][];
 
 	public Cubo() {
-		//this.posiciones=leer.leerArchivo();
 	}
 
 	public Cubo(Cubo c){
