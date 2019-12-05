@@ -40,7 +40,7 @@ public class Main {
 
 			switch (eleccion) {
 			case 1:
-				Algoritmo.busqueda(problema, "A", profundidad, incProf, poda);
+				Algoritmo.busqueda(problema, "A*", profundidad, incProf, poda);
 				break;
 			case 2:
 				Algoritmo.busqueda(problema, "ANCHURA", profundidad, incProf, poda);
