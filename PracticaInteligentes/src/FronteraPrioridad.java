@@ -39,7 +39,6 @@ public class FronteraPrioridad extends Frontera {
 	public FronteraPrioridad() {
 		colaNodoFrontera = new PriorityQueue<Nodo>(new Comparar());
 		map = new HashMap<>();
-		map.clear();
 	}
 	
 	public FronteraPrioridad crearFrontera() {
